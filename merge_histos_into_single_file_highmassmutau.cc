@@ -21,7 +21,7 @@ TH1F* MC_histo(TString var, TFile* file_in, double xs, long Nevents, int rebin) 
 
   cout << file_in->GetName() << endl;
 
-  double lumi = 41.529 * pow(10,3); //luminosity in pb^-1
+  double lumi = 58.36 * pow(10,3); //luminosity in pb^-1
 
   double e_Nevents = pow(Nevents,0.5);
   double e_xs = 0.01*xs;
@@ -215,23 +215,6 @@ int main(int argc, char** argv) {
   double xs_WJets_400to600 = 2.635;	   xs_WJets.push_back(xs_WJets_400to600);
   double xs_WJets_600toInf = 0.4102;       xs_WJets.push_back(xs_WJets_600toInf);
 
-  double xs_QCD_muenriched = 720648000*0.00042;
-  //double xs_QCD_inc = 1953000;
-  vector<double> xs_QCD;
-  double xs_QCD_15to30 = /*0;*/1.822*pow(10,9);    xs_QCD.push_back(xs_QCD_15to30);
-  double xs_QCD_30to50 = /*0;*/1.387*pow(10,8);    xs_QCD.push_back(xs_QCD_30to50);
-  double xs_QCD_50to80 = /*0;*/1.913*pow(10,7);    xs_QCD.push_back(xs_QCD_50to80);
-  double xs_QCD_80to120 = 2.736*pow(10,6);   xs_QCD.push_back(xs_QCD_80to120);
-  double xs_QCD_120to170 = 4.663*pow(10,5);  xs_QCD.push_back(xs_QCD_120to170);
-  double xs_QCD_170to300 = 1.172*pow(10,5);  xs_QCD.push_back(xs_QCD_170to300);
-  double xs_QCD_300to470 = 7.76*pow(10,3);   xs_QCD.push_back(xs_QCD_300to470);
-  double xs_QCD_470to600 = 640.5;	     xs_QCD.push_back(xs_QCD_470to600);
-  double xs_QCD_600to800 = 185.9;	     xs_QCD.push_back(xs_QCD_600to800);
-  double xs_QCD_800to1000 = 32;		     xs_QCD.push_back(xs_QCD_800to1000);
-  double xs_QCD_1000to1400 = 9.37;	     xs_QCD.push_back(xs_QCD_1000to1400);
-  double xs_QCD_1400to1800 = 0.838;	     xs_QCD.push_back(xs_QCD_1400to1800);
-  double xs_QCD_1800to2400 = 0.112;	     xs_QCD.push_back(xs_QCD_1800to2400);
-  double xs_QCD_2400to3200 = 6.74*pow(10,-3); xs_QCD.push_back(xs_QCD_2400to3200);
 
   vector<double> xs_TT;
   xs_TT.push_back(831.76*0.438); //semilep
@@ -253,7 +236,7 @@ int main(int argc, char** argv) {
 
   //Nevents
   vector<double> N_DY;  
-  double N_DY_lowmass = 141442384;            N_DY.push_back(N_DY_lowmass);   
+  double N_DY_lowmass = 100114403;            N_DY.push_back(N_DY_lowmass);   
   //double N_DY_400to500 = 151168;	      N_DY.push_back(N_DY_400to500);  
   //double N_DY_500to700 = 144087;	      N_DY.push_back(N_DY_500to700);  
   //double N_DY_700to800 = 136874;	      N_DY.push_back(N_DY_700to800);  
@@ -262,22 +245,15 @@ int main(int argc, char** argv) {
   //double N_DY_1500to2000 = 111668;	      N_DY.push_back(N_DY_1500to2000);
   //double N_DY_2000to3000 = 101266;	      N_DY.push_back(N_DY_2000to3000);
 
-  vector<double> N_WJets;
-  double N_WJets_lowpt = 57025279 + 29584813;                         N_WJets.push_back(N_WJets_lowpt);	 
-  double N_WJets_100to250 = 3605796 + 3645002 + 28601158 + 7436491;   N_WJets.push_back(N_WJets_100to250);
-  double N_WJets_250to400 = 369311 + 369256 + 3696492;		      N_WJets.push_back(N_WJets_250to400);
-  double N_WJets_400to600 = 364427 + 376433;			      N_WJets.push_back(N_WJets_400to600);
-  double N_WJets_600toInf = 396336 + 396394;                          N_WJets.push_back(N_WJets_600toInf);
-
 
 
   vector<double> N_TT;
-  N_TT.push_back(41221873); //semilep
-  N_TT.push_back(42357944); //had
-  N_TT.push_back(8705576); //2l2nu
+  N_TT.push_back(100728756); //semilep
+  N_TT.push_back(132566902); //had
+  N_TT.push_back(63751842); //2l2nu
 
   vector<double> N_WW;
-  double N_WW_lowm = 7791498;                N_WW.push_back(N_WW_lowm);
+  double N_WW_lowm = 7850000;                N_WW.push_back(N_WW_lowm);
   //double N_WW_200to600 = 199991;             N_WW.push_back(N_WW_200to600); 
   //double N_WW_600to1200 = 74997;             N_WW.push_back(N_WW_600to1200); 
   //double N_WW_1200to2500 = 99992;            N_WW.push_back(N_WW_1200to2500); 
@@ -286,8 +262,8 @@ int main(int argc, char** argv) {
   double N_ST_top = 3256548;
   double N_ST_antitop = 3256309;
 
-  double N_WZ = 3928630;
-  double N_ZZ = 1949768;
+  double N_WZ = 3885000;
+  double N_ZZ = 1979000;
 
 
   double N_signal = 14994;

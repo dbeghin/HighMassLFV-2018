@@ -21,7 +21,7 @@ using namespace std;
 TH1F* MC_histo(TString var, TFile* file_in, double xs, long Nevents, int rebin) {
   cout << file_in->GetName() << endl;
 
-  double lumi = 41.529 * pow(10,3); //luminosity in pb^-1
+  double lumi = 58.36 * pow(10,3); //luminosity in pb^-1
 
   double e_Nevents = pow(Nevents,0.5);
   double e_xs = 0.01*xs;
@@ -44,7 +44,7 @@ TH1F* MC_histo(TString var, TFile* file_in, double xs, long Nevents, int rebin) 
 TH2F* MC_histo_TH2(TString var, TFile* file_in, double xs, long Nevents, int rebin) {
   cout << file_in->GetName() << endl;
 
-  double lumi = 41.529 * pow(10,3); //luminosity in pb^-1
+  double lumi = 58.36 * pow(10,3); //luminosity in pb^-1
 
   double e_Nevents = pow(Nevents,0.5);
   double e_xs = 0.01*xs;
@@ -180,22 +180,15 @@ int main(int argc, char** argv) {
   vector<double> N_DY;
   //double N_DY_lowmass = 142161151;  N_DY.push_back(N_DY_lowmass);   
   //double N_DY_lowmass = 18576627;  N_DY.push_back(N_DY_lowmass);   
-  double N_DY_lowmass = 141442384;  N_DY.push_back(N_DY_lowmass);   
-
-  vector<double> N_WJets;
-  double N_WJets_lowpt = 57025279 + 29584813;                         N_WJets.push_back(N_WJets_lowpt);	 
-  double N_WJets_100to250 = 3605796 + 3645002 + 28601158 + 7436491;   N_WJets.push_back(N_WJets_100to250);
-  double N_WJets_250to400 = 369311 + 369256 + 3696492;		      N_WJets.push_back(N_WJets_250to400);
-  double N_WJets_400to600 = 364427 + 376433;			      N_WJets.push_back(N_WJets_400to600);
-  double N_WJets_600toInf = 396336 + 396394;                          N_WJets.push_back(N_WJets_600toInf);
+  double N_DY_lowmass = 100114403;  N_DY.push_back(N_DY_lowmass);   
 
   vector<double> N_TT;
-  N_TT.push_back(41221873); //semilep
-  N_TT.push_back(42357944); //had
-  N_TT.push_back(8705576); //2l2nu
+  N_TT.push_back(100728756); //semilep
+  N_TT.push_back(132566902); //had
+  N_TT.push_back(63751842); //2l2nu
 
   vector<double> N_WW;
-  double N_WW_lowm = 7791498;                N_WW.push_back(N_WW_lowm);
+  double N_WW_lowm = 7850000;         N_WW.push_back(N_WW_lowm);
   //double N_WW_200to600 = 199991;             N_WW.push_back(N_WW_200to600); 
   //double N_WW_600to1200 = 74997;             N_WW.push_back(N_WW_600to1200); 
   //double N_WW_1200to2500 = 99992;            N_WW.push_back(N_WW_1200to2500); 
@@ -204,8 +197,8 @@ int main(int argc, char** argv) {
   double N_ST_top = 3256548;
   double N_ST_antitop = 3256309;
 
-  double N_WZ = 3928630;
-  double N_ZZ = 1949768;
+  double N_WZ = 3885000;
+  double N_ZZ = 1979000;
 
 
   double N_signal = 14994;

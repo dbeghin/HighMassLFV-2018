@@ -23,27 +23,10 @@ sample_path = {}
 
 
 
-#path_DYToLL_mad=[
-#'/pnfs/iihe/cms/store/user/dbeghin/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/crab_DYJetsToLL_TuneCP5_13TeV-madgraphMLM-pythia8/180618_134720/0000/',
-#'/pnfs/iihe/cms/store/user/dbeghin/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/crab_DYJetsToLL_TuneCP5_13TeV-madgraphMLM-pythia8/180618_134720/0001/',
-#'/pnfs/iihe/cms/store/user/dbeghin/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/crab_DYJetsToLL_TuneCP5_13TeV-madgraphMLM-pythia8/180618_134720/0002/',
-#'/pnfs/iihe/cms/store/user/dbeghin/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/crab_DYJetsToLL_TuneCP5_13TeV-madgraphMLM-pythia8ext/180618_134830/0000/',
-#'/pnfs/iihe/cms/store/user/dbeghin/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/crab_DYJetsToLL_TuneCP5_13TeV-madgraphMLM-pythia8ext/180618_134830/0001/',
-#'/pnfs/iihe/cms/store/user/dbeghin/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/crab_DYJetsToLL_TuneCP5_13TeV-madgraphMLM-pythia8ext/180618_134830/0002/',
-#]
-
-
-path_DYToLL_amc=[
-'/pnfs/iihe/cms/store/user/amkalsi/2017_MET_Corrected_10Dec2018/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCP5/181214_095738/0000/',
-'/pnfs/iihe/cms/store/user/amkalsi/2017_MET_Corrected_10Dec2018/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCP5/181214_095738/0001/',
-'/pnfs/iihe/cms/store/user/amkalsi/2017_MET_Corrected_10Dec2018/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCP5_ext1/181221_140119/0000/',
-'/pnfs/iihe/cms/store/user/amkalsi/2017_MET_Corrected_10Dec2018/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCP5_ext1/181221_140119/0001/',
-'/pnfs/iihe/cms/store/user/amkalsi/2017_MET_Corrected_10Dec2018/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCP5_ext1/181221_140119/0002/',
-'/pnfs/iihe/cms/store/user/amkalsi/2017_MET_Corrected_10Dec2018/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCP5_ext1/181221_140119/0003/',
-'/pnfs/iihe/cms/store/user/amkalsi/2017_MET_Corrected_10Dec2018/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCP5_ext1/181221_140119/0004/',
-'/pnfs/iihe/cms/store/user/amkalsi/2017_MET_Corrected_10Dec2018/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCP5_ext1/181221_140119/0005/',
-'/pnfs/iihe/cms/store/user/amkalsi/2017_MET_Corrected_10Dec2018/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCP5_ext1/181221_140119/0006/',
-'/pnfs/iihe/cms/store/user/amkalsi/2017_MET_Corrected_10Dec2018/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCP5_ext1/181221_140119/0007/',
+path_DYToLL_mad=[
+'/pnfs/iihe/cms/store/user/dbeghin/2018first/2018Feb11/MC/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/crab_DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/190212_101726/0000/',
+'/pnfs/iihe/cms/store/user/dbeghin/2018first/2018Feb11/MC/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/crab_DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/190212_101726/0001/',
+'/pnfs/iihe/cms/store/user/dbeghin/2018first/2018Feb11/MC/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/crab_DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/190212_101726/0002/',
 ]
 
 #path_DY1J=[
@@ -72,10 +55,10 @@ path_DYToLL_amc=[
 
 ########################### WJets ############################
 
-path_WJet_mad  =[
-'/pnfs/iihe/cms/store/user/amkalsi/2017_MET_Corrected_10Dec2018/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/crab_WJetsToLNu_TuneCP5_13TeV/181214_095754/0000/',
-'/pnfs/iihe/cms/store/user/amkalsi/2017_MET_Corrected_10Dec2018/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/crab_WJetsToLNu_TuneCP5_13TeV/181214_095754/0001/',
-]
+#path_WJet_mad  =[
+#'/pnfs/iihe/cms/store/user/amkalsi/2017_MET_Corrected_10Dec2018/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/crab_WJetsToLNu_TuneCP5_13TeV/181214_095754/0000/',
+#'/pnfs/iihe/cms/store/user/amkalsi/2017_MET_Corrected_10Dec2018/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/crab_WJetsToLNu_TuneCP5_13TeV/181214_095754/0001/',
+#]
 
 #path_W1J = [
 #'/pnfs/iihe/cms/store/user/amkalsi/Moriond2018_Final/W1JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/crab_W1JetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/180619_135442/0000/',
@@ -98,19 +81,19 @@ path_WJet_mad  =[
 
 
 path_WW=[
-'/pnfs/iihe/cms/store/user/amkalsi/2017_MET_Corrected_10Dec2018/WW_TuneCP5_13TeV-pythia8/crab_WW_TuneCP5_13TeV-pythia8/181214_095828/0000/',
+'/pnfs/iihe/cms/store/user/dbeghin/2018first/2018Feb11/MC/WW_TuneCP5_13TeV-pythia8/crab_WW_TuneCP5_13TeV-pythia8/190212_101658/0000/',
 ]
 
 ############################# WWTo2L2Nv ############################
 #
 ############################## WZ ###########################
 path_WZ=[
-'/pnfs/iihe/cms/store/user/amkalsi/2017_MET_Corrected_10Dec2018/WZ_TuneCP5_13TeV-pythia8/crab_WZ_TuneCP5_13TeV-pythia8/181214_095808/0000/',
+'/pnfs/iihe/cms/store/user/dbeghin/2018first/2018Feb11/MC/WZ_TuneCP5_13TeV-pythia8/crab_WZ_TuneCP5_13TeV-pythia8/190212_101744/0000/',
 ]
 
 ################################ ZZ #########################
 path_ZZ=[
-'/pnfs/iihe/cms/store/user/amkalsi/2017_MET_Corrected_10Dec2018/ZZ_TuneCP5_13TeV-pythia8/crab_ZZ_TuneCP5_13TeV-pythia8/181214_095851/0000/',
+'/pnfs/iihe/cms/store/user/dbeghin/2018first/2018Feb11/MC/ZZ_TuneCP5_13TeV-pythia8/crab_ZZ_TuneCP5_13TeV-pythia8/190212_101717/0000/',
 ]
 
 ################################## ST ###################
@@ -129,84 +112,23 @@ path_ZZ=[
 #path_TT_inclusive=['/pnfs/iihe/cms/store/user/wenxing/RunIISummer17MiniAOD-92X/TT_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_TT_TuneCUETP8M2T4_13TeV-powheg-pythia8_ext1/171019_161505/0000/','/pnfs/iihe/cms/store/user/wenxing/RunIISummer17MiniAOD-92X/TT_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_TT_TuneCUETP8M2T4_13TeV-powheg-pythia8_ext1/171019_161505/0001/','/pnfs/iihe/cms/store/user/wenxing/RunIISummer17MiniAOD-92X/TT_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_TT_TuneCUETP8M2T4_13TeV-powheg-pythia8_ext2/171019_161445/0000/','/pnfs/iihe/cms/store/user/wenxing/RunIISummer17MiniAOD-92X/TT_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_TT_TuneCUETP8M2T4_13TeV-powheg-pythia8_ext2/171019_161445/0001/']
 
 path_TT_2L2Nu=[
-'/pnfs/iihe/cms/store/user/amkalsi/2017_MET_Corrected_10Dec2018/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/crab_TTTo2L2Nu_TuneCP5/181214_095723/0000/',
+'/pnfs/iihe/cms/store/user/dbeghin/2018first/2018Feb11/MC/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/crab_TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/190212_101756/0000/',
+'/pnfs/iihe/cms/store/user/dbeghin/2018first/2018Feb11/MC/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/crab_TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/190212_101756/0001/',
 ]
 
 path_TT_SemiLeptonic=[
-'/pnfs/iihe/cms/store/user/amkalsi/2017_MET_Corrected_10Dec2018/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/crab_TTToSemiLeptonic_TuneCP5/181214_095653/0000/',
-'/pnfs/iihe/cms/store/user/amkalsi/2017_MET_Corrected_10Dec2018/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/crab_TTToSemiLeptonic_TuneCP5/181214_095653/0001/',
+'/pnfs/iihe/cms/store/user/dbeghin/2018first/2018Feb11/MC/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/crab_TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/190212_101708/0000/',
+'/pnfs/iihe/cms/store/user/dbeghin/2018first/2018Feb11/MC/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/crab_TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/190212_101708/0001/',
+'/pnfs/iihe/cms/store/user/dbeghin/2018first/2018Feb11/MC/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/crab_TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/190212_101708/0002/',
 ]
 
-#path_TT_had = [
-#'/pnfs/iihe/cms/store/user/amkalsi/2017_MET_Corrected_10Dec2018/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/crab_TTToHadronic_TuneCP5/181214_095709/0000/',
-#'/pnfs/iihe/cms/store/user/amkalsi/2017_MET_Corrected_10Dec2018/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/crab_TTToHadronic_TuneCP5/181214_095709/0001/',
-#]
-
-################################# GJet #####################
-#path_GJ_40_100 =['/pnfs/iihe/cms/store/user/amkalsi/Moriond2018/GJets_HT-40To100_TuneCP5_13TeV-madgraphMLM-pythia8/crab_GJets_HT-40To100/180218_162343/0000/']
-#path_GJ_100_200=['/pnfs/iihe/cms/store/user/amkalsi/Moriond2018/GJets_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/crab_GJets_HT-100To200/180218_162401/0000/']
-#path_GJ_200_400=['/pnfs/iihe/cms/store/user/amkalsi/Moriond2018/GJets_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/crab_GJets_HT-200To400/180218_162418/0000/']
-#path_GJ_400_600=['/pnfs/iihe/cms/store/user/amkalsi/Moriond2018/GJets_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/crab_GJets_HT-400To600/180218_162438/0000/']
-#path_GJ_600_Inf=['/pnfs/iihe/cms/store/user/amkalsi/Moriond2018/GJets_HT-600ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/crab_GJets_HT-600ToInf/180218_162457/0000/']
-
-'''
-################################ QCD mu-enriched ###########
-path_QCD_20_30 = [
-'/pnfs/iihe/cms/store/user/xgao/2018-05-08_MC_tauID/QCD_Pt-20to30_MuEnrichedPt5_TuneCP5_13TeV_pythia8/crab_QCD_Pt-20to30_MuEnrichedPt5_TuneCP5_13TeV_pythia8/180504_030518/0000/',
-'/pnfs/iihe/cms/store/user/xgao/2018-05-08_MC_tauID/QCD_Pt-20to30_MuEnrichedPt5_TuneCP5_13TeV_pythia8/crab_QCD_Pt-20to30_MuEnrichedPt5_TuneCP5_13TeV_pythia8/180504_030518/0001/',
+path_TT_had = [
+'/pnfs/iihe/cms/store/user/dbeghin/2018first/2018Feb11/MC/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/crab_TTToHadronic_TuneCP5_13TeV-powheg-pythia8/190212_101735/0000/',
+'/pnfs/iihe/cms/store/user/dbeghin/2018first/2018Feb11/MC/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/crab_TTToHadronic_TuneCP5_13TeV-powheg-pythia8/190212_101735/0001/',
+'/pnfs/iihe/cms/store/user/dbeghin/2018first/2018Feb11/MC/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/crab_TTToHadronic_TuneCP5_13TeV-powheg-pythia8/190212_101735/0002/',
+'/pnfs/iihe/cms/store/user/dbeghin/2018first/2018Feb11/MC/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/crab_TTToHadronic_TuneCP5_13TeV-powheg-pythia8/190212_101735/0003/',
 ]
 
-path_QCD_30_50 = [
-'/pnfs/iihe/cms/store/user/xgao/2018-05-08_MC_tauID/QCD_Pt-30to50_MuEnrichedPt5_TuneCP5_13TeV_pythia8/crab_QCD_Pt-30to50_MuEnrichedPt5_TuneCP5_13TeV_pythia8/180504_030702/0000/',
-'/pnfs/iihe/cms/store/user/xgao/2018-05-08_MC_tauID/QCD_Pt-30to50_MuEnrichedPt5_TuneCP5_13TeV_pythia8/crab_QCD_Pt-30to50_MuEnrichedPt5_TuneCP5_13TeV_pythia8/180504_030702/0001/',
-]
-
-path_QCD_50_80 = [
-'/pnfs/iihe/cms/store/user/xgao/2018-05-08_MC_tauID/QCD_Pt-50to80_MuEnrichedPt5_TuneCP5_13TeV_pythia8/crab_QCD_Pt-50to80_MuEnrichedPt5_TuneCP5_13TeV_pythia8/180504_030312/0000/',
-'/pnfs/iihe/cms/store/user/xgao/2018-05-08_MC_tauID/QCD_Pt-50to80_MuEnrichedPt5_TuneCP5_13TeV_pythia8/crab_QCD_Pt-50to80_MuEnrichedPt5_TuneCP5_13TeV_pythia8/180504_030312/0001/',
-]
-
-path_QCD_80_120 = [
-'/pnfs/iihe/cms/store/user/xgao/2018-05-08_MC_tauID/QCD_Pt-80to120_MuEnrichedPt5_TuneCP5_13TeV_pythia8/crab_QCD_Pt-80to120_MuEnrichedPt5_TuneCP5_13TeV_pythia8/180504_031023/0000/',
-'/pnfs/iihe/cms/store/user/xgao/2018-05-08_MC_tauID/QCD_Pt-80to120_MuEnrichedPt5_TuneCP5_13TeV_pythia8/crab_QCD_Pt-80to120_MuEnrichedPt5_TuneCP5_13TeV_pythia8/180504_031023/0001/',
-]
-
-path_QCD_120_170 = [
-'/pnfs/iihe/cms/store/user/xgao/2018-05-08_MC_tauID/QCD_Pt-120to170_MuEnrichedPt5_TuneCP5_13TeV_pythia8/crab_QCD_Pt-120to170_MuEnrichedPt5_TuneCP5_13TeV_pythia8/180507_043535/0000/',
-'/pnfs/iihe/cms/store/user/xgao/2018-05-08_MC_tauID/QCD_Pt-120to170_MuEnrichedPt5_TuneCP5_13TeV_pythia8/crab_QCD_Pt-120to170_MuEnrichedPt5_TuneCP5_13TeV_pythia8/180507_043535/0001/',
-]
-
-path_QCD_170_300 = [
-'/pnfs/iihe/cms/store/user/xgao/2018-05-08_MC_tauID/QCD_Pt-170to300_MuEnrichedPt5_TuneCP5_13TeV_pythia8/crab_QCD_Pt-170to300_MuEnrichedPt5_TuneCP5_13TeV_pythia8/180504_030751/0000/',
-'/pnfs/iihe/cms/store/user/xgao/2018-05-08_MC_tauID/QCD_Pt-170to300_MuEnrichedPt5_TuneCP5_13TeV_pythia8/crab_QCD_Pt-170to300_MuEnrichedPt5_TuneCP5_13TeV_pythia8/180504_030751/0001/',
-'/pnfs/iihe/cms/store/user/xgao/2018-05-08_MC_tauID/QCD_Pt-170to300_MuEnrichedPt5_TuneCP5_13TeV_pythia8/crab_QCD_Pt-170to300_MuEnrichedPt5_TuneCP5_13TeV_pythia8/180504_030751/0002/',
-]
-
-path_QCD_300_470 = [
-'/pnfs/iihe/cms/store/user/xgao/2018-05-08_MC_tauID/QCD_Pt-300to470_MuEnrichedPt5_TuneCP5_13TeV_pythia8/crab_QCD_Pt-300to470_MuEnrichedPt5_TuneCP5_13TeV_pythia8/180507_043629/0000/',
-]
-
-path_QCD_470_600 = [
-'/pnfs/iihe/cms/store/user/xgao/2018-05-08_MC_tauID/QCD_Pt-470to600_MuEnrichedPt5_TuneCP5_13TeV_pythia8/crab_QCD_Pt-470to600_MuEnrichedPt5_TuneCP5_13TeV_pythia8/180504_030608/0000/',
-'/pnfs/iihe/cms/store/user/xgao/2018-05-08_MC_tauID/QCD_Pt-470to600_MuEnrichedPt5_TuneCP5_13TeV_pythia8/crab_QCD_Pt-470to600_MuEnrichedPt5_TuneCP5_13TeV_pythia8/180504_030608/0001/',
-]
-
-path_QCD_600_800 = [
-'/pnfs/iihe/cms/store/user/xgao/2018-05-08_MC_tauID/QCD_Pt-600to800_MuEnrichedPt5_TuneCP5_13TeV_pythia8/crab_QCD_Pt-600to800_MuEnrichedPt5_TuneCP5_13TeV_pythia8/180507_043656/0000/',
-]
-
-path_QCD_800_1000 = [
-'/pnfs/iihe/cms/store/user/xgao/2018-05-08_MC_tauID/QCD_Pt-800to1000_MuEnrichedPt5_TuneCP5_13TeV_pythia8/crab_QCD_Pt-800to1000_MuEnrichedPt5_TuneCP5_13TeV_pythia8/180504_030039/0000/',
-]
-
-path_QCD_1000_Inf = [
-'/pnfs/iihe/cms/store/user/xgao/2018-05-08_MC_tauID/QCD_Pt-1000toInf_MuEnrichedPt5_TuneCP5_13TeV_pythia8/crab_QCD_Pt-1000toInf_MuEnrichedPt5_TuneCP5_13TeV_pythia8/180504_031232/0000/',
-]
-'''
-#sample_path['TT_inclusive']         =path_TT_inclusive
-#sample_path['GJet']                 =path_GJ
-###################### 94X ##########################################
-#sample_path['DYToLL_ext']      =path_DYToLL_ext
 
 ################################## 20180220 ################
 #sample_path['ZToEE_50_120'   ]=path_ZToEE_50_120   
@@ -232,23 +154,23 @@ path_QCD_1000_Inf = [
 #sample_path['GJet_600_Inf']   =path_GJ_600_Inf
 
 
-sample_path['WW']             =path_WW
-sample_path['WZ']             =path_WZ
-sample_path['ZZ']             =path_ZZ
-sample_path['WJetsToLNu']     =path_WJet_mad
+#sample_path['WW']             =path_WW
+#sample_path['WZ']             =path_WZ
+#sample_path['ZZ']             =path_ZZ
+#sample_path['WJetsToLNu']     =path_WJet_mad
 #sample_path['W1J']           = path_W1J          
 #sample_path['W2J']           = path_W2J          
 #sample_path['W3J']           = path_W3J          
 #sample_path['W4J']           = path_W4J          
-sample_path['DYToLL_amc']     =path_DYToLL_amc
+#sample_path['DYToLL_amc']     =path_DYToLL_amc
 #sample_path['DYToLL_mad']     =path_DYToLL_mad
 #sample_path['DY1J']          = path_DY1J         
 #sample_path['DY2J']          = path_DY2J         
 #sample_path['DY3J']          = path_DY3J         
 #sample_path['DY4J']          = path_DY4J         
-#sample_path['TT_had']        = path_TT_had       
-sample_path['TT_2l2nu']      = path_TT_2L2Nu       
-sample_path['TT_semilep']    = path_TT_SemiLeptonic
+sample_path['TT_had']        = path_TT_had       
+#sample_path['TT_2l2nu']      = path_TT_2L2Nu       
+#sample_path['TT_semilep']    = path_TT_SemiLeptonic
 #sample_path['QCD_20_30']     = path_QCD_20_30    
 #sample_path['QCD_30_50']     = path_QCD_30_50    
 #sample_path['QCD_50_80']     = path_QCD_50_80    
