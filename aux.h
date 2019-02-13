@@ -81,6 +81,7 @@ double GetLepToTauFR(TString lep, double eta) {
     if (fabs(eta) < 1.460) reweight = 1.09;
     else if (fabs(eta) > 1.558) reweight = 1.19;
   }
+  reweight = 1;//FIXME
   return reweight;
 
 }
@@ -162,13 +163,13 @@ double FakeRate_mumu(double taupt, double jetpt) {
 pair<double,double> getSF (float mupt, float mueta) {
   //highest pt is 120 GeV
   if (mupt >= 120) mupt = 119;
-  TFile* id_file = new TFile("Reweighting/RunBCDEF_SF_ID.root","R");
+  TFile* id_file = new TFile("Reweighting/RunABCD_SF_ID.root","R");
   TH2F* id_histo = (TH2F*) id_file->Get("NUM_HighPtID_DEN_genTracks_pair_newTuneP_probe_pt_abseta");
   int bin_in = id_histo->FindBin(mupt, fabs(mueta));
   double id_sf = id_histo->GetBinContent(bin_in);
   id_file->Close();
 
-  TFile* iso_file = new TFile("Reweighting/RunBCDEF_SF_ISO.root","R");
+  TFile* iso_file = new TFile("Reweighting/RunABCD_SF_ISO.root","R");
   TH2F* iso_histo = (TH2F*) iso_file->Get("NUM_LooseRelTkIso_DEN_TrkHighPtID_pair_newTuneP_probe_pt_abseta");
   bin_in = iso_histo->FindBin(mupt, fabs(mueta));
   double iso_sf = iso_histo->GetBinContent(bin_in);
@@ -187,12 +188,14 @@ double GetReweight_highmass(float mu_pt, float mu_eta) {
   //highest pt for trigger is 1200 GeV
   if (mu_pt >= 1200) mu_pt = 1199;
   //scale factor files that need to be open
-  TFile* tr_file = new TFile("Reweighting/EfficienciesAndSF_RunBtoF_Nov17Nov2017.root","R");
-  TH2F* tr_histo = (TH2F*) tr_file->Get("Mu50_PtEtaBins/pt_abseta_ratio");
-  int bin_in = tr_histo->FindBin(mu_pt, fabs(mu_eta));
-  double tr_sf = tr_histo->GetBinContent(bin_in);
-  tr_file->Close();
-  if (tr_sf == 0) tr_sf = 1.0;
+  //TFile* tr_file = new TFile("Reweighting/EfficienciesAndSF_RunBtoF_Nov17Nov2017.root","R");
+  //TH2F* tr_histo = (TH2F*) tr_file->Get("Mu50_PtEtaBins/pt_abseta_ratio");
+  //int bin_in = tr_histo->FindBin(mu_pt, fabs(mu_eta));
+  //double tr_sf = tr_histo->GetBinContent(bin_in);
+  //tr_file->Close();
+  //if (tr_sf == 0) tr_sf = 1.0;
+  double tr_sf = 1.0;
+  //FIXME
 
   float muID_sf = getSF(mu_pt, mu_eta).first, muIso_sf = getSF(mu_pt, mu_eta).second;
 
