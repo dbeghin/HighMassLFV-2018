@@ -1,0 +1,869 @@
+#define IIHEAnalysis_cxx
+#include "IIHEAnalysis_2018.h"
+#include "aux.h"
+#include "PU_reWeighting.cc"
+#include "TString.h"
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main(int argc, char** argv) {
+  string out = *(argv + 1);
+  string out_name= out;
+  string in = *(argv + 2);
+  string inname= in;
+  string mc_in = *(argv + 3);
+  string mc_nickname= mc_in;
+  string phase_in = *(argv + 4);
+  string phase= phase_in;
+  string type_in = *(argv + 5);
+  string type= type_in;
+  TFile *fIn = TFile::Open(inname.c_str());
+  TTree* tree = (TTree*) fIn->Get("IIHEAnalysis");
+
+
+  IIHEAnalysis* a = new IIHEAnalysis(tree);
+  a->Loop(phase, type, out_name, mc_nickname);
+  fIn->Close();
+  return 0;
+}
+
+void IIHEAnalysis::Loop(string controlregion, string type_of_data, string out_name, string mc_nickname) {
+   if (fChain == 0) return;
+
+
+   bool Signal, data, singlephoton, singlemu, DYinc, WJetsinc, TTinc, WWinc, TT;
+   if (type_of_data == "Signal" || type_of_data == "signal") {
+     Signal = true;
+     data = false;
+     DYinc = false;
+     WJetsinc = false;
+     TTinc = false;
+     TT = false;
+     WWinc = false;
+   }
+   else if (type_of_data == "Data" || type_of_data == "data" || type_of_data == "singlephoton" || type_of_data == "SinglePhoton" || type_of_data == "singlemu" || type_of_data == "SingleMu") {
+     Signal = false;
+     data = true;
+     DYinc = false;
+     WJetsinc = false;
+     TTinc = false;
+     TT = false;
+     WWinc = false;
+   }
+   else if (type_of_data == "DYinc") {
+     Signal = false;
+     data = false;
+     DYinc = true;
+     WJetsinc = false;
+     TTinc = false;
+     TT = false;
+     WWinc = false;
+   }
+   else if (type_of_data == "WJetsinc") {
+     Signal = false;
+     data = false;
+     DYinc = false;
+     WJetsinc = true;
+     TTinc = false;
+     TT = false;
+     WWinc = false;
+   }
+   else if (type_of_data == "TTinc") {
+     Signal = false;
+     data = false;
+     DYinc = false;
+     WJetsinc = false;
+     TTinc = true;
+     TT = true;
+     WWinc = false;
+   }
+   else if (type_of_data == "TT") {
+     Signal = false;
+     data = false;
+     DYinc = false;
+     WJetsinc = false;
+     TTinc = false;
+     TT = true;
+     WWinc = false;
+   }
+   else if (type_of_data == "WWinc") {
+     Signal = false;
+     data = false;
+     DYinc = false;
+     WJetsinc = false;
+     TTinc = false;
+     TT = false;
+     WWinc = true;
+   }
+   else {
+     Signal = false;
+     data = false;
+     DYinc = false;
+     WJetsinc = false;
+     TTinc = false;
+     TT = false;
+     WWinc = false;
+   }
+
+   if (type_of_data == "singlephoton" || type_of_data == "SinglePhoton") singlephoton = true;
+   if (type_of_data == "singlemu" || type_of_data == "SingleMu") singlemu = true;
+
+
+
+   int CR_number = -1;
+   if (controlregion == "CR0") {
+     //OS, iso mu, iso tau = signal region
+     CR_number = 0;
+   }
+   else if (controlregion == "CR1") {
+     //SS, iso mu, iso tau
+     CR_number = 1;
+   }
+   else if (controlregion == "CR2") {
+     //OS, iso mu, anti-iso tau
+     CR_number = 2;
+   }
+   else if (controlregion == "CR3") {
+     //SS, iso mu, anti-iso tau
+     CR_number = 3;
+   }
+   else if (controlregion == "CR4") {
+     //OS, anti-iso mu, anti-iso tau
+     CR_number = 4;
+   }
+   else if (controlregion == "CR5") {
+     //SS, anti-iso mu, anti-iso tau
+     CR_number = 5;
+   }
+   else if (controlregion == "CR7") {
+     //SS, iso mu, anti-iso tau, mt restricted
+     CR_number = 7;
+   }
+   else if (controlregion == "CR9") {
+     //SS, iso mu, iso tau, mt restricted
+     CR_number = 9;
+   }
+   else if (controlregion == "CR100") {
+     //no sign requirement, iso mu, anti-iso tau, estimate fake tau bg
+     CR_number = 100;
+   }
+   else if (controlregion == "CR101") {
+     //no sign requirement, iso mu, anti-iso tau, estimate fake tau bg
+     CR_number = 101;
+   }
+   else if (controlregion == "CR102") {
+     //no sign requirement, iso mu, iso tau, Mt>80 GeV, W+Jets enriched CR
+     CR_number = 102;
+   }
+   else if (controlregion == "CR103") {
+     //no sign requirement, iso mu, anti-iso tau, Mt>80 GeV, W+Jets enriched CR
+     CR_number = 103;
+   }
+
+   //string out_name = "out_"+type_of_data+".root";
+   TFile* file_out = new TFile(out_name.c_str(),"RECREATE");
+
+   const float mu_mass = 0.10565837;
+   const float pi = 3.14159;
+
+   //list here the names and x-axis ranges of all gen-level histos we wish to create :
+   vector<TString> histo_gen_names;                vector<int> nBins_gen;     vector<float> x_min_gen,    x_max_gen; 
+   histo_gen_names.push_back("gen_tau_pt");       nBins_gen.push_back(100);  x_min_gen.push_back(0);     x_max_gen.push_back(100);
+   histo_gen_names.push_back("gen_tau_eta");      nBins_gen.push_back(50);   x_min_gen.push_back(-2.5);  x_max_gen.push_back(2.5);
+   histo_gen_names.push_back("gen_tau_phi");      nBins_gen.push_back(64);   x_min_gen.push_back(-3.2);  x_max_gen.push_back(3.2);
+   histo_gen_names.push_back("gen_ev_DR2l");       nBins_gen.push_back(100);  x_min_gen.push_back(0);     x_max_gen.push_back(10);
+   histo_gen_names.push_back("gen_ev_M");          nBins_gen.push_back(100);  x_min_gen.push_back(995);   x_max_gen.push_back(1005);
+   histo_gen_names.push_back("gen_ev_visDR2l");    nBins_gen.push_back(100);  x_min_gen.push_back(0);     x_max_gen.push_back(10);
+   histo_gen_names.push_back("gen_ev_Mvis");       nBins_gen.push_back(200);  x_min_gen.push_back(700);   x_max_gen.push_back(1100);
+   histo_gen_names.push_back("gen_ev_ntaus");      nBins_gen.push_back(10);  x_min_gen.push_back(0);   x_max_gen.push_back(10);
+   histo_gen_names.push_back("gen_tau_decaymode");    nBins_gen.push_back(3);  x_min_gen.push_back(-0.5); x_max_gen.push_back(2.5);
+   histo_gen_names.push_back("gen_tautau_decaymode"); nBins_gen.push_back(9);  x_min_gen.push_back(-0.5); x_max_gen.push_back(8.5);
+
+   vector<TH1F*> hgen;
+   for (unsigned int i = 0; i<histo_gen_names.size(); ++i) hgen.push_back( new TH1F(histo_gen_names[i], histo_gen_names[i], nBins_gen[i], x_min_gen[i], x_max_gen[i]) ); 
+
+
+   //list here the names and x-axis ranges of all reco-level histos we wish to create :
+   vector<TString> histo_names;               vector<int> nBins;     vector<float> x_min,   x_max; 
+   histo_names.push_back("ev_Mvis");          nBins.push_back(4000); x_min.push_back(0);    x_max.push_back(4000);
+   histo_names.push_back("ev_Mtot");          nBins.push_back(4000); x_min.push_back(0);    x_max.push_back(4000);
+   histo_names.push_back("tau_pt");           nBins.push_back(500);  x_min.push_back(0);    x_max.push_back(500);
+   histo_names.push_back("tau_eta");          nBins.push_back(50);  x_min.push_back(-2.5); x_max.push_back(2.5);
+   histo_names.push_back("tau_phi");          nBins.push_back(64);  x_min.push_back(-3.2); x_max.push_back(3.2);
+   histo_names.push_back("mu_pt");            nBins.push_back(500);  x_min.push_back(0);    x_max.push_back(500);
+   histo_names.push_back("mu_eta");           nBins.push_back(50);   x_min.push_back(-2.5); x_max.push_back(2.5);
+   histo_names.push_back("mu_phi");           nBins.push_back(64);   x_min.push_back(-3.2); x_max.push_back(3.2);
+   histo_names.push_back("ev_DRmutau");       nBins.push_back(100);  x_min.push_back(0);    x_max.push_back(10);
+   histo_names.push_back("ev_DeltaPhimutau"); nBins.push_back(64);   x_min.push_back(0);    x_max.push_back(3.2);
+   histo_names.push_back("ev_DeltaPhiMETtau");nBins.push_back(64);   x_min.push_back(0);    x_max.push_back(3.2);
+   histo_names.push_back("ev_MET");           nBins.push_back(1000); x_min.push_back(0);    x_max.push_back(1000);
+   histo_names.push_back("ev_weight");        nBins.push_back(400);  x_min.push_back(-2);   x_max.push_back(2);
+   histo_names.push_back("ev_deltaMET");      nBins.push_back(200);  x_min.push_back(-100); x_max.push_back(100);
+   histo_names.push_back("ev_Mcol");          nBins.push_back(4000); x_min.push_back(0);    x_max.push_back(4000);
+   histo_names.push_back("ev_Mt");            nBins.push_back(4000); x_min.push_back(0);    x_max.push_back(4000);
+   histo_names.push_back("mu_isolation");     nBins.push_back(200);  x_min.push_back(0);    x_max.push_back(0.2);
+
+   vector<TString> taun;
+   taun.push_back("realtau"); int j_real = taun.size()-1;
+   taun.push_back("faketau"); int j_fake = taun.size()-1;
+
+   vector<TString> Mth;
+   Mth.push_back("MtLow_OS");  int k_low_OS = Mth.size()-1;
+   Mth.push_back("MtLow_SS");  int k_low_SS = Mth.size()-1;
+   Mth.push_back("MtHigh");    int k_high   = Mth.size()-1;
+
+   vector<TH1F*> h[Mth.size()][taun.size()];
+   for (unsigned int i = 0; i<histo_names.size(); ++i) {
+     for (unsigned int j = 0; j<taun.size(); ++j) {
+       for (unsigned int k = 0; k<Mth.size(); ++k) {
+	 h[k][j].push_back( new TH1F(histo_names[i]+"_"+taun[j]+"_"+Mth[k], histo_names[i]+"_"+taun[j]+"_"+Mth[k], nBins[i], x_min[i], x_max[i]) ); 
+	 h[k][j][i]->Sumw2();
+       }
+     }
+   }
+
+
+   vector<TString> h_names;
+   //h_names.push_back("taupt_jetpt_pass"); int iJetPtPass = h_names.size()-1;
+   //h_names.push_back("taupt_jetpt_fail"); int iJetPtFail = h_names.size()-1;
+   h_names.push_back("taupt_ratio_pass");  int iRatioPass  = h_names.size()-1;
+   h_names.push_back("taupt_ratio_fail");  int iRatioFail  = h_names.size()-1;
+
+   vector<TString> dms;
+   dms.push_back("DM0");  int k_DM0  = dms.size()-1;
+   dms.push_back("DM1");  int k_DM1  = dms.size()-1;
+   dms.push_back("DM10"); int k_DM10 = dms.size()-1;
+
+   vector<TString> eta;
+   eta.push_back("barrel"); int l_barrel = eta.size()-1;
+   eta.push_back("endcap"); int l_endcap = eta.size()-1;
+
+   vector<TH2F*> hh[h_names.size()][Mth.size()][dms.size()][eta.size()];
+
+   for (unsigned int i = 0; i<h_names.size(); ++i) {
+     for (unsigned int j = 0; j<Mth.size(); ++j) {
+       for (unsigned int k = 0; k<dms.size(); ++k) {
+	 for (unsigned int l = 0; l<eta.size(); ++l) {
+	   for (unsigned int m = 0; m<taun.size(); ++m) {
+	     TString nname = h_names[i]+"_"+Mth[j]+"_"+dms[k]+"_"+eta[l]+"_"+taun[m];
+	     hh[i][j][k][l].push_back( new TH2F(nname, nname, 1000, 0, 1000, 1000, 0, 10) );
+	     hh[i][j][k][l][m]->Sumw2();
+	   }
+	 }
+       }
+     }
+   }
+   
+
+
+
+   Long64_t nEntries = fChain->GetEntriesFast();
+   Long64_t nbytes = 0, nb = 0;
+   long n1=0, n2=0;
+   int print_count = 0;
+   //start loop over all events
+   for (Long64_t jEntry = 0; jEntry < nEntries; ++jEntry) {
+      Long64_t iEntry = LoadTree(jEntry);
+      if (iEntry < 0) break;
+      if (jEntry % 1000 == 0) fprintf(stdout, "\r  Processed events: %8d of %8d ", jEntry, nEntries);
+
+      nb = fChain->GetEntry(jEntry);
+      nbytes += nb;
+
+      float first_weight = 1;
+      double final_weight = first_weight;
+      float pu_weight = 1;
+      if (!data) {
+	pu_weight = PU_2017_Rereco::MC_pileup_weight(mc_trueNumInteractions, mc_nickname, "Data_METcorr_2017BtoF");
+      }
+      
+
+      //Do not consider events which should be rejected
+      bool reject_event = false, Zmumu = false;
+      if (DYinc) {
+        TLorentzVector l1_p4, l2_p4, ll_p4;
+      	l1_p4.SetPxPyPzE(0, 0, 0, 0);
+      	l2_p4.SetPxPyPzE(0, 0, 0, 0);
+      	ll_p4.SetPxPyPzE(0, 0, 0, 0);
+        int l1_pdgid = 0, l2_pdgid = 0;
+        if (print_count < 20) {
+          ++print_count;
+          //cout << endl << "LHE info" << endl;
+        }
+        for (unsigned int iLHE = 0; iLHE < LHE_Pt->size(); ++iLHE) {
+          if (print_count < 20) {
+            //cout << LHE_pdgid->at(iLHE) << "  " << LHE_Pt->at(iLHE) << "  " << LHE_Eta->at(iLHE) << "  " << LHE_Phi->at(iLHE) << "  " << LHE_E->at(iLHE) << endl;
+          }
+      	  if (LHE_Pt->at(iLHE) <= 0) continue; 
+          if (LHE_pdgid->at(iLHE) == 11 || LHE_pdgid->at(iLHE) == 13 || LHE_pdgid->at(iLHE) == 15) {
+            l1_p4.SetPtEtaPhiE(LHE_Pt->at(iLHE),LHE_Eta->at(iLHE),LHE_Phi->at(iLHE),LHE_E->at(iLHE));
+            l1_pdgid = LHE_pdgid->at(iLHE);
+          }
+          else if (LHE_pdgid->at(iLHE) == -11 || LHE_pdgid->at(iLHE) == -13 || LHE_pdgid->at(iLHE) == -15) {
+            l2_p4.SetPtEtaPhiE(LHE_Pt->at(iLHE),LHE_Eta->at(iLHE),LHE_Phi->at(iLHE),LHE_E->at(iLHE));
+            l2_pdgid = LHE_pdgid->at(iLHE);
+          }
+      	  if (abs(LHE_pdgid->at(iLHE)) == 13) Zmumu = true;
+        }
+        if (l1_pdgid == -l2_pdgid) {
+          ll_p4 = l1_p4 + l2_p4;
+          if (ll_p4.M() > 400) reject_event = true;
+        }
+        else {
+          cout << "??" << LHE_pdgid->size() << endl;
+        }
+      }//close is this DY inclusive question
+      else if (WJetsinc) {
+        TLorentzVector l_p4, nu_p4, lnu_p4;
+      	l_p4.SetPxPyPzE(0, 0, 0, 0);
+      	nu_p4.SetPxPyPzE(0, 0, 0, 0);
+      	lnu_p4.SetPxPyPzE(0, 0, 0, 0);
+        int l_pdgid = 0, nu_pdgid = 0;
+        if (print_count < 20) {
+          ++print_count;
+          //cout << endl << "LHE info" << endl;
+        }
+        for (unsigned int iLHE = 0; iLHE < LHE_Pt->size(); ++iLHE) {
+          if (print_count < 20) {
+      	    // cout << LHE_pdgid->at(iLHE) << "  " << LHE_Pt->at(iLHE) << "  " << LHE_Eta->at(iLHE) << "  " << LHE_Phi->at(iLHE) << "  " << LHE_E->at(iLHE) << endl;
+          }
+          if (abs(LHE_pdgid->at(iLHE)) == 11 || abs(LHE_pdgid->at(iLHE)) == 13 || abs(LHE_pdgid->at(iLHE)) == 15) {
+            l_p4.SetPtEtaPhiE(LHE_Pt->at(iLHE),LHE_Eta->at(iLHE),LHE_Phi->at(iLHE),LHE_E->at(iLHE));
+            l_pdgid = LHE_pdgid->at(iLHE);
+          }
+          else if (abs(LHE_pdgid->at(iLHE)) == 12 || abs(LHE_pdgid->at(iLHE)) == 14 || abs(LHE_pdgid->at(iLHE)) == 16) {
+            nu_p4.SetPtEtaPhiE(LHE_Pt->at(iLHE),LHE_Eta->at(iLHE),LHE_Phi->at(iLHE),LHE_E->at(iLHE));
+            nu_pdgid = LHE_pdgid->at(iLHE);
+          }
+        }
+        if (abs(l_pdgid) == abs(nu_pdgid)-1) {
+          lnu_p4 = l_p4 + nu_p4;
+          if (lnu_p4.Pt() > 100) reject_event = true;
+        }
+        else {
+          cout << "??" << endl;
+        }
+      }//close the is this WJets inclusive question
+      else if (TTinc || WWinc) {
+        TLorentzVector l1_p4, l2_p4, ll_p4;
+      	l1_p4.SetPxPyPzE(0, 0, 0, 0);
+      	l2_p4.SetPxPyPzE(0, 0, 0, 0);
+      	ll_p4.SetPxPyPzE(0, 0, 0, 0);
+        int l1_pdgid = 0, l2_pdgid = 0;
+        if (print_count < 20) {
+          ++print_count;
+          //cout << endl << jEntry << endl << "LHE info" << endl;
+        }
+        for (unsigned int iLHE = 0; iLHE < LHE_Pt->size(); ++iLHE) {
+          if (print_count < 20) {
+            //cout << LHE_pdgid->at(iLHE) << "  " << LHE_Pt->at(iLHE) << "  " << LHE_Eta->at(iLHE) << "  " << LHE_Phi->at(iLHE) << "  " << LHE_E->at(iLHE) << endl;
+          }
+          if (abs(LHE_pdgid->at(iLHE)) == 11 || abs(LHE_pdgid->at(iLHE)) == 13 || abs(LHE_pdgid->at(iLHE)) == 15) {
+            l1_p4.SetPtEtaPhiE(LHE_Pt->at(iLHE),LHE_Eta->at(iLHE),LHE_Phi->at(iLHE),LHE_E->at(iLHE));
+            l1_pdgid = LHE_pdgid->at(iLHE);
+          }
+      
+          for (unsigned int jLHE = 0; jLHE < iLHE; ++jLHE) {
+            if (abs(LHE_pdgid->at(iLHE)) == 11 || abs(LHE_pdgid->at(iLHE)) == 13 || abs(LHE_pdgid->at(iLHE)) == 15) {
+              l2_p4.SetPtEtaPhiE(LHE_Pt->at(jLHE),LHE_Eta->at(jLHE),LHE_Phi->at(iLHE),LHE_E->at(jLHE));
+              l2_pdgid = LHE_pdgid->at(jLHE);
+            }
+            ll_p4 = l1_p4 + l2_p4;
+      	    if (TTinc) {
+      	      if (ll_p4.M() > 500) reject_event = true;
+      	    }
+      	    else if (WWinc) {
+      	      if (ll_p4.M() > 200) reject_event = true;
+      	    }	      
+      	    if (reject_event) break;
+          }
+      	  if (reject_event) break;
+        }
+      }
+      //close the is this TT inclusive question
+      //if (reject_event) continue;
+      //FIXME when there are high mass samples
+
+      double TT_ptreweight = 1;
+      if (TT) {
+      	double w_top = 1, w_antitop = 1;
+        for (unsigned int iLHE = 0; iLHE < LHE_Pt->size(); ++iLHE) {
+      	  if (LHE_pdgid->at(iLHE) == 6) {
+      	    w_top = topPtReweight(LHE_Pt->at(iLHE));
+      	  }
+      	  else if (LHE_pdgid->at(iLHE) == -6) {
+      	    w_antitop = topPtReweight(LHE_Pt->at(iLHE));
+      	  }
+      	}
+      	TT_ptreweight = sqrt(w_top*w_antitop);
+      }
+
+      vector<TLorentzVector> tauhp4;
+      tauhp4.clear();
+      vector<TLorentzVector> anyleptonp4, genmup4, genelep4;
+      anyleptonp4.clear();
+      genmup4.clear();
+      genelep4.clear();
+      vector<int> tau_ind, tau_dm;
+      tau_ind.clear(), tau_dm.clear();
+      if (!data) {
+	//start loop over all simulated particules
+	TLorentzVector mup4, totalvisp4, p4;
+	for (unsigned int iMC = 0; iMC < mc_pt->size(); ++iMC) {
+	  if (abs(mc_pdgId->at(iMC)) == 11 || abs(mc_pdgId->at(iMC)) == 13) {
+	    if (mc_pt->at(iMC) < 10) continue;
+	    p4.SetPxPyPzE(mc_px->at(iMC), mc_py->at(iMC), mc_pz->at(iMC), mc_energy->at(iMC));
+	    if (p4.Pt() < 10) continue;
+	    if (p4.Pt() > 10000) continue;
+	    anyleptonp4.push_back(p4);
+	    if (abs(mc_pdgId->at(iMC)) == 13) genmup4.push_back(p4);
+	    if (abs(mc_pdgId->at(iMC)) == 11) genelep4.push_back(p4);
+	  }
+	}//end MC loop
+	for (unsigned int iMC = 0; iMC < mc_tau_had_pt->size(); ++iMC) {
+	  if (mc_tau_had_pt->at(iMC) < 10) continue;
+	  p4.SetPtEtaPhiE(mc_tau_had_pt->at(iMC), mc_tau_had_eta->at(iMC), mc_tau_had_phi->at(iMC), mc_tau_had_energy->at(iMC)); 
+	  if (p4.Pt() < 10) continue;
+	  if (p4.Pt() > 10000) continue;
+	  tauhp4.push_back( p4 );
+	  anyleptonp4.push_back( p4 );
+	}
+
+      }//end is this not-data? condition
+
+
+
+      //Is one of the triggers fired?
+      //FIXME
+      bool PassTrigger = false;
+      if (trig_HLT_Mu50_accept || trig_HLT_OldMu100_accept || trig_HLT_TkMu100_accept) PassTrigger = true;
+      if (!PassTrigger) continue;
+
+
+
+
+      //Sort muons, taus by decreasing pt
+      float pt = 0.0;
+      int highest = -1;
+      vector<int> orderedMu, orderedTau;
+      vector<int> rest, rest2;
+
+      //sorting muons
+      for (unsigned int ii = 0; ii < mu_ibt_pt->size(); ++ii) {
+        rest.push_back(ii);
+      }
+      while (rest.size()>0) {
+	rest2.clear();
+	highest = -1;
+        pt = -10000;
+        for (unsigned int ii = 0; ii < rest.size(); ++ii) {
+          if (mu_ibt_pt->at(rest[ii]) > pt) {
+            pt = mu_ibt_pt->at(rest[ii]);
+            if (highest > -1) rest2.push_back(highest);
+            highest = rest[ii];
+          }
+          else {
+	    rest2.push_back(rest[ii]);
+	  }
+        }
+        orderedMu.push_back(highest);
+        rest = rest2;
+      }
+
+      //sorting taus
+      rest.clear();
+      for (unsigned int ii = 0; ii < tau_pt->size(); ++ii) {
+        rest.push_back(ii);
+      }
+      while (rest.size()>0) {
+	rest2.clear();
+	highest = -1;
+        pt = -10000;
+        for (unsigned int ii = 0; ii < rest.size(); ++ii) {
+          if (tau_pt->at(rest[ii]) > pt) {
+            pt = tau_pt->at(rest[ii]);
+            if (highest > -1) rest2.push_back(highest);
+            highest = rest[ii];
+          }
+          else {
+	    rest2.push_back(rest[ii]);
+	  }
+        }
+        orderedTau.push_back(highest);
+        rest = rest2;
+      }
+
+
+
+      //start loop over reconstructed muons
+      bool filled_histos = false;
+      for (unsigned int ii = 0; ii < orderedMu.size(); ++ii) {
+	if (filled_histos) break;//if we've filled the histos once, break out of the loop
+	int iMu = orderedMu[ii];
+	if (mu_ibt_pt->at(iMu) < 53.0) continue;
+	if (!mu_isHighPtMuon->at(iMu)) continue;
+	if (fabs(mu_ibt_eta->at(iMu)) > 2.4) continue;
+
+
+	TLorentzVector mu_p4, mu_ibt_transp4;
+	mu_p4.SetPtEtaPhiM(mu_ibt_pt->at(iMu), mu_ibt_eta->at(iMu), mu_ibt_phi->at(iMu), mu_mass);
+	mu_ibt_transp4.SetPxPyPzE(mu_ibt_px->at(iMu), mu_ibt_py->at(iMu), 0, mu_ibt_pt->at(iMu));
+
+	//start loop over reconstructed taus
+	for (unsigned int jj = 0; jj < orderedTau.size(); ++jj) {
+	  if (filled_histos) break;//if we've filled the histos once, break out of the loop
+	  int iTau = orderedTau[jj];
+
+	  TLorentzVector tau_p4, tau_TES_p4, vis_p4, met_p4, metmu_p4, total_p4;
+	  float met_px = MET_eefix_Px;
+	  float met_py = MET_eefix_Py;
+	  float met_pt = MET_eefix_Pt;
+	  tau_p4.SetPtEtaPhiE(tau_pt->at(iTau), tau_eta->at(iTau), tau_phi->at(iTau), tau_energy->at(iTau));
+	  met_p4.SetPxPyPzE(met_px, met_py, 0, met_pt);
+	  
+	  vis_p4 = tau_p4 + mu_p4;
+	  total_p4 = vis_p4 + met_p4;
+	  metmu_p4 = met_p4 + mu_p4;
+	  
+	  if (tau_pt->at(iTau) < 0) continue;
+	  if (tau_p4.Pt() < 30.0) continue;
+	  if (fabs(tau_eta->at(iTau)) > 2.3) continue;
+	  if (tau_decayModeFinding->at(iTau) < 0.5) continue;
+	  if (tau_againstMuonTight3->at(iTau) < 0.5) continue;
+	  if (tau_againstElectronVLooseMVA6->at(iTau) < 0.5) continue;
+	  //if (fabs(tau_dz->at(iTau)) > 0.2) continue;
+	  if (fabs(tau_charge->at(iTau)) != 1) continue;
+
+
+	  //control regions : sign selection, muon isolation and tau ID
+	  if (CR_number == -1) {
+	    cout << "Error: Control region not recognized" << endl;
+	    break;
+	  }
+	  
+	  float reliso = mu_isoTrackerBased03->at(iMu); //use instead sumofpts divided by muon ibt pt
+
+
+	  //MET recalculation because we're using the high-pt muon ID
+	  TLorentzVector mu_gt_p4, mu_gt_transp4;
+	  mu_gt_p4.SetPxPyPzE(0, 0, 0, 0);
+	  mu_gt_transp4.SetPxPyPzE(0, 0, 0, 0);
+
+	  float min_dR = 0.2;
+	  for (unsigned int kk=0; kk<mu_gt_pt->size(); ++kk) {
+	    if (!mu_isPFMuon->at(kk)) continue;
+	    mu_gt_p4.SetPtEtaPhiM(mu_gt_pt->at(kk), mu_gt_eta->at(kk), mu_gt_phi->at(kk), mu_mass);
+	    if ( (abs(mu_gt_p4.Pt()) >= 998.99) && (abs(mu_gt_p4.Pt()) <= 999.01) )continue;
+	    if (mu_gt_p4.DeltaR(mu_p4) > min_dR) continue;
+	    min_dR = mu_gt_p4.DeltaR(mu_p4);
+	    mu_gt_transp4.SetPtEtaPhiM(mu_gt_pt->at(kk), 0, mu_gt_phi->at(kk), mu_mass);
+	  }
+	  met_p4 = met_p4 + mu_gt_transp4 - mu_ibt_transp4;
+
+
+	  
+	  float Mt = -1;
+	  if (2 * ( mu_p4.Pt() * met_p4.Pt()  - mu_p4.Px()*met_p4.Px() - mu_p4.Py()*met_p4.Py() ) < 0) {
+	    Mt = 0;
+	  }
+	  else {
+	    Mt = sqrt(2 * ( mu_p4.Pt() * met_p4.Pt()  - mu_p4.Px()*met_p4.Px() - mu_p4.Py()*met_p4.Py() ) );
+	  }
+
+	  if (CR_number<100) {
+	    //sign selection
+	    if (CR_number%2 == 0) {
+	      if (tau_charge->at(iTau) * mu_ibt_charge->at(iMu) > 0) continue; //OS selection
+	    }
+	    else {
+	      if (tau_charge->at(iTau) * mu_ibt_charge->at(iMu) < 0) continue; //SS selection
+	    }
+	    
+	    //muon isolation
+	    if (CR_number < 4 || CR_number >= 7) {
+	      if (reliso > 0.1) continue;
+	    }
+	    else {
+	      if (reliso < 0.1) continue;
+	    }
+	      
+	    //tau isolation
+	    if (CR_number < 2 || CR_number == 9) {
+	      if (tau_byTightIsolationMVArun2017v2DBoldDMwLT2017->at(iTau) < 0.5) continue;
+	    }
+	    else {
+	      if (tau_byTightIsolationMVArun2017v2DBoldDMwLT2017->at(iTau) > 0.5) continue;
+	      if (tau_byVVLooseIsolationMVArun2017v2DBoldDMwLT2017->at(iTau) < 0.5) continue;
+	    }
+	  }
+	  else {
+	    if (CR_number == 100) {
+	      if (reliso > 0.1) continue;
+	      //if (tau_byTightIsolationMVArun2017v2DBoldDMwLT2017->at(iTau) < 0.5) continue;
+	      if (tau_byVVLooseIsolationMVArun2017v2DBoldDMwLT2017->at(iTau) < 0.5) continue;
+	    }	      
+	    if (CR_number == 101) {
+	      if (reliso > 0.1) continue;
+	      if (tau_byTightIsolationMVArun2017v2DBoldDMwLT2017->at(iTau) > 0.5) continue;
+	      if (tau_byVVLooseIsolationMVArun2017v2DBoldDMwLT2017->at(iTau) < 0.5) continue;
+	    }	      
+	    if (CR_number == 102) {
+	      if (reliso > 0.1) continue;
+	      if (tau_byTightIsolationMVArun2017v2DBoldDMwLT2017->at(iTau) < 0.5) continue;
+	      if (Mt<80) continue;
+	    }	      
+	    if (CR_number == 103) {
+	      if (reliso > 0.1) continue;
+	      if (tau_byTightIsolationMVArun2017v2DBoldDMwLT2017->at(iTau) > 0.5) continue;
+	      if (tau_byVVLooseIsolationMVArun2017v2DBoldDMwLT2017->at(iTau) < 0.5) continue;
+	      if (Mt<80) continue;
+	    }	      
+	  }
+
+
+	  int kMth = -1;
+	  if (Mt < 120) {
+	    if ( tau_charge->at(iTau)*mu_ibt_charge->at(iMu) < 0) {
+	      kMth = k_low_OS;
+	    }
+	    else {
+	      kMth = k_low_SS;
+	    }
+	  }
+	  else {
+	    kMth = k_high;
+	  }
+
+	  double lepToTauFR = 1;
+
+	  //separate histos by tau realness
+	  int jTauN=j_real;
+	  bool tau_match = false;
+	  if (!data && !Signal) {
+	    //fill gen histos to understand wth is going on
+	    hgen[7]->Fill(tauhp4.size(), mc_w_sign);
+	    for (unsigned int iGen = 0; iGen<tauhp4.size(); ++iGen) {
+	      hgen[0]->Fill(tauhp4[iGen].Pt(), mc_w_sign);
+	      hgen[1]->Fill(tauhp4[iGen].Eta(), mc_w_sign);
+	      hgen[2]->Fill(tauhp4[iGen].Phi(), mc_w_sign);
+	    }
+
+	    bool ele_match = false;
+	    if (genelep4.size() != 0) {
+	      for (unsigned int iGen = 0; iGen < genelep4.size(); ++iGen) {
+		if (tau_p4.DeltaR(genelep4[iGen]) < 0.2) ele_match = true;
+	      }
+	    }
+	    bool mu_match = false;
+	    if (genmup4.size() != 0) {
+	      for (unsigned int iGen = 0; iGen < genmup4.size(); ++iGen) {
+		if (tau_p4.DeltaR(genmup4[iGen]) < 0.2) mu_match = true;
+	      }
+	    }
+	    if (ele_match && mu_match) {
+	      cout << "gen electron AND muon both match to same tau !!!" << endl << endl << endl;
+	      continue;
+	    }
+	    if (ele_match) lepToTauFR = GetLepToTauFR("ele", tau_p4.Eta());
+	    if (mu_match)  lepToTauFR = GetLepToTauFR("mu", tau_p4.Eta());
+
+
+	    bool is_not_jet = false;
+	    if (anyleptonp4.size() != 0) {
+	      for (unsigned int iGen = 0; iGen < anyleptonp4.size(); ++iGen) {
+		if (tau_p4.DeltaR(anyleptonp4[iGen]) < 0.2) {
+		  is_not_jet = true;
+		  break;
+		}
+	      }
+	    }
+	    if (tauhp4.size() != 0) {
+	      for (unsigned int iGen = 0; iGen < tauhp4.size(); ++iGen) {
+		if (tau_p4.DeltaR(tauhp4[iGen]) < 0.2) {
+		  tau_match = true;
+		  break;
+		}
+	      }
+	    }
+	    if (is_not_jet) {
+	      jTauN=j_real;
+	    }
+	    else {
+	      jTauN=j_fake;
+	    }
+	    if (CR_number >= 2) tau_match = false;
+	    float reweight = GetReweight_highmass(mu_p4.Pt(), mu_p4.Eta());
+	    h[kMth][jTauN][13]->Fill(reweight);
+	  }
+	  //FIXME
+	  first_weight = 1;
+	  if (!data) first_weight = pu_weight * GetReweight_highmass(mu_p4.Pt(), mu_p4.Eta()) * 1.0 * mc_w_sign * TT_ptreweight * lepToTauFR;
+	  final_weight = first_weight;
+
+	  if (CR_number == 7 || CR_number == 9) {
+	    h[kMth][jTauN][16]->Fill(Mt, final_weight);
+	    if (Mt < 80 || Mt > 120) continue;
+	  }
+
+
+	  //Pzeta calculation
+	  float norm_zeta= norm_F( tau_p4.Px()/tau_p4.Pt()+mu_p4.Px()/mu_p4.Pt(), tau_p4.Py()/tau_p4.Pt()+mu_p4.Py()/mu_p4.Pt() );
+	  //cout << norm_zeta << endl;
+	  float x_zeta= (tau_p4.Px()/tau_p4.Pt()+mu_p4.Px()/mu_p4.Pt())/norm_zeta;
+	  float y_zeta= (tau_p4.Py()/tau_p4.Pt()+mu_p4.Py()/mu_p4.Pt())/norm_zeta;
+	  float p_zeta_mis=met_p4.Px()*x_zeta+met_p4.Py()*y_zeta;
+	  float pzeta_vis=(tau_p4.Px()+mu_p4.Px())*x_zeta+(tau_p4.Py()+mu_p4.Py())*y_zeta;
+	  float cut_zeta= p_zeta_mis-0.85*pzeta_vis;
+
+
+	  if (final_weight != final_weight) {
+	    cout << "Not a number!!!!!!!" << endl;
+	    continue;
+	  }
+
+
+
+	  
+	  float dR = tau_p4.DeltaR(mu_p4);
+	  float dphi_mutau = 100, dphi_METtau = 100;
+	  float large_phi = 100;
+	  float small_phi = 100;
+	  if (tau_p4.Phi() > mu_p4.Phi()) {
+	    large_phi = tau_p4.Phi();
+	    small_phi = mu_p4.Phi();
+	  }
+	  else {
+	    small_phi = tau_p4.Phi();
+	    large_phi = mu_p4.Phi();
+	  }
+	  if (fabs(large_phi-small_phi) > fabs(large_phi-(small_phi+2*pi))) {
+	    dphi_mutau = fabs(large_phi-(small_phi+2*pi));
+	  }
+	  else {
+	    dphi_mutau = fabs(large_phi-small_phi);
+	  }
+
+	  if (tau_p4.Phi() > met_p4.Phi()) {
+	    large_phi = tau_p4.Phi();
+	    small_phi = met_p4.Phi();
+	  }
+	  else {
+	    small_phi = tau_p4.Phi();
+	    large_phi = met_p4.Phi();
+	  }
+	  if (fabs(large_phi-small_phi) > fabs(large_phi-(small_phi+2*pi))) {
+	    dphi_METtau = fabs(large_phi-(small_phi+2*pi));
+	  }
+	  else {
+	    dphi_METtau = fabs(large_phi-small_phi);
+	  }
+
+
+	  // MATCH TAUS TO AK4 jets
+          bool matched_to_reco_jet=false;
+          TLorentzVector jet_p4(0.,0.,0.,0.);
+          for (unsigned int ijet = 0; ijet < jet_pt->size(); ijet++){
+            if(!(fabs(jet_eta->at(ijet)) < 2.3)) continue;
+            if(!(jet_isJetIDLoose->at(ijet))) continue;
+            TLorentzVector jet_p4_tmp;
+            jet_p4_tmp.SetPxPyPzE(jet_px->at(ijet), jet_py->at(ijet), jet_pz->at(ijet), jet_energy->at(ijet));
+            if(!(tau_p4.DeltaR(jet_p4_tmp) < 0.2)) continue;
+            matched_to_reco_jet=true;
+            jet_p4=jet_p4_tmp;
+            break;
+
+          }
+
+	  if(!(matched_to_reco_jet)) continue;
+
+
+
+	  float Mcol = GetCollinearMass(tau_p4, mu_p4, met_p4);
+	  filled_histos = true;
+	  TString eta_string = "";
+	  int l_eta = -1;
+	  if (fabs(tau_eta->at(iTau)) < 1.46) {
+	    eta_string = "barrel";
+	    l_eta = l_barrel;
+	  }
+	  else if (fabs(tau_eta->at(iTau)) > 1.56) {
+	    eta_string = "endcap";
+	    l_eta = l_endcap;
+	  }
+	  else {
+	    continue;
+	  }
+
+
+	  //if ((CR_number == 101) || (CR_number == 103)) final_weight = first_weight*FakeRate_SSMtLow(tau_p4.Pt(), jet_p4.Pt(), eta_string);
+	  if ((CR_number == 101) || (CR_number == 103)) final_weight = first_weight*FakeRate_factorised(tau_p4.Pt(), jet_p4.Pt(), eta_string);
+
+
+	  //TH2's for the fake rate
+	  int iJetPt = -1, iRatio = -1;
+	  //Tau histos
+	  if (tau_byTightIsolationMVArun2017v2DBoldDMwLT2017->at(iTau) > 0.5) {
+	    //iJetPt = iJetPtPass;
+	    iRatio  = iRatioPass;
+	  }
+	  else {
+	    //iJetPt = iJetPtFail;
+	    iRatio  = iRatioFail;
+	  }
+
+	  //decay mode
+	  int k_dm = -1;
+	  if (tau_decayMode->at(iTau) == 0) {
+	    k_dm = k_DM0;
+	  }
+	  else if (tau_decayMode->at(iTau) == 1 || tau_decayMode->at(iTau) == 2) {
+	    k_dm = k_DM1;
+	  }
+	  else if (tau_decayMode->at(iTau) == 10 || tau_decayMode->at(iTau) == 11) {
+	    k_dm = k_DM10;
+	  }
+
+	  if (dR < 0.5) continue;
+	  if (CR_number == 100) {
+	    double ratio = 1;
+	    if (jet_p4.Pt() != 0) ratio = tau_p4.Pt()/jet_p4.Pt();
+	    //hh[iJetPt][kMth][k_dm][l_eta][jTauN]->Fill(tau_p4.Pt(), jet_p4.Pt(), final_weight);
+	    hh[iRatio][kMth][k_dm][l_eta][jTauN]->Fill(tau_p4.Pt(), ratio, final_weight);
+	    if (tau_byTightIsolationMVArun2017v2DBoldDMwLT2017->at(iTau) < 0.5) continue;
+	  }
+
+
+	  h[kMth][jTauN][9]->Fill(dphi_mutau, final_weight);
+	  h[kMth][jTauN][10]->Fill(dphi_METtau, final_weight);
+	  
+	  h[kMth][jTauN][0]->Fill(vis_p4.M(), final_weight);
+	  h[kMth][jTauN][1]->Fill(total_p4.M(), final_weight);
+	  h[kMth][jTauN][2]->Fill(tau_p4.Pt(), final_weight);
+	  h[kMth][jTauN][3]->Fill(tau_p4.Eta(), final_weight);
+	  h[kMth][jTauN][4]->Fill(tau_p4.Phi(), final_weight);
+	  h[kMth][jTauN][5]->Fill(mu_p4.Pt(), final_weight);
+	  h[kMth][jTauN][6]->Fill(mu_p4.Eta(), final_weight);
+	  h[kMth][jTauN][7]->Fill(mu_p4.Phi(), final_weight);
+	  h[kMth][jTauN][8]->Fill(dR, final_weight);
+	  h[kMth][jTauN][11]->Fill(met_p4.Pt(), final_weight);
+	  //h[kMth][jTauN][12]->Fill(mc_w_sign);
+	  h[kMth][jTauN][13]->Fill(met_p4.Px()-met_px, final_weight);
+	  h[kMth][jTauN][14]->Fill(Mcol, final_weight);
+	  h[kMth][jTauN][15]->Fill(Mt, final_weight);
+	  h[kMth][jTauN][16]->Fill(reliso, final_weight);
+	  //h[kMth][jTauN][11]->Fill(Mt, final_weight);
+	  //if (cut_zeta < -25) continue;
+
+	}//loop over taus
+      }//loop over muons
+   }//loop over events
+
+
+   file_out->cd();
+   for (unsigned int i = 0; i<histo_names.size(); ++i) for (unsigned int j = 0; j<taun.size(); ++j) for (unsigned int k = 0; k<Mth.size(); ++k) h[k][j][i]->Write();
+   for (unsigned int i = 0; i<h_names.size(); ++i) for (unsigned int j = 0; j<Mth.size(); ++j) for (unsigned int k = 0; k<dms.size(); ++k) for (unsigned int l = 0; l<eta.size(); ++l) for (unsigned int m = 0; m<taun.size(); ++m) hh[i][j][k][l][m]->Write();
+   for (unsigned int i = 0; i<hgen.size(); ++i) hgen[i]->Write();
+   file_out->Close();
+}
