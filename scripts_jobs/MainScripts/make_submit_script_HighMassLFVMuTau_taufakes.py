@@ -5,15 +5,15 @@
 #Note : your code needs to be already compiler (with a .exe extension for this to work)
 
 import os
-from datasets2017 import * #imports dataset paths: pnfn[], myname[] and myoption[] arrays 
+from datasets2018 import * #imports dataset paths: pnfn[], myname[] and myoption[] arrays 
 if __name__ == "__main__":
     location=os.getcwd();
     #name of your *compiled* code (omit the .exe extension)
-    code_area = "/user/dbeghin/Work/MuTauHighMass_2017/"
+    code_area = "/user/dbeghin/Work/MuTauHighMass_2018/"
     code_name = "HighMassLFVMuTau"
     region = "CR101"
-    folder = "/user/dbeghin/Work/MuTauHighMass_2017/HighMassLFVMuTau/Faketaus_CR101/"
-    cms_rel = "/user/dbeghin/2nd/new/CMSSW_10_2_6/src"
+    folder = "/user/dbeghin/Work/MuTauHighMass_2018/HighMassLFVMuTau/Faketaus_CR101/"
+    cms_rel = "/user/dbeghin/2nd/new/CMSSW_10_4_0_patch1/src"
     proxy = "/user/dbeghin/x509up_u$(id -u dbeghin)"
     walltime = "10:00:00"
 

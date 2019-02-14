@@ -276,7 +276,7 @@ void IIHEAnalysis::Loop(string controlregion, string type_of_data, string out_na
       double final_weight = first_weight;
       float pu_weight = 1;
       if (!data) {
-	pu_weight = PU_2017_Rereco::MC_pileup_weight(mc_trueNumInteractions, mc_nickname, "Data_METcorr_2017BtoF");
+	pu_weight = PU_2018_Rereco::MC_pileup_weight(mc_trueNumInteractions, mc_nickname, "Data_2018AtoD");
       }
       
 
@@ -517,9 +517,9 @@ void IIHEAnalysis::Loop(string controlregion, string type_of_data, string out_na
 	  int iTau = orderedTau[jj];
 
 	  TLorentzVector tau_p4, tau_TES_p4, vis_p4, met_p4, metmu_p4, total_p4;
-	  float met_px = MET_eefix_Px;
-	  float met_py = MET_eefix_Py;
-	  float met_pt = MET_eefix_Pt;
+	  float met_px = MET_nominal_Px;
+	  float met_py = MET_nominal_Py;
+	  float met_pt = MET_nominal_Pt;
 	  tau_p4.SetPtEtaPhiE(tau_pt->at(iTau), tau_eta->at(iTau), tau_phi->at(iTau), tau_energy->at(iTau));
 	  met_p4.SetPxPyPzE(met_px, met_py, 0, met_pt);
 	  
