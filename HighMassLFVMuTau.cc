@@ -483,7 +483,13 @@ void IIHEAnalysis::Loop(string controlregion, string type_of_data, string out_na
       if (trig_HLT_Mu50_accept || trig_HLT_OldMu100_accept || trig_HLT_TkMu100_accept) PassTrigger = true;
       if (!PassTrigger) continue;
 
-
+      if(!trig_Flag_goodVertices_accept) continue;
+      if(!trig_Flag_globalSuperTightHalo2016Filter_accept) continue;
+      if(!trig_Flag_HBHENoiseFilter_accept) continue;
+      if(!trig_Flag_HBHENoiseIsoFilter_accept) continue;
+      if(!trig_Flag_EcalDeadCellTriggerPrimitiveFilter_accept) continue;
+      if(!trig_Flag_BadPFMuonFilter_accept) continue;
+      if(!trig_ecalBadCalibReducedMINIAODFilter_accept) continue;
 
 
       //Sort muons, taus by decreasing pt
@@ -545,7 +551,7 @@ void IIHEAnalysis::Loop(string controlregion, string type_of_data, string out_na
 	if (filled_histos) break;//if we've filled the histos once, break out of the loop
 	int iMu = orderedMu[ii];
 	if (mu_ibt_pt->at(iMu) < 53.0) continue;
-	if (!mu_isHighPtMuon->at(iMu)) continue;
+	if (!mu_isHighPtcustomizedId->at(iMu)) continue;
 	if (fabs(mu_ibt_eta->at(iMu)) > 2.4) continue;
 
 
