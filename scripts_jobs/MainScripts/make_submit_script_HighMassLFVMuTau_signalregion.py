@@ -47,8 +47,7 @@ if __name__ == "__main__":
                 command1 = command1 + "mkdir "+folder+"/Out_"+myname[jj] + "\n"  #make the ouptu sub-directory
                 command1 = command1 + "export scratchdir=$TMPDIR " + "\n" #temporary directory to be used for running this job
                 command1 = command1 + "cd $scratchdir" + "\n"      
-                command1 = command1 + "mkdir Reweighting" + "\n"
-                command1 = command1 + "cp " + code_area + "/Reweighting/*.root Reweighting/" + "\n"
+                command1 = command1 + "cp -r " + code_area + "/Reweighting ." + "\n"
                 command1 = command1 + "cp " + code_area + "/" + code_name + ".exe $scratchdir/" + "\n" #copy your code to the temporary directory
                 outFile.write(command1)
                 #Below: command to submit one job to the localgrid

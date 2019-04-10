@@ -20,6 +20,69 @@ float norm_F(float x, float y){
 }
 
 
+float top_reweighting_uncertainty(float top_pt_in){
+  float weight = 0.0;
+  if (top_pt_in < 0.0) {
+    weight = 0.0;
+  } else if (top_pt_in < 150.0) {
+    weight = 0.045;
+  } else if (top_pt_in < 1000.0) {
+    weight = 0.04 * top_pt_in/1000.0 + 0.045;
+  } else if (top_pt_in < 1100.0) {
+    weight = 0.09;
+  } else if (top_pt_in < 1200.0) {
+    weight = 0.1;
+  } else if (top_pt_in < 1400.0) {
+    weight = 0.12;
+  } else if (top_pt_in < 1600.0) {
+    weight = 0.14;
+  } else if (top_pt_in < 1800.0) {
+    weight = 0.155;
+  } else if (top_pt_in < 2000.0) {
+    weight = 0.18;
+  } else if (top_pt_in < 2200.0) {
+    weight = 0.2;
+  } else if (top_pt_in < 2600.0) {
+    weight = 0.243;
+  } else if (top_pt_in < 3000.0) {
+    weight = 0.34;
+  } else if (top_pt_in > 2999.9) {
+    weight = 0.34;
+  }
+  return weight;
+}
+
+
+
+double FakeRate_unfactorised(double taupt, double ratio, TString eta) {
+  double SF=0.2;
+  if (taupt >= 1000) taupt = 999;
+  if (ratio >= 2) ratio = 1.9;
+
+  TFile* fake_file = new TFile("Reweighting/fakerate_unfactorised_MtLow.root","R");
+
+  double reweight = 0;
+
+  TString hname = "eta_"+eta;
+  if (taupt > 150) {
+    hname += "_taupt_150_1000";
+  }
+  else {
+    hname += "_taupt_0_150";
+  }
+
+  TH1F* h_taupt = (TH1F*) fake_file->Get("FakeRateByTauPtAndRatio_"+hname);
+  int iBin = h_taupt->FindBin(taupt, ratio);
+  double base_SF = h_taupt->GetBinContent(iBin);
+  
+  SF = base_SF;
+  reweight = SF;
+
+  return reweight;
+}
+
+
+
 double FakeRate_factorised(double taupt, double ratio, TString eta) {
   double SF=0.2;
   if (taupt >= 1000) taupt = 999;
@@ -175,8 +238,6 @@ pair<double,double> getSF (float mupt, float mueta) {
   double iso_sf = iso_histo->GetBinContent(bin_in);
   iso_file->Close();
 
-  if (id_sf == 0) id_sf = 1.0;
-  if (iso_sf == 0) iso_sf = 1.0;
 
   pair<double, double> SF_pair;
   SF_pair.first =  id_sf;  SF_pair.second =iso_sf;
@@ -188,14 +249,11 @@ double GetReweight_highmass(float mu_pt, float mu_eta) {
   //highest pt for trigger is 1200 GeV
   if (mu_pt >= 1200) mu_pt = 1199;
   //scale factor files that need to be open
-  //TFile* tr_file = new TFile("Reweighting/EfficienciesAndSF_RunBtoF_Nov17Nov2017.root","R");
-  //TH2F* tr_histo = (TH2F*) tr_file->Get("Mu50_PtEtaBins/pt_abseta_ratio");
-  //int bin_in = tr_histo->FindBin(mu_pt, fabs(mu_eta));
-  //double tr_sf = tr_histo->GetBinContent(bin_in);
-  //tr_file->Close();
-  //if (tr_sf == 0) tr_sf = 1.0;
-  double tr_sf = 1.0;
-  //FIXME
+  TFile* tr_file = new TFile("Reweighting/EfficienciesAndSF_2018Data_AfterMuonHLTUpdate.root","R");
+  TH2F* tr_histo = (TH2F*) tr_file->Get("Mu50_OR_OldMu100_OR_TkMu100_PtEtaBins/pt_abseta_ratio");
+  int bin_in = tr_histo->FindBin(mu_pt, fabs(mu_eta));
+  double tr_sf = tr_histo->GetBinContent(bin_in);
+  tr_file->Close();
 
   float muID_sf = getSF(mu_pt, mu_eta).first, muIso_sf = getSF(mu_pt, mu_eta).second;
 
