@@ -1008,24 +1008,44 @@ void IIHEAnalysis::Loop(string controlregion, string type_of_data, string out_na
 	  }
 
 
-	  h[kMth][jTauN][0]->Fill(vis_p4.M(), final_weight);
-	  h[kMth][jTauN][1]->Fill(total_p4.M(), final_weight);
-	  h[kMth][jTauN][2]->Fill(tau_p4.Pt(), final_weight);
-	  h[kMth][jTauN][3]->Fill(tau_p4.Eta(), final_weight);
-	  h[kMth][jTauN][4]->Fill(tau_p4.Phi(), final_weight);
-	  h[kMth][jTauN][5]->Fill(mu_p4.Pt(), final_weight);
-	  h[kMth][jTauN][6]->Fill(mu_p4.Eta(), final_weight);
-	  h[kMth][jTauN][7]->Fill(mu_p4.Phi(), final_weight);
-	  h[kMth][jTauN][8]->Fill(dR, final_weight);
-	  h[kMth][jTauN][11]->Fill(met_p4.Pt(), final_weight);
-	  //h[kMth][jTauN][12]->Fill(mc_w_sign);
-	  h[kMth][jTauN][13]->Fill(met_p4.Px()-met_px, final_weight);
-	  h[kMth][jTauN][14]->Fill(Mcol, final_weight);
-	  h[kMth][jTauN][15]->Fill(Mt, final_weight);
-	  h[kMth][jTauN][16]->Fill(reliso, final_weight);
-	  h[kMth][jTauN][17]->Fill(sign_number, final_weight);
-	  //h[kMth][jTauN][11]->Fill(Mt, final_weight);
-	  //if (cut_zeta < -25) continue;
+	  bool stopFilling = false;
+	  int k_value = kMth;
+	  int n_fuel = 0;
+	  while (!stopFilling && n_fuel<2) {
+	    ++n_fuel;
+
+	    h[k_value][jTauN][0]->Fill(vis_p4.M(), final_weight);
+	    h[k_value][jTauN][1]->Fill(total_p4.M(), final_weight);
+	    h[k_value][jTauN][2]->Fill(tau_p4.Pt(), final_weight);
+	    h[k_value][jTauN][3]->Fill(tau_p4.Eta(), final_weight);
+	    h[k_value][jTauN][4]->Fill(tau_p4.Phi(), final_weight);
+	    h[k_value][jTauN][5]->Fill(mu_p4.Pt(), final_weight);
+	    h[k_value][jTauN][6]->Fill(mu_p4.Eta(), final_weight);
+	    h[k_value][jTauN][7]->Fill(mu_p4.Phi(), final_weight);
+	    h[k_value][jTauN][8]->Fill(dR, final_weight);
+	    h[k_value][jTauN][11]->Fill(met_p4.Pt(), final_weight);
+	    //h[k_value][jTauN][12]->Fill(mc_w_sign);
+	    h[k_value][jTauN][13]->Fill(met_p4.Px()-met_px, final_weight);
+	    h[k_value][jTauN][14]->Fill(Mcol, final_weight);
+	    h[k_value][jTauN][15]->Fill(Mt, final_weight);
+	    h[k_value][jTauN][16]->Fill(reliso, final_weight);
+	    h[k_value][jTauN][17]->Fill(sign_number, final_weight);
+	    if (k_value == k_high_TT || k_value == k_low_TT) stopFilling = true;
+	    if (k_value == kMth) {
+	      if (isHighTTCR) {
+		k_value = k_high_TT;
+		final_weight *= bjet_weight;
+	      }
+	      else if (isLowTTCR) {
+		k_value = k_low_TT;
+		final_weight *= bjet_weight;
+	      } 
+	      else {
+		stopFilling = true;
+	      }
+	    }
+	  }
+	    
 
 	}//loop over taus
       }//loop over muons
