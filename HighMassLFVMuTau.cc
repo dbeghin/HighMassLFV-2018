@@ -329,10 +329,12 @@ void IIHEAnalysis::Loop(string controlregion, string type_of_data, string out_na
    long n1=0, n2=0;
    int print_count = 0;
    //start loop over all events
+   cout << nEntries << endl;
    for (Long64_t jEntry = 0; jEntry < nEntries; ++jEntry) {
       Long64_t iEntry = LoadTree(jEntry);
       if (iEntry < 0) break;
       if (jEntry % 1000 == 0) fprintf(stdout, "\r  Processed events: %8d of %8d ", jEntry, nEntries);
+
 
       nb = fChain->GetEntry(jEntry);
       nbytes += nb;
@@ -465,7 +467,6 @@ void IIHEAnalysis::Loop(string controlregion, string type_of_data, string out_na
       //close the is this TT inclusive question
       //if (reject_event) continue;
       //FIXME when there are high mass samples
-
       
       double TT_ptreweight = 1, w_top_up = 1, w_top_down = 1;
       if(TT) {
@@ -495,7 +496,6 @@ void IIHEAnalysis::Loop(string controlregion, string type_of_data, string out_na
 	  }
 	}
       }
-      
 
       vector<TLorentzVector> tauhp4;
       tauhp4.clear();
@@ -531,7 +531,6 @@ void IIHEAnalysis::Loop(string controlregion, string type_of_data, string out_na
       }//end is this not-data? condition
 
 
-
       //Is one of the triggers fired?
       //FIXME
       bool PassTrigger = false;
@@ -544,7 +543,7 @@ void IIHEAnalysis::Loop(string controlregion, string type_of_data, string out_na
       if(!trig_Flag_HBHENoiseIsoFilter_accept) continue;
       if(!trig_Flag_EcalDeadCellTriggerPrimitiveFilter_accept) continue;
       if(!trig_Flag_BadPFMuonFilter_accept) continue;
-      if(!MET_ecalBadCalibFilterUpdate_2018) continue;
+      //if(!MET_ecalBadCalibFilterUpdate_2018) continue;
 
 
 

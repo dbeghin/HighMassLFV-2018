@@ -15,7 +15,7 @@ def add_lumi():
     lumi.SetTextColor(    1 )
     lumi.SetTextSize(0.06)
     lumi.SetTextFont (   42 )
-    lumi.AddText("2017, 41.53 fb^{-1} (13 TeV)")
+    lumi.AddText("2018, 58.36 fb^{-1} (13 TeV)")
     return lumi
 
 def add_CMS():
@@ -79,11 +79,10 @@ var.append("mu_eta")
 var.append("mu_phi")           
 var.append("mu_isolation")           
 var.append("ev_DRmutau")       
-var.append("ev_DeltaPhimutau") 
-var.append("ev_DeltaPhiMETtau")
 var.append("ev_MET") 
 var.append("ev_Mcol")
 var.append("ev_Mt")
+var.append("sign")
 
 var_log_dic = {
 "ev_Mvis"          : True,           
@@ -96,11 +95,10 @@ var_log_dic = {
 "mu_phi"           : False,       
 "mu_isolation"     : True,       
 "ev_DRmutau"       : False, 
-"ev_DeltaPhimutau" : False,
-"ev_DeltaPhiMETtau": False,
 "ev_MET"           : True,
 "ev_Mcol"          : True,
 "ev_Mt"            : True,
+"sign"             : False,
 }
 
 nvar=len(var)
@@ -117,17 +115,18 @@ photogenic_var.append("#mu #eta")
 photogenic_var.append("#mu #phi")
 photogenic_var.append("#mu iso")
 photogenic_var.append("#DeltaR (#mu #tau)")
-photogenic_var.append("#Delta#Phi (#mu #tau)")
-photogenic_var.append("#Delta#Phi (E_{T}^{miss} #tau)")
 photogenic_var.append("E_{T}^{miss} (GeV)")
 photogenic_var.append("m_{col}")
 photogenic_var.append("m_{T}")
+photogenic_var.append("OS (left) and SS (right)")
 
 
 Mth=[
 "_MtHigh", 
+"_MtHigh_TT", 
 "_MtLow_OS",
-"_MtLow_SS"
+"_MtLow_SS",
+"_MtLow_TT",
 ]
 
 
@@ -137,7 +136,7 @@ for k in range (0,nvar):
         print var_in
         Data=file.Get("data_"+var_in)
         #QCD=file.Get("QCD_"+var_in)
-        W=file.Get("WJets_"+var_in)
+        #W=file.Get("WJets_"+var_in)
         TT=file.Get("TT_"+var_in)
         VV=file.Get("VV_"+var_in)
         DY=file.Get("DY_"+var_in)

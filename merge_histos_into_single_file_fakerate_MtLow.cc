@@ -18,11 +18,18 @@
 using namespace std;
 
 
-TH1F* MC_histo(TString var, TFile* file_in, double xs, long Nevents, int rebin) {
+TH1F* MC_histo(TString var, TFile* file_in, TFile* file_in_d, double xs, int rebin) {
   cout << file_in->GetName() << endl;
 
-  double lumi = 58.36 * pow(10,3); //luminosity in pb^-1
+  TH1F* h_events_data = (TH1F*) file_in_d->Get("weighted_events");
+  double full_data = 7.86454e+08;
+  double succ_data_ratio = h_events_data->Integral()/full_data;
+  cout << "succesfull data ratio " << succ_data_ratio << endl;
 
+  double lumi = 58.36 * pow(10,3) * succ_data_ratio; //luminosity in pb^-1
+
+  TH1F* h_events = (TH1F*) file_in->Get("weighted_events");
+  double Nevents = h_events->Integral();
   double e_Nevents = pow(Nevents,0.5);
   double e_xs = 0.01*xs;
 
@@ -41,11 +48,18 @@ TH1F* MC_histo(TString var, TFile* file_in, double xs, long Nevents, int rebin) 
 }
 
 
-TH2F* MC_histo_TH2(TString var, TFile* file_in, double xs, long Nevents, int rebin) {
+TH2F* MC_histo_TH2(TString var, TFile* file_in, TFile* file_in_d, double xs, int rebin) {
   cout << file_in->GetName() << endl;
 
-  double lumi = 58.36 * pow(10,3); //luminosity in pb^-1
+  TH1F* h_events_data = (TH1F*) file_in_d->Get("weighted_events");
+  double full_data = 9.2320640e+08*1.02;
+  double succ_data_ratio = h_events_data->Integral()/full_data;
+  cout << "succesfull data ratio " << succ_data_ratio << endl;
 
+  double lumi = 58.36 * pow(10,3) * succ_data_ratio; //luminosity in pb^-1
+
+  TH1F* h_events = (TH1F*) file_in->Get("weighted_events");
+  double Nevents = h_events->Integral();
   double e_Nevents = pow(Nevents,0.5);
   double e_xs = 0.01*xs;
 
@@ -152,13 +166,6 @@ int main(int argc, char** argv) {
   //double xs_DY_1500to2000 = 0.002181;	   xs_DY.push_back(xs_DY_1500to2000);
   //double xs_DY_2000to3000 = 0.0005129;     xs_DY.push_back(xs_DY_2000to3000);
 
-  vector<double> xs_WJets;
-  double xs_WJets_lowpt = 61526.7;         xs_WJets.push_back(xs_WJets_lowpt);	 
-  double xs_WJets_100to250 = 627.1;        xs_WJets.push_back(xs_WJets_100to250);
-  double xs_WJets_250to400 = 21.8;	   xs_WJets.push_back(xs_WJets_250to400);
-  double xs_WJets_400to600 = 2.635;	   xs_WJets.push_back(xs_WJets_400to600);
-  double xs_WJets_600toInf = 0.4102;       xs_WJets.push_back(xs_WJets_600toInf);
-
   vector<double> xs_TT;
   xs_TT.push_back(831.76*0.438); //semilep
   xs_TT.push_back(831.76*0.457); //had
@@ -176,32 +183,6 @@ int main(int argc, char** argv) {
   double xs_ZZ = 10.32;
   double xs_signal = 20;
 
-  //Nevents
-  vector<double> N_DY;
-  //double N_DY_lowmass = 142161151;  N_DY.push_back(N_DY_lowmass);   
-  //double N_DY_lowmass = 18576627;  N_DY.push_back(N_DY_lowmass);   
-  double N_DY_lowmass = 100114403;  N_DY.push_back(N_DY_lowmass);   
-
-  vector<double> N_TT;
-  N_TT.push_back(100728756); //semilep
-  N_TT.push_back(132566902); //had
-  N_TT.push_back(63751842); //2l2nu
-
-  vector<double> N_WW;
-  double N_WW_lowm = 7850000;         N_WW.push_back(N_WW_lowm);
-  //double N_WW_200to600 = 199991;             N_WW.push_back(N_WW_200to600); 
-  //double N_WW_600to1200 = 74997;             N_WW.push_back(N_WW_600to1200); 
-  //double N_WW_1200to2500 = 99992;            N_WW.push_back(N_WW_1200to2500); 
-  //double N_WW_2500toInf = 13968;             N_WW.push_back(N_WW_2500toInf); 
-
-  double N_ST_top = 3256548;
-  double N_ST_antitop = 3256309;
-
-  double N_WZ = 3885000;
-  double N_ZZ = 1979000;
-
-
-  double N_signal = 14994;
   TString var_in, var_out;
 
   file_out->cd();
@@ -217,7 +198,7 @@ int main(int argc, char** argv) {
             
 	    vector<TH2F*> h_DY_vector;
 	    for (unsigned int iBin = 0; iBin<DY_files.size(); ++iBin) {
-	      h_DY_vector.push_back( MC_histo_TH2(var_in, DY_files[iBin], xs_DY[iBin], N_DY[iBin], rebin) ); 
+	      h_DY_vector.push_back( MC_histo_TH2(var_in, DY_files[iBin], file_in_data, xs_DY[iBin], rebin) ); 
 	    }
 	    TH2F* h_DY = (TH2F*) h_DY_vector[0]->Clone("DY_"+var_out);
 	    for (unsigned int iBin = 1; iBin<DY_files.size(); ++iBin) {
@@ -237,7 +218,7 @@ int main(int argc, char** argv) {
 
 	    vector<TH2F*> h_TT_vector;
 	    for (unsigned int iBin = 0; iBin<TT_files.size(); ++iBin) {
-	      h_TT_vector.push_back( MC_histo_TH2(var_in, TT_files[iBin], xs_TT[iBin], N_TT[iBin], rebin) ); 
+	      h_TT_vector.push_back( MC_histo_TH2(var_in, TT_files[iBin], file_in_data, xs_TT[iBin], rebin) ); 
 	    }
 	    TH2F* h_TT = (TH2F*) h_TT_vector[0]->Clone("TT_"+var_out);
 	    for (unsigned int iBin = 1; iBin<h_TT_vector.size(); ++iBin) {
@@ -247,15 +228,15 @@ int main(int argc, char** argv) {
             
 	    vector<TH2F*> h_WW_vector;
 	    for (unsigned int iBin = 0; iBin<WW_files.size(); ++iBin) {
-	      h_WW_vector.push_back( MC_histo_TH2(var_in, WW_files[iBin], xs_WW[iBin], N_WW[iBin], rebin) ); 
+	      h_WW_vector.push_back( MC_histo_TH2(var_in, WW_files[iBin], file_in_data, xs_WW[iBin], rebin) ); 
 	    }
 	    TH2F* h_WW = (TH2F*) h_WW_vector[0]->Clone("WW_"+var_out);
 	    for (unsigned int iBin = 1; iBin<h_WW_vector.size(); ++iBin) {
 	      h_WW->Add(h_WW_vector[iBin]);
 	    }
             
-	    TH2F* h_WZ = MC_histo_TH2(var_in, file_in_WZ, xs_WZ, N_WZ, rebin);
-	    TH2F* h_ZZ = MC_histo_TH2(var_in, file_in_ZZ, xs_ZZ, N_ZZ, rebin);
+	    TH2F* h_WZ = MC_histo_TH2(var_in, file_in_WZ, file_in_data, xs_WZ, rebin);
+	    TH2F* h_ZZ = MC_histo_TH2(var_in, file_in_ZZ, file_in_data, xs_ZZ, rebin);
 	    TH2F* h_VV = (TH2F*) h_WW->Clone("VV_"+var_out);
 	    h_VV->Add(h_WZ);
 	    h_VV->Add(h_ZZ);

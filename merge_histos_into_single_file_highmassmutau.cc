@@ -17,11 +17,18 @@
 using namespace std;
 
 
-TH1F* MC_histo(TString var, TFile* file_in, double xs, long Nevents, int rebin) {
+TH1F* MC_histo(TString var, TFile* file_in, TFile* file_in_d, double xs, int rebin) {
 
   cout << file_in->GetName() << endl;
 
-  double lumi = 58.36 * pow(10,3); //luminosity in pb^-1
+  TH1F* h_events_data = (TH1F*) file_in_d->Get("weighted_events");
+  double full_data = 9.3766734e+08;
+  double succ_data_ratio = h_events_data->Integral()/full_data;
+  cout << "succesfull data ratio " << succ_data_ratio << endl;
+  double lumi = 58.36 * pow(10,3) * succ_data_ratio; //luminosity in pb^-1
+
+  TH1F* h_events = (TH1F*) file_in->Get("weighted_events");
+  double Nevents = h_events->Integral();
 
   double e_Nevents = pow(Nevents,0.5);
   double e_xs = 0.01*xs;
@@ -118,23 +125,6 @@ int main(int argc, char** argv) {
     file_in_faketau = new TFile("HighMassLFVMuTau/Faketaus_CR102.root", "R");
   }
 
-  TFile* file_in_QCD = new TFile(folder_in+"/Arranged_QCD/QCD.root", "R");
-  vector<TFile*> QCD_files;
-  TFile* file_in_QCD_15to30 = new TFile(folder_in+"/Arranged_QCD/QCD_15to30.root", "R");              QCD_files.push_back(file_in_QCD_15to30);
-  TFile* file_in_QCD_30to50 = new TFile(folder_in+"/Arranged_QCD/QCD_30to50.root", "R");              QCD_files.push_back(file_in_QCD_30to50);
-  TFile* file_in_QCD_50to80 = new TFile(folder_in+"/Arranged_QCD/QCD_50to80.root", "R");              QCD_files.push_back(file_in_QCD_50to80);
-  TFile* file_in_QCD_80to120 = new TFile(folder_in+"/Arranged_QCD/QCD_80to120.root", "R");            QCD_files.push_back(file_in_QCD_80to120);
-  TFile* file_in_QCD_120to170 = new TFile(folder_in+"/Arranged_QCD/QCD_120to170.root", "R");          QCD_files.push_back(file_in_QCD_120to170);
-  TFile* file_in_QCD_170to300 = new TFile(folder_in+"/Arranged_QCD/QCD_170to300.root", "R");          QCD_files.push_back(file_in_QCD_170to300);
-  TFile* file_in_QCD_300to470 = new TFile(folder_in+"/Arranged_QCD/QCD_300to470.root", "R");          QCD_files.push_back(file_in_QCD_300to470);
-  TFile* file_in_QCD_470to600 = new TFile(folder_in+"/Arranged_QCD/QCD_470to600.root", "R");          QCD_files.push_back(file_in_QCD_470to600);
-  TFile* file_in_QCD_600to800 = new TFile(folder_in+"/Arranged_QCD/QCD_600to800.root", "R");          QCD_files.push_back(file_in_QCD_600to800);
-  TFile* file_in_QCD_800to1000 = new TFile(folder_in+"/Arranged_QCD/QCD_800to1000.root", "R");        QCD_files.push_back(file_in_QCD_800to1000);
-  TFile* file_in_QCD_1000to1400 = new TFile(folder_in+"/Arranged_QCD/QCD_1000to1400.root", "R");      QCD_files.push_back(file_in_QCD_1000to1400);
-  TFile* file_in_QCD_1400to1800 = new TFile(folder_in+"/Arranged_QCD/QCD_1400to1800.root", "R");      QCD_files.push_back(file_in_QCD_1400to1800);
-  TFile* file_in_QCD_1800to2400 = new TFile(folder_in+"/Arranged_QCD/QCD_1800to2400.root", "R");      QCD_files.push_back(file_in_QCD_1800to2400);
-  TFile* file_in_QCD_2400to3200 = new TFile(folder_in+"/Arranged_QCD/QCD_2400to3200.root", "R");      QCD_files.push_back(file_in_QCD_2400to3200);
-  
 
   TFile* file_in_WJets = new TFile(folder_in+"/Arranged_WJets/WJets.root", "R");
   vector<TFile*> WJets_files;
@@ -177,12 +167,11 @@ int main(int argc, char** argv) {
   vars.push_back("mu_eta");           
   vars.push_back("mu_phi");           
   vars.push_back("ev_DRmutau");       
-  vars.push_back("ev_DeltaPhimutau"); 
-  vars.push_back("ev_DeltaPhiMETtau");
   vars.push_back("ev_Mt");        
   vars.push_back("ev_MET"); 
   vars.push_back("ev_Mcol"); 
   vars.push_back("mu_isolation"); 
+  vars.push_back("sign"); 
   //if (CR == "CR7") vars.push_back("ev_Mt"); 
   //if (CR == "CR9") vars.push_back("ev_Mt"); 
 
@@ -194,7 +183,9 @@ int main(int argc, char** argv) {
   vector<TString> Mth;
   Mth.push_back("MtLow_OS");
   Mth.push_back("MtLow_SS");
+  Mth.push_back("MtLow_TT");
   Mth.push_back("MtHigh");
+  Mth.push_back("MtHigh_TT");
 
 
   //cross-sections
@@ -287,7 +278,7 @@ int main(int argc, char** argv) {
         
         vector<TH1F*> h_DY_vector;
         for (unsigned int iBin = 0; iBin<DY_files.size(); ++iBin) {
-          h_DY_vector.push_back( MC_histo(var_in, DY_files[iBin], xs_DY[iBin], N_DY[iBin], rebin) ); 
+          h_DY_vector.push_back( MC_histo(var_in, DY_files[iBin], file_in_data, xs_DY[iBin], rebin) ); 
         }
         TH1F* h_DY = (TH1F*) h_DY_vector[0]->Clone("DY_"+var_out);
         for (unsigned int iBin = 1; iBin<DY_files.size(); ++iBin) {
@@ -296,36 +287,9 @@ int main(int argc, char** argv) {
         }
         h_DY->Write();
         
-        if (CR == "CR00") {
-          TH1F* h_faketau = (TH1F*) file_in_faketau->Get("faketau_"+var_in);
-          h_faketau->Write();
-        }
-        else {
-          if (CR == "CR0" || CR == "CR2") {
-            TH1F* h_QCD = (TH1F*) file_in_QCD->Get("QCD_"+var_in);
-            h_QCD->Write();
-          }
-          
-          if (CR == "CR0") {
-            TH1F* h_WJets = (TH1F*) file_in_WJets->Get("WJets_"+var_in);
-            h_WJets->Write();
-          }
-          else {
-            //vector<TH1F*> h_WJets_vector;
-            //for (unsigned int iBin = 0; iBin<WJets_files.size(); ++iBin) {
-	    //  h_WJets_vector.push_back( MC_histo(var_in, WJets_files[iBin], xs_WJets[iBin], N_WJets[iBin], rebin) ); 
-            //}
-            //TH1F* h_WJets = (TH1F*) h_WJets_vector[0]->Clone("WJets_"+var_out);
-            //for (unsigned int iBin = 1; iBin<WJets_files.size(); ++iBin) {
-	    //  h_WJets->Add(h_WJets_vector[iBin]);
-            //}
-            //h_WJets->Write();
-          }
-        }
-      
         vector<TH1F*> h_TT_vector;
         for (unsigned int iBin = 0; iBin<TT_files.size(); ++iBin) {
-          h_TT_vector.push_back( MC_histo(var_in, TT_files[iBin], xs_TT[iBin], N_TT[iBin], rebin) ); 
+          h_TT_vector.push_back( MC_histo(var_in, TT_files[iBin], file_in_data, xs_TT[iBin], rebin) ); 
         }
         TH1F* h_TT = (TH1F*) h_TT_vector[0]->Clone("TT_"+var_out);
         for (unsigned int iBin = 1; iBin<h_TT_vector.size(); ++iBin) {
@@ -337,7 +301,7 @@ int main(int argc, char** argv) {
         vector<TH1F*> h_WW_vector;
         for (unsigned int iBin = 0; iBin<WW_files.size(); ++iBin) {
 	  //if (iBin > 0) break;
-          h_WW_vector.push_back( MC_histo(var_in, WW_files[iBin], xs_WW[iBin], N_WW[iBin], rebin) ); 
+          h_WW_vector.push_back( MC_histo(var_in, WW_files[iBin], file_in_data, xs_WW[iBin], rebin) ); 
         }
         TH1F* h_WW = (TH1F*) h_WW_vector[0]->Clone("WW_"+var_out);
         for (unsigned int iBin = 1; iBin<h_WW_vector.size(); ++iBin) {
@@ -345,8 +309,8 @@ int main(int argc, char** argv) {
         }
         
           
-        TH1F* h_WZ = MC_histo(var_in, file_in_WZ, xs_WZ, N_WZ, rebin);
-        TH1F* h_ZZ = MC_histo(var_in, file_in_ZZ, xs_ZZ, N_ZZ, rebin);
+        TH1F* h_WZ = MC_histo(var_in, file_in_WZ, file_in_data, xs_WZ, rebin);
+        TH1F* h_ZZ = MC_histo(var_in, file_in_ZZ, file_in_data, xs_ZZ, rebin);
         TH1F* h_VV = (TH1F*) h_WW->Clone("VV_"+var_out);
         h_VV->Add(h_WZ);
         h_VV->Add(h_ZZ);
