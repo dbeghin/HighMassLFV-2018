@@ -50,7 +50,7 @@ int main(/*int argc, char** argv*/) {
 
   vector<vector<float>> ypoints;										      
   vector<float> ypoints_left {0, 0.5, 0.6, 0.7, 0.75, 0.8, 1., 3.};      ypoints.push_back(ypoints_left); 
-  vector<float> ypoints_right {0, 0.6, 0.7, 0.8, 1., 3};		               ypoints.push_back(ypoints_right);
+  vector<float> ypoints_right {0, 0.7, 0.8, 1., 3};		               ypoints.push_back(ypoints_right);
 
   vector<TH2F*> h[names.size()][vars.size()][dms.size()];
   for (unsigned int j=0; j<names.size(); ++j) {
@@ -147,7 +147,7 @@ int main(/*int argc, char** argv*/) {
 	    ++iBinX;
 	  }
 	  
-	  //if (bin_content < 0) bin_content = 0;
+	  if (bin_content < 0) bin_content = 0;
 	  if (k%2 == 0) {
 	    hpass_data[half_k][sector][i]->SetBinContent(jBinX, jBinY, bin_content);
 	    hpass_data[half_k][sector][i]->SetBinError(jBinX, jBinY, sqrt(bin_error));

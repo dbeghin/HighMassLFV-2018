@@ -126,7 +126,13 @@ double GetCollinearMass(TLorentzVector tau, TLorentzVector mu,  TLorentzVector M
   double xth=1;
   if((tau.Pt()+METproj)!=0) xth=tau.Pt()/(tau.Pt()+METproj);
   double mass_vis=(tau+mu).M();
-  return mass_vis/sqrt(xth);
+  double mcol = 0;
+  if (mass_vis != mass_vis) mass_vis=0;
+
+  if (xth>0) mcol=mass_vis/sqrt(xth);
+  else mcol=0;
+
+  return mcol;
 }
 
 

@@ -273,6 +273,7 @@ public :
    vector<float>   *gsf_sc_lazyTools_eseffsirir;
    vector<float>   *gsf_sc_lazyTools_BasicClusterSeedTime;
    vector<int>     *gsf_isHeepV7;
+   vector<int>     *gsf_VID_heepElectronID_HEEPV70;
    Int_t           EHits_isSaturated;
    vector<int>     *EBHits_rawId;
    vector<int>     *EBHits_iRechit;
@@ -555,6 +556,7 @@ public :
    vector<float>   *jet_DeepJet;
    vector<float>   *jet_DeepCSV;
    vector<int>     *jet_isJetIDLoose;
+   vector<int>     *jet_isJetID_2018;
    vector<int>     *jet_isJetIDTight;
    vector<int>     *jet_isJetIDTightLepVeto;
    vector<float>   *jet_Smeared_pt;
@@ -762,6 +764,7 @@ public :
    vector<float>   *tau_byVTightIsolationMVArun2v1DBoldDMwLT2016;
    vector<float>   *tau_byVVTightIsolationMVArun2v1DBoldDMwLT2016;
    Int_t           trig_Flag_HBHENoiseFilter_accept;
+   Int_t           trig_Flag_ecalBadCalibReduced;
    Int_t           trig_Flag_HBHENoiseIsoFilter_accept;
    Int_t           trig_Flag_CSCTightHaloFilter_accept;
    Int_t           trig_Flag_CSCTightHaloTrkMuUnvetoFilter_accept;
@@ -1828,6 +1831,7 @@ public :
    TBranch        *b_gsf_sc_lazyTools_eseffsirir;   //!
    TBranch        *b_gsf_sc_lazyTools_BasicClusterSeedTime;   //!
    TBranch        *b_gsf_isHeepV7;   //!
+   TBranch        *b_gsf_VID_heepElectronID_HEEPV70;   //!
    TBranch        *b_EHits_isSaturated;   //!
    TBranch        *b_EBHits_rawId;   //!
    TBranch        *b_EBHits_iRechit;   //!
@@ -2110,6 +2114,7 @@ public :
    TBranch        *b_jet_DeepJet;   //!
    TBranch        *b_jet_DeepCSV;   //!
    TBranch        *b_jet_isJetIDLoose;   //!
+   TBranch        *b_jet_isJetID_2018;   //!
    TBranch        *b_jet_isJetIDTight;   //!
    TBranch        *b_jet_isJetIDTightLepVeto;   //!
    TBranch        *b_jet_Smeared_pt;   //!
@@ -2317,6 +2322,7 @@ public :
    TBranch        *b_tau_byVTightIsolationMVArun2v1DBoldDMwLT2016;   //!
    TBranch        *b_tau_byVVTightIsolationMVArun2v1DBoldDMwLT2016;   //!
    TBranch        *b_trig_Flag_HBHENoiseFilter_accept;   //!
+   TBranch        *b_trig_Flag_ecalBadCalibReduced;   //!
    TBranch        *b_trig_Flag_HBHENoiseIsoFilter_accept;   //!
    TBranch        *b_trig_Flag_CSCTightHaloFilter_accept;   //!
    TBranch        *b_trig_Flag_CSCTightHaloTrkMuUnvetoFilter_accept;   //!
@@ -3420,6 +3426,7 @@ void IIHEAnalysis::Init(TTree *tree)
    gsf_sc_lazyTools_eseffsirir = 0;
    gsf_sc_lazyTools_BasicClusterSeedTime = 0;
    gsf_isHeepV7 = 0;
+   gsf_VID_heepElectronID_HEEPV70 = 0;
    EBHits_rawId = 0;
    EBHits_iRechit = 0;
    EBHits_energy = 0;
@@ -3699,6 +3706,7 @@ void IIHEAnalysis::Init(TTree *tree)
    jet_DeepJet = 0;
    jet_DeepCSV = 0;
    jet_isJetIDLoose = 0;
+   jet_isJetID_2018 = 0;
    jet_isJetIDTight = 0;
    jet_isJetIDTightLepVeto = 0;
    jet_Smeared_pt = 0;
@@ -4545,6 +4553,7 @@ void IIHEAnalysis::Init(TTree *tree)
    fChain->SetBranchAddress("gsf_sc_lazyTools_eseffsirir", &gsf_sc_lazyTools_eseffsirir, &b_gsf_sc_lazyTools_eseffsirir);
    fChain->SetBranchAddress("gsf_sc_lazyTools_BasicClusterSeedTime", &gsf_sc_lazyTools_BasicClusterSeedTime, &b_gsf_sc_lazyTools_BasicClusterSeedTime);
    fChain->SetBranchAddress("gsf_isHeepV7", &gsf_isHeepV7, &b_gsf_isHeepV7);
+   fChain->SetBranchAddress("gsf_VID_heepElectronID_HEEPV70", &gsf_VID_heepElectronID_HEEPV70, &b_gsf_VID_heepElectronID_HEEPV70);
    fChain->SetBranchAddress("EHits_isSaturated", &EHits_isSaturated, &b_EHits_isSaturated);
    fChain->SetBranchAddress("EBHits_rawId", &EBHits_rawId, &b_EBHits_rawId);
    fChain->SetBranchAddress("EBHits_iRechit", &EBHits_iRechit, &b_EBHits_iRechit);
@@ -4827,6 +4836,7 @@ void IIHEAnalysis::Init(TTree *tree)
    fChain->SetBranchAddress("jet_DeepJet", &jet_DeepJet, &b_jet_DeepJet);
    fChain->SetBranchAddress("jet_DeepCSV", &jet_DeepCSV, &b_jet_DeepCSV);
    fChain->SetBranchAddress("jet_isJetIDLoose", &jet_isJetIDLoose, &b_jet_isJetIDLoose);
+   fChain->SetBranchAddress("jet_isJetID_2018", &jet_isJetID_2018, &b_jet_isJetID_2018);
    fChain->SetBranchAddress("jet_isJetIDTight", &jet_isJetIDTight, &b_jet_isJetIDTight);
    fChain->SetBranchAddress("jet_isJetIDTightLepVeto", &jet_isJetIDTightLepVeto, &b_jet_isJetIDTightLepVeto);
    fChain->SetBranchAddress("jet_Smeared_pt", &jet_Smeared_pt, &b_jet_Smeared_pt);
@@ -5034,6 +5044,7 @@ void IIHEAnalysis::Init(TTree *tree)
    fChain->SetBranchAddress("tau_byVTightIsolationMVArun2v1DBoldDMwLT2016", &tau_byVTightIsolationMVArun2v1DBoldDMwLT2016, &b_tau_byVTightIsolationMVArun2v1DBoldDMwLT2016);
    fChain->SetBranchAddress("tau_byVVTightIsolationMVArun2v1DBoldDMwLT2016", &tau_byVVTightIsolationMVArun2v1DBoldDMwLT2016, &b_tau_byVVTightIsolationMVArun2v1DBoldDMwLT2016);
    fChain->SetBranchAddress("trig_Flag_HBHENoiseFilter_accept", &trig_Flag_HBHENoiseFilter_accept, &b_trig_Flag_HBHENoiseFilter_accept);
+   fChain->SetBranchAddress("trig_Flag_ecalBadCalibReduced", &trig_Flag_ecalBadCalibReduced, &b_trig_Flag_ecalBadCalibReduced);
    fChain->SetBranchAddress("trig_Flag_HBHENoiseIsoFilter_accept", &trig_Flag_HBHENoiseIsoFilter_accept, &b_trig_Flag_HBHENoiseIsoFilter_accept);
    fChain->SetBranchAddress("trig_Flag_CSCTightHaloFilter_accept", &trig_Flag_CSCTightHaloFilter_accept, &b_trig_Flag_CSCTightHaloFilter_accept);
    fChain->SetBranchAddress("trig_Flag_CSCTightHaloTrkMuUnvetoFilter_accept", &trig_Flag_CSCTightHaloTrkMuUnvetoFilter_accept, &b_trig_Flag_CSCTightHaloTrkMuUnvetoFilter_accept);
