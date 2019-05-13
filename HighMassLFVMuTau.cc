@@ -246,8 +246,8 @@ void IIHEAnalysis::Loop(string controlregion, string type_of_data, string out_na
 
    //list here the names and x-axis ranges of all reco-level histos we wish to create :
    vector<TString> histo_names;               vector<int> nBins;     vector<float> x_min,   x_max; 
-   histo_names.push_back("ev_Mvis");          nBins.push_back(4000); x_min.push_back(0);    x_max.push_back(4000);
-   histo_names.push_back("ev_Mtot");          nBins.push_back(4000); x_min.push_back(0);    x_max.push_back(4000);
+   histo_names.push_back("ev_Mvis");          nBins.push_back(8000); x_min.push_back(0);    x_max.push_back(8000);
+   histo_names.push_back("ev_Mtot");          nBins.push_back(8000); x_min.push_back(0);    x_max.push_back(8000);
    histo_names.push_back("tau_pt");           nBins.push_back(1000); x_min.push_back(0);    x_max.push_back(1000);
    histo_names.push_back("tau_eta");          nBins.push_back(50);  x_min.push_back(-2.5); x_max.push_back(2.5);
    histo_names.push_back("tau_phi");          nBins.push_back(64);  x_min.push_back(-3.2); x_max.push_back(3.2);
@@ -260,8 +260,8 @@ void IIHEAnalysis::Loop(string controlregion, string type_of_data, string out_na
    histo_names.push_back("ev_MET");           nBins.push_back(1000); x_min.push_back(0);    x_max.push_back(1000);
    histo_names.push_back("ev_weight");        nBins.push_back(400);  x_min.push_back(-2);   x_max.push_back(2);
    histo_names.push_back("ev_deltaMET");      nBins.push_back(200);  x_min.push_back(-100); x_max.push_back(100);
-   histo_names.push_back("ev_Mcol");          nBins.push_back(4000); x_min.push_back(0);    x_max.push_back(4000);
-   histo_names.push_back("ev_Mt");            nBins.push_back(4000); x_min.push_back(0);    x_max.push_back(4000);
+   histo_names.push_back("ev_Mcol");          nBins.push_back(8000); x_min.push_back(0);    x_max.push_back(8000);
+   histo_names.push_back("ev_Mt");            nBins.push_back(8000); x_min.push_back(0);    x_max.push_back(8000);
    histo_names.push_back("mu_isolation");     nBins.push_back(200);  x_min.push_back(0);    x_max.push_back(0.2);
    histo_names.push_back("sign");             nBins.push_back(5);    x_min.push_back(0);    x_max.push_back(5);
    int OS_number = 1;
