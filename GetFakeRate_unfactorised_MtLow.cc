@@ -23,7 +23,7 @@ int main(/*int argc, char** argv*/) {
   names.push_back("data_");//0
   names.push_back("DY_");
   names.push_back("TT_");
-  //names.push_back("ST_");
+  names.push_back("ST_");
   names.push_back("VV_");
 
   vector<TString> vars;
@@ -37,6 +37,7 @@ int main(/*int argc, char** argv*/) {
 
   vector<TString> eta;
   eta.push_back("barrel");
+  eta.push_back("transition");
   eta.push_back("endcap");
 
   vector<TString> taun;
