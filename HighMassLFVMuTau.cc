@@ -835,7 +835,7 @@ void IIHEAnalysis::Loop(string controlregion, string type_of_data, string out_na
 	int jTauN=j_real;
 	float dR_threshold = 0.4;
 
-	if (!data && !signal) {
+	if (!data) {
 	  //fill gen histos to understand wth is going on
 	  hgen[7]->Fill(tauhp4.size(), mc_w_sign);
 	  for (unsigned int iGen = 0; iGen<tauhp4.size(); ++iGen) {
