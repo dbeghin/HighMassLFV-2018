@@ -9,7 +9,7 @@ from datasets2018 import * #imports dataset paths: pnfn[], myname[] and myoption
 if __name__ == "__main__":
     location=os.getcwd();
     #name of your *compiled* code (omit the .exe extension)
-    folder = "/user/dbeghin/Work/MuTauHighMass_2018/HighMassLFVMuTau/SignalRegion_CR100/"
+    folder = "/user/dbeghin/Work/MuTauHighMass_2018/HighMassLFVMuTau/Faketaus_CR101/"
     walltime = "01:00:00"
 
     submit_File = open("Submit_hadd.sh" , 'w')

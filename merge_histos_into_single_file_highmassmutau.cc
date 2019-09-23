@@ -23,10 +23,11 @@ TH1F* MC_histo(TString var, TFile* file_in, TFile* file_in_d, double xs, int reb
   cout << file_in->GetName() << endl;
 
   TH1F* h_events_data = (TH1F*) file_in_d->Get("weighted_events");
-  double full_data = 9.3766734e+08;
+  double full_data = 9.45550210575e+08;
   double succ_data_ratio = h_events_data->Integral()/full_data;
   cout << "succesfull data ratio " << succ_data_ratio << endl;
-  double lumi = 58.36 * pow(10,3) * succ_data_ratio; //luminosity in pb^-1
+
+  double lumi = 59.74 * pow(10,3) * succ_data_ratio; //luminosity in pb^-1
 
   TH1F* h_events = (TH1F*) file_in->Get("weighted_events");
   double Nevents = h_events->Integral();
@@ -109,7 +110,7 @@ int main(int argc, char** argv) {
   TFile* file_out = new TFile("Figures/"+name_out+".root", "RECREATE");
 
   vector<TFile*> DY_files;
-  TFile* file_in_DY_lowmass = new TFile(folder_in+"/Arranged_DY/DY.root", "R");            DY_files.push_back(file_in_DY_lowmass);
+  TFile* file_in_DY_lowmass = new TFile(folder_in+"/Arranged_DY/DY_inclusive.root", "R");            DY_files.push_back(file_in_DY_lowmass);
 
   TFile* file_in_faketau;
   if (CR == "CR100") {
@@ -121,15 +122,20 @@ int main(int argc, char** argv) {
 
 
   vector<TFile*> TT_files;
-  TT_files.push_back( new TFile(folder_in+"/Arranged_TT/TT_semilep.root", "R") ); //semilep
-  TT_files.push_back( new TFile(folder_in+"/Arranged_TT/TT_had.root", "R") ); //had
+  //TT_files.push_back( new TFile(folder_in+"/Arranged_TT/TT_semilep.root", "R") ); //semilep
+  //TT_files.push_back( new TFile(folder_in+"/Arranged_TT/TT_had.root", "R") ); //had
   TT_files.push_back( new TFile(folder_in+"/Arranged_TT/TT_2l2nu.root", "R") ); //2l2nu
 
-  vector<TFile*> WW_files;
-  TFile* file_in_WW_lowmll = new TFile(folder_in+"/Arranged_WW/WW.root", "R");             WW_files.push_back(file_in_WW_lowmll);
-
-  TFile* file_in_WZ = new TFile(folder_in+"/Arranged_WZ/WZ.root", "R");
-  TFile* file_in_ZZ = new TFile(folder_in+"/Arranged_ZZ/ZZ.root", "R");
+  vector<TFile*> VV_files;
+  VV_files.push_back( new TFile(folder_in+"/Arranged_WW/WW.root", "R") );
+  //VV_files.push_back( new TFile(folder_in+"/Arranged_WW/WW_600to1200.root", "R") );
+  //VV_files.push_back( new TFile(folder_in+"/Arranged_WW/WW_1200to2500.root", "R") );
+  //VV_files.push_back( new TFile(folder_in+"/Arranged_WW/WW_2500toInf.root", "R") );
+  VV_files.push_back( new TFile(folder_in+"/Arranged_WZ/WZ_2l2q.root", "R") );
+  VV_files.push_back( new TFile(folder_in+"/Arranged_WZ/WZ_3lnu.root", "R") );
+  VV_files.push_back( new TFile(folder_in+"/Arranged_ZZ/ZZ_2l2nu.root", "R") );
+  VV_files.push_back( new TFile(folder_in+"/Arranged_ZZ/ZZ_2l2q.root", "R") );
+  VV_files.push_back( new TFile(folder_in+"/Arranged_ZZ/ZZ_4l.root", "R") );
 
   TFile* file_in_ST = new TFile(folder_in+"/Arranged_ST/ST.root", "R");
 
@@ -156,7 +162,6 @@ int main(int argc, char** argv) {
 
   vector<TString> taun;
   taun.push_back("realtau");
-  if (CR!="CR100") taun.push_back("faketau");
 
   vector<TString> Mth;
   Mth.push_back("MtLow_OS");
@@ -173,7 +178,7 @@ int main(int argc, char** argv) {
     systs.push_back(systs_aux[iAux]+"_up");
     systs.push_back(systs_aux[iAux]+"_down");
   }
-
+  
 
   //cross-sections
   vector<double> xs_DY;
@@ -181,13 +186,22 @@ int main(int argc, char** argv) {
 
 
   vector<double> xs_TT;
-  xs_TT.push_back(831.76*0.438); //semilep
-  xs_TT.push_back(831.76*0.457); //had
+  //xs_TT.push_back(831.76*0.438); //semilep
+  //xs_TT.push_back(831.76*0.457); //had
   xs_TT.push_back(831.76*0.105); //2l2nu  
 
 
-  vector<double> xs_WW;
-  double xs_WW_lowm = 64.3;       xs_WW.push_back(xs_WW_lowm);
+  vector<double> xs_VV;
+  double xs_WW_lowm = 64.3/*12.178*/;                xs_VV.push_back(xs_WW_lowm);
+  //double xs_WW_200to600 = 1.39;              xs_VV.push_back(xs_WW_200to600);
+  //double xs_WW_600to1200 = 5.7e-2;           xs_VV.push_back(xs_WW_600to1200);
+  //double xs_WW_1200to2500 = 3.6e-3;          xs_VV.push_back(xs_WW_1200to2500);
+  //double xs_WW_2500toInf = 5.4e-5;           xs_VV.push_back(xs_WW_2500toInf);
+  double xs_WZ_2l2q = 5.595;                 xs_VV.push_back(xs_WZ_2l2q);
+  double xs_WZ_3lnu = 5.052;                 xs_VV.push_back(xs_WZ_3lnu);
+  double xs_ZZ_2l2q = 3.22;                  xs_VV.push_back(xs_ZZ_2l2q);
+  double xs_ZZ_2l2nu = 0.564;                xs_VV.push_back(xs_ZZ_2l2nu);
+  double xs_ZZ_4l = 1.212;                   xs_VV.push_back(xs_ZZ_4l);
 
   double xs_ST = 38.09;
   double xs_WZ = 22.82;
@@ -247,28 +261,18 @@ int main(int argc, char** argv) {
           for (unsigned int iBin = 0; iBin<TT_files.size(); ++iBin) delete h_TT_vector[iBin];
           
             
-          vector<TH1F*> h_WW_vector;
-          for (unsigned int iBin = 0; iBin<WW_files.size(); ++iBin) {
+          vector<TH1F*> h_VV_vector;
+          for (unsigned int iBin = 0; iBin<VV_files.size(); ++iBin) {
     	  //if (iBin > 0) break;
-            h_WW_vector.push_back( MC_histo(var_in, WW_files[iBin], file_in_data, xs_WW[iBin], rebin) ); 
+            h_VV_vector.push_back( MC_histo(var_in, VV_files[iBin], file_in_data, xs_VV[iBin], rebin) ); 
           }
-          TH1F* h_WW = (TH1F*) h_WW_vector[0]->Clone("WW_"+var_out);
-          for (unsigned int iBin = 1; iBin<h_WW_vector.size(); ++iBin) {
-            h_WW->Add(h_WW_vector[iBin]);
+          TH1F* h_VV = (TH1F*) h_VV_vector[0]->Clone("VV_"+var_out);
+          for (unsigned int iBin = 1; iBin<h_VV_vector.size(); ++iBin) {
+            h_VV->Add(h_VV_vector[iBin]);
           }
-          
-            
-          TH1F* h_WZ = MC_histo(var_in, file_in_WZ, file_in_data, xs_WZ, rebin);
-          TH1F* h_ZZ = MC_histo(var_in, file_in_ZZ, file_in_data, xs_ZZ, rebin);
-          TH1F* h_VV = (TH1F*) h_WW->Clone("VV_"+var_out);
-          h_VV->Add(h_WZ);
-          h_VV->Add(h_ZZ);
           h_VV->Write();
 	  delete h_VV;
-	  delete h_WW;
-	  delete h_WZ;
-	  delete h_ZZ;
-          for (unsigned int iBin = 0; iBin<WW_files.size(); ++iBin) delete h_WW_vector[iBin];
+          for (unsigned int iBin = 0; iBin<VV_files.size(); ++iBin) delete h_VV_vector[iBin];
           
     
           TH1F* h_ST = MC_histo(var_in, file_in_ST, file_in_data, xs_ST, rebin);
@@ -282,15 +286,16 @@ int main(int argc, char** argv) {
           h_data->Rebin(rebin);
           h_data->Write();
 	  delete h_data;
-        }
-      }
-      if ((CR == "CR100") || (CR == "CR102")) {
-        for (unsigned int k = 0; k<Mth.size(); ++k) {
-	  cout << file_in_faketau->GetName() << endl;
-	  TH1F* h_faketaus = (TH1F*) file_in_faketau -> Get("faketau_"+vars[i]+"_"+Mth[k]);
-	  //h_faketaus->Rebin(rebin);
-	  h_faketaus->Write();
-	  delete h_faketaus;
+
+	  if ((CR == "CR100") || (CR == "CR102")) {
+	    cout << file_in_faketau->GetName() << endl;
+	    var_in = systs[l]+"_"+vars[i]+"_"+Mth[k];
+	    TH1F* h_faketaus = (TH1F*) file_in_faketau -> Get("faketau_"+var_in);
+	    //h_faketaus->Rebin(rebin);
+	    h_faketaus->SetName("faketau_"+var_out);
+	    h_faketaus->Write();
+	    delete h_faketaus;
+	  }
         }
       }
     }

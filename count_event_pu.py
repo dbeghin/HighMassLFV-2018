@@ -21,8 +21,6 @@ sample_path = {}
 
 
 
-
-
 path_DYToLL_mad=[
 "/pnfs/iihe/cms/store/user/dbeghin/Legacy/2018_v1/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/crab_DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/190506_132620/0000/",
 "/pnfs/iihe/cms/store/user/dbeghin/Legacy/2018_v1/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/crab_DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/190506_132620/0001/",
@@ -45,9 +43,39 @@ path_WZ=[
 "/pnfs/iihe/cms/store/user/dbeghin/Legacy/2018_v1/WZ_TuneCP5_13TeV-pythia8/crab_WZ_TuneCP5_13TeV-pythia8/190506_132744/0000/",
 ]
 
+path_WZ_2l2q=[
+'/pnfs/iihe/cms/store/user/dbeghin/Legacy/2018_v1/WZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8/crab_WZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8/190612_170548/0000/',
+'/pnfs/iihe/cms/store/user/dbeghin/Legacy/2018_v1/WZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8/crab_WZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8/190612_170548/0001/',
+]
+
+path_WZ_3lnu=[
+'/pnfs/iihe/cms/store/user/dbeghin/Legacy/2018_v1/WZTo3LNu_TuneCP5_13TeV-amcatnloFXFX-pythia8/crab_WZTo3LNu_TuneCP5_13TeV-amcatnloFXFX-pythia8_v1/190612_170732/0000/',
+'/pnfs/iihe/cms/store/user/dbeghin/Legacy/2018_v1/WZTo3LNu_TuneCP5_13TeV-amcatnloFXFX-pythia8/crab_WZTo3LNu_TuneCP5_13TeV-amcatnloFXFX-pythia8_v2/190612_170811/0000/',
+]
+
+
 ################################ ZZ #########################
 path_ZZ=[
 "/pnfs/iihe/cms/store/user/dbeghin/Legacy/2018_v1/ZZ_TuneCP5_13TeV-pythia8/crab_ZZ_TuneCP5_13TeV-pythia8/190506_132359/0000/",
+]
+
+path_ZZ_2l2nu=[
+'/pnfs/iihe/cms/store/user/dbeghin/Legacy/2018_v1/ZZTo2L2Nu_TuneCP5_13TeV_powheg_pythia8/crab_ZZTo2L2Nu_TuneCP5_13TeV_powheg_pythia8/190612_170409/0000/',
+'/pnfs/iihe/cms/store/user/dbeghin/Legacy/2018_v1/ZZTo2L2Nu_TuneCP5_13TeV_powheg_pythia8/crab_ZZTo2L2Nu_TuneCP5_13TeV_powheg_pythia8/190612_170409/0001/',
+'/pnfs/iihe/cms/store/user/dbeghin/Legacy/2018_v1/ZZTo2L2Nu_TuneCP5_13TeV_powheg_pythia8/crab_ZZTo2L2Nu_TuneCP5_13TeV_powheg_pythia8_ext/190612_170516/0000/',
+]
+
+path_ZZ_2l2q=[
+'/pnfs/iihe/cms/store/user/dbeghin/Legacy/2018_v1/ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8/crab_ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8/190612_170655/0000/',
+'/pnfs/iihe/cms/store/user/dbeghin/Legacy/2018_v1/ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8/crab_ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8/190612_170655/0001/',
+]
+
+path_ZZ_4l=[
+'/pnfs/iihe/cms/store/user/dbeghin/Legacy/2018_v1/ZZTo4L_TuneCP5_13TeV_powheg_pythia8/crab_ZZTo4L_TuneCP5_13TeV_powheg_pythia8/190612_170441/0000/',
+'/pnfs/iihe/cms/store/user/dbeghin/Legacy/2018_v1/ZZTo4L_TuneCP5_13TeV_powheg_pythia8/crab_ZZTo4L_TuneCP5_13TeV_powheg_pythia8/190612_170441/0001/',
+'/pnfs/iihe/cms/store/user/dbeghin/Legacy/2018_v1/ZZTo4L_TuneCP5_13TeV_powheg_pythia8/crab_ZZTo4L_TuneCP5_13TeV_powheg_pythia8/190612_170441/0002/',
+'/pnfs/iihe/cms/store/user/dbeghin/Legacy/2018_v1/ZZTo4L_TuneCP5_13TeV_powheg_pythia8/crab_ZZTo4L_TuneCP5_13TeV_powheg_pythia8/190612_170441/0003/',
+'/pnfs/iihe/cms/store/user/dbeghin/Legacy/2018_v1/ZZTo4L_TuneCP5_13TeV_powheg_pythia8/crab_ZZTo4L_TuneCP5_13TeV_powheg_pythia8_ext/190612_170621/0000/',
 ]
 
 ################################## ST ###################
@@ -108,6 +136,11 @@ path_ZPrime_5000 = ["/pnfs/iihe/cms/store/user/dbeghin/Legacy/2018_v1/Zprime_500
 #sample_path['WW']             =path_WW
 #sample_path['WZ']             =path_WZ
 #sample_path['ZZ']             =path_ZZ
+sample_path['WZ_2l2q']        =path_WZ_2l2q
+sample_path['WZ_3lnu']        =path_WZ_3lnu
+sample_path['ZZ_2l2q']        =path_ZZ_2l2q
+sample_path['ZZ_2l2nu']       =path_ZZ_2l2nu
+sample_path['ZZ_4l']          =path_ZZ_4l
 #sample_path['ST']             =path_ST
 #sample_path['DYToLL_mad']     =path_DYToLL_mad
 #sample_path['TT_had']        = path_TT_had       
@@ -115,18 +148,18 @@ path_ZPrime_5000 = ["/pnfs/iihe/cms/store/user/dbeghin/Legacy/2018_v1/Zprime_500
 #sample_path['TT_semilep']    = path_TT_SemiLeptonic
 
 
-sample_path['ZPrime_500']   =  path_ZPrime_500 
-sample_path['ZPrime_600']   =  path_ZPrime_600 
-sample_path['ZPrime_700']   =  path_ZPrime_700 
-sample_path['ZPrime_850']   =  path_ZPrime_850 
-sample_path['ZPrime_1000']  =  path_ZPrime_1000
-sample_path['ZPrime_1300']  =  path_ZPrime_1300
-sample_path['ZPrime_1700']  =  path_ZPrime_1700
-sample_path['ZPrime_2000']  =  path_ZPrime_2000
-sample_path['ZPrime_2500']  =  path_ZPrime_2500
-sample_path['ZPrime_3000']  =  path_ZPrime_3000
-sample_path['ZPrime_4000']  =  path_ZPrime_4000
-sample_path['ZPrime_5000']  =  path_ZPrime_5000
+#sample_path['ZPrime_500']   =  path_ZPrime_500 
+#sample_path['ZPrime_600']   =  path_ZPrime_600 
+#sample_path['ZPrime_700']   =  path_ZPrime_700 
+#sample_path['ZPrime_850']   =  path_ZPrime_850 
+#sample_path['ZPrime_1000']  =  path_ZPrime_1000
+#sample_path['ZPrime_1300']  =  path_ZPrime_1300
+#sample_path['ZPrime_1700']  =  path_ZPrime_1700
+#sample_path['ZPrime_2000']  =  path_ZPrime_2000
+#sample_path['ZPrime_2500']  =  path_ZPrime_2500
+#sample_path['ZPrime_3000']  =  path_ZPrime_3000
+#sample_path['ZPrime_4000']  =  path_ZPrime_4000
+#sample_path['ZPrime_5000']  =  path_ZPrime_5000
 
 
 

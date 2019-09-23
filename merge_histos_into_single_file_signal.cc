@@ -12,34 +12,40 @@
 #include "TLegend.h"
 #include "THStack.h"
 #include "TStyle.h"
-
+#include "aux.h"
+#include "TDirectory.h"
 
 using namespace std;
 
 
-TH1F* MC_histo(TString var, TFile* file_in, double xs, long Nevents, int rebin) {
+TH1F* MC_histo(TString var, TFile* file_in, TFile* file_in_d, double xs, int rebin) {
 
   cout << file_in->GetName() << endl;
 
-  double lumi = 35.9 * pow(10,3); //luminosity in pb^-1
+  TH1F* h_events_data = (TH1F*) file_in_d->Get("weighted_events");
+  double full_data = 9.45550210575e+08;
+  double succ_data_ratio = h_events_data->Integral()/full_data;
+  cout << "succesfull data ratio " << succ_data_ratio << endl;
+
+  double lumi = 59.74 * pow(10,3) * succ_data_ratio; //luminosity in pb^-1                                                                                                                                  
+
+  TH1F* h_events = (TH1F*) file_in->Get("weighted_events");
+  double Nevents = h_events->Integral();
 
   double e_Nevents = pow(Nevents,0.5);
   double e_xs = 0.01*xs;
 
-  //Weight
+  //Weight                                                                                                                                                                                                  
   double w = 0;
-  if (Nevents !=0 ) {
-    w = xs*lumi/Nevents;
-  }
+  if (Nevents != 0) w = xs*lumi/Nevents;
   cout << "Events in data/events in MC " << w << endl;
-  
+
   TH1F* h;
   h = (TH1F*) file_in -> Get(var);
 
-  h -> Sumw2();
   h -> Scale(w);
   h -> Rebin(rebin);
-  
+
   return h;
 
 }
@@ -49,67 +55,94 @@ TH1F* MC_histo(TString var, TFile* file_in, double xs, long Nevents, int rebin) 
 int main(int argc, char** argv) {
 
 
-  int rebin = 10;
+  int rebin = 1;
   //string CR = *(argv + 1);
 
-  TString folder_in = "HighMassLFVMuTau/FakeRate";
+  TString folder_in = "HighMassLFVMuTau/SignalRegion_CR100";
   TString name_out = "histos_signal";
 
   TFile* file_out = new TFile("Figures/"+name_out+".root", "RECREATE");
 
-  vector<TString> mass;
-  mass.push_back("500");
-  mass.push_back("1000");
-  mass.push_back("1600");
-  //mass.push_back("2000");
-  mass.push_back("3000");
+  
+  vector<TString> mass;     vector<double> xs;
+  mass.push_back("500");    xs.push_back(9.56     );   
+  mass.push_back("600");    xs.push_back(5.03     );   
+  mass.push_back("700");    xs.push_back(2.83     );   
+  //mass.push_back("850");       
+  mass.push_back("1000");   xs.push_back(0.7141   );    
+  mass.push_back("1300");   xs.push_back(0.234    );    
+  mass.push_back("1700");   xs.push_back(0.06808  );    
+  mass.push_back("2000");   xs.push_back(0.03027  );    
+  //mass.push_back("2500");       
+  mass.push_back("3000");   xs.push_back(0.003079 );    
+  mass.push_back("4000");   xs.push_back(0.0004841);    
+  mass.push_back("5000");   xs.push_back(0.0001113);    
+
 
 
   vector<TFile*> files_in;
   for (unsigned int i=0; i<mass.size(); ++i) {
-    files_in.push_back( new TFile("Signal_"+mass[i]+".root", "R") );
+    files_in.push_back( new TFile(folder_in+"/Arranged_signal/ZPrime_"+mass[i]+".root", "R") );
+  }
+
+  TFile* file_in_data = new TFile(folder_in+"/Arranged_data/data.root", "R");
+
+
+  vector<TString> vars,                      vars_out;
+  vars.push_back("ev_Mvis_realtau_");        vars_out.push_back("ev_Mvis_");
+  vars.push_back("ev_Mcol_realtau_");        vars_out.push_back("ev_Mcol_");
+  vars.push_back("ev_Mtot_realtau_");        vars_out.push_back("ev_Mtot_");
+  vars.push_back("tau_pt_realtau_");         vars_out.push_back("tau_pt_");
+  vars.push_back("tau_eta_realtau_");        vars_out.push_back("tau_eta_");
+  vars.push_back("tau_phi_realtau_");        vars_out.push_back("tau_phi_");
+  vars.push_back("mu_pt_realtau_");          vars_out.push_back("mu_pt_");
+  vars.push_back("mu_eta_realtau_");         vars_out.push_back("mu_eta_");
+  vars.push_back("mu_phi_realtau_");         vars_out.push_back("mu_phi_");
+  vars.push_back("ev_DRmutau_realtau_");     vars_out.push_back("ev_DRmutau_");
+  vars.push_back("ev_Mt_realtau_");          vars_out.push_back("ev_Mt_");
+  vars.push_back("ev_MET_realtau_");         vars_out.push_back("ev_MET_");
+  vars.push_back("mu_isolation_realtau_");   vars_out.push_back("mu_isolation_");
+  vars.push_back("sign_realtau_");           vars_out.push_back("sign_");
+
+
+  vector<TString> Mth;
+  Mth.push_back("MtLow_OS");
+  Mth.push_back("MtLow_SS");
+  Mth.push_back("MtLow_TT");
+  Mth.push_back("MtHigh");
+  Mth.push_back("MtHigh_TT");
+
+
+  vector<TString> systs;
+  systs.push_back("nominal");
+  vector<TString> systs_aux = GetSys();
+  for (unsigned int iAux=0; iAux<systs_aux.size(); ++iAux) {
+    systs.push_back(systs_aux[iAux]+"_up");
+    systs.push_back(systs_aux[iAux]+"_down");
   }
 
 
-  vector<TString> vars;
-  vars.push_back("ev_Mvis_realtau_MtHigh");          
-  vars.push_back("ev_Mcol_realtau_MtHigh");          
-  vars.push_back("ev_Mtot_realtau_MtHigh");          
-
-
-  //cross-sections
-  vector<double> xs;
-  xs.push_back(1.);//500
-  xs.push_back(1.);//1000
-  xs.push_back(1.);//1600
-  //xs.push_back(1.);//2000
-  xs.push_back(1.);//3000
-
-  
-  //Nevets
-  vector<long> N;
-  N.push_back(10000);//500
-  N.push_back(10000);//1000
-  N.push_back(10000);//1600
-  //N.push_back(100);//2000
-  N.push_back(10000);//3000
-
-
-
-  TString var_in;
+  TString var_in, var_out;
 
   file_out->cd();
-  //options = is it the DY Sig?, variable name, which file to get the histo from, process cross-section
-  for (unsigned int i = 0; i<vars.size(); ++i) {
-    var_in = vars[i];
-    cout << endl << endl <<var_in << endl;
-    
-    for (unsigned int j = 0; j<mass.size(); ++j) {
-      TH1F* h = MC_histo(var_in, files_in[j], xs[j], N[j], rebin);
-      h->SetName(mass[j]+"_"+var_in);
-      h->Write();
-    }          
-  }    
+  for (unsigned int i = 0; i<systs.size(); ++i) {
+    TDirectory* dir = file_out->mkdir( systs[i] );
+    dir->cd();
+    for (unsigned int k = 0; k<vars.size(); ++k) {
+      for (unsigned int l = 0; l<Mth.size(); ++l) {
+        var_in = systs[i]+"/"+vars[k]+systs[i]+"_"+Mth[l];
+        var_out = vars_out[k]+Mth[l];
+
+        for (unsigned int j = 0; j<mass.size(); ++j) {
+          TH1F* h = MC_histo(var_in, files_in[j], file_in_data, xs[j], rebin);
+          h->SetName("ZPrime_"+mass[j]+"_"+var_out);
+          h->Write();
+          delete h;
+        }
+      }
+    }
+    dir->Close();
+  }
   file_out->Close();
 
 
