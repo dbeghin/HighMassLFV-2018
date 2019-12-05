@@ -10,12 +10,12 @@ if __name__ == "__main__":
     location=os.getcwd();
     #name of your *compiled* code (omit the .exe extension)
     code_area = "/user/dbeghin/Work/MuTauHighMass_2018/"
-    code_name = "HighMassLFVMuTau"
-    region = "CR100"
-    folder = "/user/dbeghin/Work/MuTauHighMass_2018/HighMassLFVMuTau/SignalRegion_CR100/"
-    cms_rel = "/user/dbeghin/2nd/new/CMSSW_10_4_0_patch1/src"
+    code_name = "FakeRate_mumu"
+    region = "CR0"
+    folder = "/user/dbeghin/Work/MuTauHighMass_2018/HighMassLFVMuTau/FakeRate/"
+    cms_rel = "/user/dbeghin/2nd/new/CMSSW_10_2_13/src"
     proxy = "/user/dbeghin/x509up_u$(id -u dbeghin)"
-    walltime = "10:00:00"
+    walltime = "09:30:00"
 
     for jj in range(0, len(pnfn)):    
         #Main file, which you'll use to submit the jobs
@@ -47,7 +47,8 @@ if __name__ == "__main__":
                 command1 = command1 + "mkdir "+folder+"/Out_"+myname[jj] + "\n"  #make the ouptu sub-directory
                 command1 = command1 + "export scratchdir=$TMPDIR " + "\n" #temporary directory to be used for running this job
                 command1 = command1 + "cd $scratchdir" + "\n"      
-                command1 = command1 + "cp -r " + code_area + "/Reweighting ." + "\n"
+                command1 = command1 + "mkdir Reweighting" + "\n"
+                command1 = command1 + "cp " + code_area +"/Reweighting/*.root Reweighting/" + "\n"
                 command1 = command1 + "cp " + code_area + "/" + code_name + ".exe $scratchdir/" + "\n" #copy your code to the temporary directory
                 outFile.write(command1)
                 #Below: command to submit one job to the localgrid
