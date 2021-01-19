@@ -10,12 +10,12 @@ if __name__ == "__main__":
     location=os.getcwd();
     #name of your *compiled* code (omit the .exe extension)
     code_area = "/user/dbeghin/Work/MuTauHighMass_2018/"
-    code_name = "HighMassLFVMuTau"
+    code_name = "HighMassLFVMuTau_invertForWJets"
     region = "CR101"
-    folder = "/user/dbeghin/Work/MuTauHighMass_2018/HighMassLFVMuTau/Faketaus_CR101/"
+    folder = "/user/dbeghin/Work/MuTauHighMass_2018/HighMassLFVMuTau/WJetsControl_CR101/"
     cms_rel = "/user/dbeghin/2nd/new/CMSSW_10_4_0_patch1/src"
     proxy = "/user/dbeghin/x509up_u$(id -u dbeghin)"
-    walltime = "15:00:00"
+    walltime = "10:00:00"
 
     for jj in range(0, len(pnfn)):    
         #Main file, which you'll use to submit the jobs

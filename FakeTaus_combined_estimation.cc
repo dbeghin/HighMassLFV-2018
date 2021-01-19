@@ -53,13 +53,21 @@ int main(int argc, char** argv) {
   vars.push_back("ev_MET");
   vars.push_back("ev_Mcol");
   vars.push_back("sign");
+  vars.push_back("ev_Nvertex");
+  vars.push_back("njet");
+  vars.push_back("nbjet");
+  //exclusively for TT region now
+  int n_TT_plots = vars.size();
+  vars.push_back("bjet_pt");
+  vars.push_back("bjet_eta");
+  vars.push_back("bjet_phi");
 
   
   vector<TString> Mth;
   Mth.push_back("MtLow_OS");
   Mth.push_back("MtLow_SS");
-  Mth.push_back("MtLow_TT");
   Mth.push_back("MtHigh");
+  Mth.push_back("MtLow_TT");  int k_low_TT = Mth.size()-1;
   Mth.push_back("MtHigh_TT");
 
 
@@ -67,6 +75,7 @@ int main(int argc, char** argv) {
   systs.push_back("nominal");
   vector<TString> systs_aux = GetSys();
   for (unsigned int iAux=0; iAux<systs_aux.size(); ++iAux) {
+    if (systs_aux[iAux] == "topPt") continue;
     systs.push_back(systs_aux[iAux]+"_up");
     systs.push_back(systs_aux[iAux]+"_down");
   }
@@ -77,8 +86,10 @@ int main(int argc, char** argv) {
     for (unsigned int k=0; k<vars.size(); ++k) {
       for (unsigned int l=0; l<Mth.size(); ++l) {
 	for (unsigned int m=0; m<systs.size(); ++m) {
+
+          if (l < k_low_TT && k >= n_TT_plots) continue;
+
 	  h[j][k][l].push_back( (TH1F*) file_in->Get(systs[m]+"/"+names[j]+vars[k]+"_realtau_"+systs[m]+"_"+Mth[l]) );
-	  cout << systs[m]+"/"+names[j]+vars[k]+"_realtau_"+systs[m]+"_"+Mth[l] << endl;
 	  h[j][k][l][m]->SetName(names[j]+vars[k]+"_"+systs[m]+"_"+Mth[l]);
 	}
       }
@@ -90,7 +101,10 @@ int main(int argc, char** argv) {
   for (unsigned int k=0; k<vars.size(); ++k) {
     for (unsigned int l=0; l<Mth.size(); ++l) {
       for (unsigned int m=0; m<systs.size(); ++m) {
-	TH1F* h_faketau = (TH1F*) h[0][k][l][m]->Clone("faketau_"+systs[m]+"_"+vars[k]+"_"+Mth[l]);
+
+	if (l < k_low_TT && k >= n_TT_plots) continue;
+
+	TH1F* h_faketau = (TH1F*) h[0][k][l][0]->Clone("faketau_"+systs[m]+"_"+vars[k]+"_"+Mth[l]);
 	for (unsigned int j=1; j<names.size(); ++j) h_faketau->Add(h[j][k][l][m], -1);//subtract all real tau bg
 	
 	for (unsigned int iBin = 0; iBin<h_faketau->GetNbinsX(); ++iBin) {
@@ -98,7 +112,7 @@ int main(int argc, char** argv) {
 	}
 	h_faketau->Write();
 	delete h_faketau;
-	for (unsigned int j=0; j<names.size(); ++j) delete h[j][k][l][m];
+	for (unsigned int j=1; j<names.size(); ++j) delete h[j][k][l][m];
       }
     }
   }

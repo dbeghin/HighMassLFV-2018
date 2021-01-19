@@ -18,6 +18,7 @@
 using namespace std;
 int main(/*int argc, char** argv*/) {
   TFile* file_out = new TFile("HighMassLFVMuTau/fakerate_unfactorised_MtLow.root", "RECREATE");
+  //TFile* file_out = new TFile("HighMassLFVMuTau/fakerate_unfactorised_OSMtLow.root", "RECREATE");
   TFile* file_in  = new TFile("Figures/histos_fakerate_MtLow.root", "R");
 
   vector<TString> names;
@@ -28,8 +29,8 @@ int main(/*int argc, char** argv*/) {
   names.push_back("VV_");
 
   vector<TString> vars;
-  vars.push_back("taupt_ratio_pass");
-  vars.push_back("taupt_ratio_fail");
+  vars.push_back("taupt_ratio_DeepTauPass");
+  vars.push_back("taupt_ratio_DeepTauFail");
 
 
   vector<TString> systs;
@@ -37,6 +38,7 @@ int main(/*int argc, char** argv*/) {
 
   vector<TString> systs_aux = GetSys();
   for (unsigned int iAux=0; iAux<systs_aux.size(); ++iAux) {
+    if (systs_aux[iAux] == "topPt") continue;
     systs.push_back(systs_aux[iAux]+"_up");
     systs.push_back(systs_aux[iAux]+"_down");
   }
@@ -53,13 +55,12 @@ int main(/*int argc, char** argv*/) {
 
   //vector<float> xpoints_all {0, 30, 40, 50, 60, 70, 80, 100, 120, 150, 300, 1000};
   vector<vector<float>> xpoints;                                                                        vector<TString> sector_name;
-  vector<float> xpoints_left {0, 30, 40, 50, 70, 100, 150};  xpoints.push_back(xpoints_left);   sector_name.push_back("taupt_0_150");
-  vector<float> xpoints_right {150, 1000};                           xpoints.push_back(xpoints_right);  sector_name.push_back("taupt_150_1000");
+  vector<float> xpoints_left {0, 30, 40, 50, 80, 150};  xpoints.push_back(xpoints_left);   sector_name.push_back("taupt_0_150");
+  vector<float> xpoints_right {150, 1000};              xpoints.push_back(xpoints_right);  sector_name.push_back("taupt_150_1000");
 
   vector<vector<float>> ypoints;
   vector<float> ypoints_left {0, 0.5, 0.6, 0.65, 0.7, 0.75, 1., 3.};  ypoints.push_back(ypoints_left);
-  vector<float> ypoints_right {0, 0.7, 1., 3};                 ypoints.push_back(ypoints_right);
-
+  vector<float> ypoints_right {0, 0.7, 1., 3};               ypoints.push_back(ypoints_right);
 
   vector<TH2F*> h[names.size()][vars.size()][systs.size()];
   vector<TH2F*> h_MC[vars.size()][systs.size()];
@@ -72,6 +73,10 @@ int main(/*int argc, char** argv*/) {
           h[j][k][l].push_back( (TH2F*) file_in->Get(name_in) );
           h[j][k][l][m]->SetName(names[j]+vars[k]+"_"+systs[l]+"_"+eta[m]+"_"+taun[n_real]);
 
+          //TString name_in = names[j]+vars[k]+"_"+systs[l]+"_MtLow_SS_"+eta[m]+"_"+taun[n_real];
+          //h[j][k][l].push_back( (TH2F*) file_in->Get(name_in) );
+          //h[j][k][l][m]->SetName(names[j]+vars[k]+"_"+systs[l]+"_"+eta[m]+"_"+taun[n_real]);
+	  
           name_in = names[j]+vars[k]+"_"+systs[l]+"_MtLow_SS_"+eta[m]+"_"+taun[n_real];
           TH2F* h_temp = (TH2F*) file_in->Get(name_in);
           h[j][k][l][m]->Add(h_temp);
@@ -134,13 +139,13 @@ int main(/*int argc, char** argv*/) {
 	    unsigned int iBinX=binStartX;
 	    unsigned int iBinY=binStartY;
 	    float bin_content = 0, bin_error=0;
-	    while (h_data[k][l][m]->GetXaxis()->GetBinCenter(iBinX) < rebin_array_x[jBinX]) {
+	    while (h_data[k][0][m]->GetXaxis()->GetBinCenter(iBinX) < rebin_array_x[jBinX]) {
 	      iBinY=binStartY;
-	      if (h_data[k][l][m]->GetXaxis()->GetBinCenter(iBinX) > rebin_array_x[jBinX-1]) {
-		while (h_data[k][l][m]->GetYaxis()->GetBinCenter(iBinY) < rebin_array_y[jBinY]) {
-		  if (h_data[k][l][m]->GetYaxis()->GetBinCenter(iBinY) > rebin_array_y[jBinY-1]) {
-		    bin_content = bin_content + h_data[k][l][m]->GetBinContent(iBinX, iBinY) - h_MC[k][l][m]->GetBinContent(iBinX, iBinY);
-		    bin_error = bin_error + pow(h_data[k][l][m]->GetBinError(iBinX, iBinY), 2) + pow(h_MC[k][l][m]->GetBinError(iBinX, iBinY), 2);
+	      if (h_data[k][0][m]->GetXaxis()->GetBinCenter(iBinX) > rebin_array_x[jBinX-1]) {
+		while (h_data[k][0][m]->GetYaxis()->GetBinCenter(iBinY) < rebin_array_y[jBinY]) {
+		  if (h_data[k][0][m]->GetYaxis()->GetBinCenter(iBinY) > rebin_array_y[jBinY-1]) {
+		    bin_content = bin_content + h_data[k][0][m]->GetBinContent(iBinX, iBinY) - h_MC[k][l][m]->GetBinContent(iBinX, iBinY);
+		    bin_error = bin_error + pow(h_data[k][0][m]->GetBinError(iBinX, iBinY), 2) + pow(h_MC[k][l][m]->GetBinError(iBinX, iBinY), 2);
 		  }
 		  ++iBinY;
 		}

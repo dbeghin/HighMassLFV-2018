@@ -26,7 +26,7 @@ TH1F* MC_histo(TString var, TFile* file_in, TFile* file_in_d, double xs, int reb
   double succ_data_ratio = h_events_data->Integral()/full_data;
   cout << "succesfull data ratio " << succ_data_ratio << endl;
 
-  double lumi = 58.36 * pow(10,3) * succ_data_ratio; //luminosity in pb^-1
+  double lumi = 59.74 * pow(10,3) * succ_data_ratio; //luminosity in pb^-1
 
   TH1F* h_events = (TH1F*) file_in->Get("weighted_events");
   double Nevents = h_events->Integral();
@@ -92,19 +92,32 @@ int main(int argc, char** argv) {
   TFile* file_out = new TFile("Figures/"+name_out+".root", "RECREATE");
 
   vector<TFile*> DY_files;
-  TFile* file_in_DY_lowmass = new TFile(folder_in+"/Arranged_DY/DY_inclusive.root", "R");            DY_files.push_back(file_in_DY_lowmass);
+  DY_files.push_back( new TFile(folder_in+"/Arranged_DY/DY_inclusive.root", "R") );
+  DY_files.push_back( new TFile(folder_in+"/Arranged_DY/DY_100to200.root", "R") );
+  DY_files.push_back( new TFile(folder_in+"/Arranged_DY/DY_200to400.root", "R") );
+  DY_files.push_back( new TFile(folder_in+"/Arranged_DY/DY_400to500.root", "R") );
+  DY_files.push_back( new TFile(folder_in+"/Arranged_DY/DY_500to700.root", "R") );
+  DY_files.push_back( new TFile(folder_in+"/Arranged_DY/DY_700to800.root", "R") );
+  DY_files.push_back( new TFile(folder_in+"/Arranged_DY/DY_800to1000.root", "R") );
+  DY_files.push_back( new TFile(folder_in+"/Arranged_DY/DY_1000to1500.root", "R") );
+  DY_files.push_back( new TFile(folder_in+"/Arranged_DY/DY_1500to2000.root", "R") );
+  DY_files.push_back( new TFile(folder_in+"/Arranged_DY/DY_2000to3000.root", "R") );
+  //DY_files.push_back( new TFile(folder_in+"/Arranged_DY/DY_3000toInf.root", "R") );
 
 
   vector<TFile*> TT_files;
-  //TT_files.push_back( new TFile(folder_in+"/Arranged_TT/TT_semilep.root", "R") ); //semilep
-  //TT_files.push_back( new TFile(folder_in+"/Arranged_TT/TT_had.root", "R") ); //had
   TT_files.push_back( new TFile(folder_in+"/Arranged_TT/TT_2l2nu.root", "R") ); //2l2nu
+  TT_files.push_back( new TFile(folder_in+"/Arranged_TT/TT_500to800.root", "R") );
+  TT_files.push_back( new TFile(folder_in+"/Arranged_TT/TT_800to1200.root", "R") );
+  TT_files.push_back( new TFile(folder_in+"/Arranged_TT/TT_1200to1800.root", "R") );
+  TT_files.push_back( new TFile(folder_in+"/Arranged_TT/TT_1800toInf.root", "R") );
   
   vector<TFile*> VV_files;
-  VV_files.push_back( new TFile(folder_in+"/Arranged_WW/WW.root", "R") );
-  //VV_files.push_back( new TFile(folder_in+"/Arranged_WW/WW_600to1200.root", "R") );
-  //VV_files.push_back( new TFile(folder_in+"/Arranged_WW/WW_1200to2500.root", "R") );
-  //VV_files.push_back( new TFile(folder_in+"/Arranged_WW/WW_2500toInf.root", "R") );
+  VV_files.push_back( new TFile(folder_in+"/Arranged_WW/WW_inclusive.root", "R") );
+  VV_files.push_back( new TFile(folder_in+"/Arranged_WW/WW_200to600.root", "R") );
+  VV_files.push_back( new TFile(folder_in+"/Arranged_WW/WW_600to1200.root", "R") );
+  VV_files.push_back( new TFile(folder_in+"/Arranged_WW/WW_1200to2500.root", "R") );
+  VV_files.push_back( new TFile(folder_in+"/Arranged_WW/WW_2500toInf.root", "R") );
   VV_files.push_back( new TFile(folder_in+"/Arranged_WZ/WZ_2l2q.root", "R") );
   VV_files.push_back( new TFile(folder_in+"/Arranged_WZ/WZ_3lnu.root", "R") );
   VV_files.push_back( new TFile(folder_in+"/Arranged_ZZ/ZZ_2l2nu.root", "R") );
@@ -117,8 +130,8 @@ int main(int argc, char** argv) {
   
 
   vector<TString> vars_TH2;
-  vars_TH2.push_back("taupt_ratio_pass");
-  vars_TH2.push_back("taupt_ratio_fail");
+  vars_TH2.push_back("taupt_ratio_DeepTauPass");
+  vars_TH2.push_back("taupt_ratio_DeepTauFail");
 
   vector<TString> Mth;
   Mth.push_back("MtLow_OS");
@@ -130,6 +143,7 @@ int main(int argc, char** argv) {
 
   vector<TString> systs_aux = GetSys();
   for (unsigned int iAux=0; iAux<systs_aux.size(); ++iAux) {
+    if (systs_aux[iAux] == "topPt") continue;
     systs.push_back(systs_aux[iAux]+"_up");
     systs.push_back(systs_aux[iAux]+"_down");
   }
@@ -145,27 +159,41 @@ int main(int argc, char** argv) {
 
 
   //cross-sections
+  float kNNLO = 1.023;
+
   vector<double> xs_DY;
-  double xs_DY_lowmass = 6225.4;           xs_DY.push_back(xs_DY_lowmass);   
+  double xs_DY_lowmass   = 6077.22;          xs_DY.push_back(xs_DY_lowmass);
+  double xs_DY_100to200  = kNNLO*226.6;      xs_DY.push_back(xs_DY_100to200);
+  double xs_DY_200to400  = kNNLO*7.77;       xs_DY.push_back(xs_DY_200to400);
+  double xs_DY_400to500  = kNNLO*0.4065;     xs_DY.push_back(xs_DY_400to500);
+  double xs_DY_500to700  = kNNLO*0.2334;     xs_DY.push_back(xs_DY_500to700);
+  double xs_DY_700to800  = kNNLO*0.03614;    xs_DY.push_back(xs_DY_700to800);
+  double xs_DY_800to1000 = kNNLO*0.03047;    xs_DY.push_back(xs_DY_800to1000);
+  double xs_DY_1000to1500= kNNLO*0.01636;    xs_DY.push_back(xs_DY_1000to1500);
+  double xs_DY_1500to2000= kNNLO*0.00218;    xs_DY.push_back(xs_DY_1500to2000);
+  double xs_DY_2000to3000= kNNLO*0.0005156;  xs_DY.push_back(xs_DY_2000to3000);
+  //double xs_DY_3000toInf = kNNLO*0.0005156;  xs_DY.push_back(xs_DY_3000toInf);
 
   vector<double> xs_TT;
-  //xs_TT.push_back(831.76*0.438); //semilep
-  //xs_TT.push_back(831.76*0.457); //had
   xs_TT.push_back(831.76*0.105); //2l2nu
+  double xs_TT_500to800 = 0.326;             xs_TT.push_back(xs_TT_500to800);
+  double xs_TT_800to1200 = 3.26e-2;         xs_TT.push_back(xs_TT_800to1200);
+  double xs_TT_1200to1800 = 3.05e-3;        xs_TT.push_back(xs_TT_1200to1800);
+  double xs_TT_1800toInf = 1.74e-4;         xs_TT.push_back(xs_TT_1800toInf);
 
   vector<double> xs_VV;
-  double xs_WW_lowm = 64.3/*12.178*/;                xs_VV.push_back(xs_WW_lowm);
-  //double xs_WW_200to600 = 1.39;              xs_VV.push_back(xs_WW_200to600);
-  //double xs_WW_600to1200 = 5.7e-2;           xs_VV.push_back(xs_WW_600to1200);
-  //double xs_WW_1200to2500 = 3.6e-3;          xs_VV.push_back(xs_WW_1200to2500);
-  //double xs_WW_2500toInf = 5.4e-5;           xs_VV.push_back(xs_WW_2500toInf);
+  double xs_WW_lowm = 12.178;                xs_VV.push_back(xs_WW_lowm);           
+  double xs_WW_200to600 = 1.39;              xs_VV.push_back(xs_WW_200to600);
+  double xs_WW_600to1200 = 5.7e-2;           xs_VV.push_back(xs_WW_600to1200);
+  double xs_WW_1200to2500 = 3.6e-3;          xs_VV.push_back(xs_WW_1200to2500);
+  double xs_WW_2500toInf = 5.4e-5;           xs_VV.push_back(xs_WW_2500toInf);
   double xs_WZ_2l2q = 5.595;                 xs_VV.push_back(xs_WZ_2l2q);
   double xs_WZ_3lnu = 5.052;                 xs_VV.push_back(xs_WZ_3lnu);
-  double xs_ZZ_2l2q = 3.22;                  xs_VV.push_back(xs_ZZ_2l2q);
   double xs_ZZ_2l2nu = 0.564;                xs_VV.push_back(xs_ZZ_2l2nu);
+  double xs_ZZ_2l2q = 3.22;                  xs_VV.push_back(xs_ZZ_2l2q);
   double xs_ZZ_4l = 1.212;                   xs_VV.push_back(xs_ZZ_4l);
 
-  double xs_ST = 38.09;
+  double xs_ST = 38.94;
   double xs_WZ = 22.82;
   double xs_ZZ = 10.32;
   double xs_signal = 20;
