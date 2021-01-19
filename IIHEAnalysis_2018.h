@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Fri May 24 17:50:48 2019 by ROOT version 6.12/07
+// Thu Feb 20 16:59:52 2020 by ROOT version 6.12/07
 // from TTree IIHEAnalysis/IIHEAnalysis
-// found on file: /pnfs/iihe/cms/store/user/dbeghin/Legacy/2018_v1/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/crab_DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/190506_132620/0000/outfile_1.root
+// found on file: /pnfs/iihe/cms/store/user/dbeghin/Legacy/DeepTau/2018/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/200217_095950/0000/outfile_1.root
 //////////////////////////////////////////////////////////
 
 #ifndef IIHEAnalysis_h
@@ -22,9 +22,10 @@
 #include "TLorentzVector.h"
 #include "BTagCalibrationStandalone.cc"
 #include "BTagCalibrationStandalone.h"
+#include "LHAPDF/LHAPDF.h"
+
 
 using namespace std;
-
 
 class IIHEAnalysis {
 public :
@@ -46,6 +47,9 @@ public :
    Float_t         ev_fixedGridRhoFastjetCentralCalo;
    Float_t         ev_fixedGridRhoFastjetCentralChargedPileUp;
    Float_t         ev_fixedGridRhoFastjetCentralNeutral;
+   Float_t         ev_prefiringweight;
+   Float_t         ev_prefiringweightup;
+   Float_t         ev_prefiringweightdown;
    vector<float>   *LHE_Pt;
    vector<float>   *LHE_Eta;
    vector<float>   *LHE_Phi;
@@ -55,6 +59,9 @@ public :
    Float_t         LHE_weight_nominal;
    vector<float>   *LHE_weight_sys;
    UInt_t          mc_n;
+   Int_t           mc_nMEPartons;
+   Int_t           mc_nMEPartonsFiltered;
+   vector<float>   *mc_DJRValues;
    Float_t         mc_weight;
    Float_t         mc_w_sign;
    Int_t           mc_id_first;
@@ -110,6 +117,10 @@ public :
    vector<float>   *genjet_eta;
    vector<float>   *genjet_phi;
    vector<float>   *genjet_energy;
+   vector<float>   *genjetAK8_pt;
+   vector<float>   *genjetAK8_eta;
+   vector<float>   *genjetAK8_phi;
+   vector<float>   *genjetAK8_energy;
    vector<float>   *gen_weight_sys;
    UInt_t          pv_n;
    vector<float>   *pv_x;
@@ -802,6 +813,29 @@ public :
    vector<float>   *tau_byTightIsolationMVArun2v1DBoldDMwLT2016;
    vector<float>   *tau_byVTightIsolationMVArun2v1DBoldDMwLT2016;
    vector<float>   *tau_byVVTightIsolationMVArun2v1DBoldDMwLT2016;
+   vector<float>   *tau_byDeepTau2017v2p1VSjetraw;
+   vector<float>   *tau_byVVVLooseDeepTau2017v2p1VSjet;
+   vector<float>   *tau_byVVLooseDeepTau2017v2p1VSjet;
+   vector<float>   *tau_byVLooseDeepTau2017v2p1VSjet;
+   vector<float>   *tau_byLooseDeepTau2017v2p1VSjet;
+   vector<float>   *tau_byMediumDeepTau2017v2p1VSjet;
+   vector<float>   *tau_byTightDeepTau2017v2p1VSjet;
+   vector<float>   *tau_byVTightDeepTau2017v2p1VSjet;
+   vector<float>   *tau_byVVTightDeepTau2017v2p1VSjet;
+   vector<float>   *tau_byDeepTau2017v2p1VSeraw;
+   vector<float>   *tau_byVVVLooseDeepTau2017v2p1VSe;
+   vector<float>   *tau_byVVLooseDeepTau2017v2p1VSe;
+   vector<float>   *tau_byVLooseDeepTau2017v2p1VSe;
+   vector<float>   *tau_byLooseDeepTau2017v2p1VSe;
+   vector<float>   *tau_byMediumDeepTau2017v2p1VSe;
+   vector<float>   *tau_byTightDeepTau2017v2p1VSe;
+   vector<float>   *tau_byVTightDeepTau2017v2p1VSe;
+   vector<float>   *tau_byVVTightDeepTau2017v2p1VSe;
+   vector<float>   *tau_byDeepTau2017v2p1VSmuraw;
+   vector<float>   *tau_byVLooseDeepTau2017v2p1VSmu;
+   vector<float>   *tau_byLooseDeepTau2017v2p1VSmu;
+   vector<float>   *tau_byMediumDeepTau2017v2p1VSmu;
+   vector<float>   *tau_byTightDeepTau2017v2p1VSmu;
    Int_t           trig_Flag_ecalBadCalibReduced;
    Int_t           trig_Flag_HBHENoiseFilter_accept;
    Int_t           trig_Flag_HBHENoiseIsoFilter_accept;
@@ -834,11 +868,87 @@ public :
    Int_t           trig_reconstruction_step_accept;
    Int_t           trig_recosim_step_accept;
    Int_t           trig_eventinterpretaion_step_accept;
-   Int_t           trig_pathALCARECOEcalUncalZElectron_accept;
-   Int_t           trig_pathALCARECOEcalUncalZSCElectron_accept;
    Int_t           trig_HLT_DoubleEle25_CaloIdL_MW_accept;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_eta;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_phi;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_et;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_eta;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_phi;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_et;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25EtFilter_eta;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25EtFilter_phi;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25EtFilter_et;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25HEFilter_eta;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25HEFilter_phi;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25HEFilter_et;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25CaloIdLClusterShapeFilter_eta;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25CaloIdLClusterShapeFilter_phi;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25CaloIdLClusterShapeFilter_et;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLPixelMatchFilter_eta;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLPixelMatchFilter_phi;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLPixelMatchFilter_et;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLMWPMS2Filter_eta;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLMWPMS2Filter_phi;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLMWPMS2Filter_et;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_eta;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_phi;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_et;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25EtUnseededFilter_eta;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25EtUnseededFilter_phi;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25EtUnseededFilter_et;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25HEUnseededFilter_eta;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25HEUnseededFilter_phi;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25HEUnseededFilter_et;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25CaloIdLClusterShapeUnseededFilter_eta;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25CaloIdLClusterShapeUnseededFilter_phi;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25CaloIdLClusterShapeUnseededFilter_et;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLPixelMatchUnseededFilter_eta;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLPixelMatchUnseededFilter_phi;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLPixelMatchUnseededFilter_et;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLMWPMS2UnseededFilter_eta;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLMWPMS2UnseededFilter_phi;
+   vector<float>   *trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLMWPMS2UnseededFilter_et;
    Int_t           trig_HLT_DoubleEle27_CaloIdL_MW_accept;
    Int_t           trig_HLT_DoubleEle33_CaloIdL_MW_accept;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_eta;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_phi;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_et;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_eta;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_phi;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_et;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33EtFilter_eta;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33EtFilter_phi;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33EtFilter_et;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33HEFilter_eta;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33HEFilter_phi;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33HEFilter_et;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33CaloIdLClusterShapeFilter_eta;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33CaloIdLClusterShapeFilter_phi;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33CaloIdLClusterShapeFilter_et;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLPixelMatchFilter_eta;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLPixelMatchFilter_phi;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLPixelMatchFilter_et;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLMWPMS2Filter_eta;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLMWPMS2Filter_phi;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLMWPMS2Filter_et;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_eta;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_phi;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_et;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33EtUnseededFilter_eta;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33EtUnseededFilter_phi;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33EtUnseededFilter_et;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33HEUnseededFilter_eta;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33HEUnseededFilter_phi;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33HEUnseededFilter_et;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33CaloIdLClusterShapeUnseededFilter_eta;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33CaloIdLClusterShapeUnseededFilter_phi;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33CaloIdLClusterShapeUnseededFilter_et;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLPixelMatchUnseededFilter_eta;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLPixelMatchUnseededFilter_phi;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLPixelMatchUnseededFilter_et;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLMWPMS2UnseededFilter_eta;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLMWPMS2UnseededFilter_phi;
+   vector<float>   *trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLMWPMS2UnseededFilter_et;
    Int_t           trig_HLT_DoubleEle24_eta2p1_WPTight_Gsf_accept;
    Int_t           trig_HLT_Ele27_Ele37_CaloIdL_MW_accept;
    Int_t           trig_HLT_Mu27_Ele37_CaloIdL_MW_accept;
@@ -908,6 +1018,56 @@ public :
    Int_t           trig_HLT_Mu55_accept;
    Int_t           trig_HLT_OldMu100_accept;
    Int_t           trig_HLT_TkMu100_accept;
+   Int_t           trig_HLT_PFHT500_PFMET100_PFMHT100_IDTight_accept;
+   Int_t           trig_HLT_PFHT500_PFMET110_PFMHT110_IDTight_accept;
+   Int_t           trig_HLT_PFHT700_PFMET85_PFMHT85_IDTight_accept;
+   Int_t           trig_HLT_PFHT700_PFMET95_PFMHT95_IDTight_accept;
+   Int_t           trig_HLT_PFHT800_PFMET75_PFMHT75_IDTight_accept;
+   Int_t           trig_HLT_PFHT800_PFMET85_PFMHT85_IDTight_accept;
+   Int_t           trig_HLT_PFMET110_PFMHT110_IDTight_accept;
+   Int_t           trig_HLT_PFMET120_PFMHT120_IDTight_accept;
+   Int_t           trig_HLT_PFMET130_PFMHT130_IDTight_accept;
+   Int_t           trig_HLT_PFMET140_PFMHT140_IDTight_accept;
+   Int_t           trig_HLT_PFMET100_PFMHT100_IDTight_CaloBTagDeepCSV_3p1_accept;
+   Int_t           trig_HLT_PFMET110_PFMHT110_IDTight_CaloBTagDeepCSV_3p1_accept;
+   Int_t           trig_HLT_PFMET120_PFMHT120_IDTight_CaloBTagDeepCSV_3p1_accept;
+   Int_t           trig_HLT_PFMET130_PFMHT130_IDTight_CaloBTagDeepCSV_3p1_accept;
+   Int_t           trig_HLT_PFMET140_PFMHT140_IDTight_CaloBTagDeepCSV_3p1_accept;
+   Int_t           trig_HLT_PFMET120_PFMHT120_IDTight_PFHT60_accept;
+   Int_t           trig_HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_PFHT60_accept;
+   Int_t           trig_HLT_PFMETTypeOne120_PFMHT120_IDTight_PFHT60_accept;
+   Int_t           trig_HLT_PFMETTypeOne110_PFMHT110_IDTight_accept;
+   Int_t           trig_HLT_PFMETTypeOne120_PFMHT120_IDTight_accept;
+   Int_t           trig_HLT_PFMETTypeOne130_PFMHT130_IDTight_accept;
+   Int_t           trig_HLT_PFMETTypeOne140_PFMHT140_IDTight_accept;
+   Int_t           trig_HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_accept;
+   Int_t           trig_HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_accept;
+   Int_t           trig_HLT_PFMETNoMu130_PFMHTNoMu130_IDTight_accept;
+   Int_t           trig_HLT_PFMETNoMu140_PFMHTNoMu140_IDTight_accept;
+   Int_t           trig_HLT_MonoCentralPFJet80_PFMETNoMu110_PFMHTNoMu110_IDTight_accept;
+   Int_t           trig_HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight_accept;
+   Int_t           trig_HLT_MonoCentralPFJet80_PFMETNoMu130_PFMHTNoMu130_IDTight_accept;
+   Int_t           trig_HLT_MonoCentralPFJet80_PFMETNoMu140_PFMHTNoMu140_IDTight_accept;
+   Int_t           trig_HLT_CaloMET80_NotCleaned_accept;
+   Int_t           trig_HLT_CaloMET90_NotCleaned_accept;
+   Int_t           trig_HLT_CaloMET100_NotCleaned_accept;
+   Int_t           trig_HLT_CaloMET110_NotCleaned_accept;
+   Int_t           trig_HLT_CaloMET250_NotCleaned_accept;
+   Int_t           trig_HLT_CaloMET70_HBHECleaned_accept;
+   Int_t           trig_HLT_CaloMET80_HBHECleaned_accept;
+   Int_t           trig_HLT_CaloMET90_HBHECleaned_accept;
+   Int_t           trig_HLT_CaloMET100_HBHECleaned_accept;
+   Int_t           trig_HLT_CaloMET250_HBHECleaned_accept;
+   Int_t           trig_HLT_CaloMET300_HBHECleaned_accept;
+   Int_t           trig_HLT_CaloMET350_HBHECleaned_accept;
+   Int_t           trig_HLT_PFMET200_NotCleaned_accept;
+   Int_t           trig_HLT_PFMET200_HBHECleaned_accept;
+   Int_t           trig_HLT_PFMET250_HBHECleaned_accept;
+   Int_t           trig_HLT_PFMET300_HBHECleaned_accept;
+   Int_t           trig_HLT_PFMET200_HBHE_BeamHaloCleaned_accept;
+   Int_t           trig_HLT_PFMETTypeOne200_HBHE_BeamHaloCleaned_accept;
+   Int_t           trig_HLT_MET105_IsoTrk50_accept;
+   Int_t           trig_HLT_MET120_IsoTrk50_accept;
    Int_t           trig_HLT_Photon300_NoHE_accept;
    Int_t           trig_HLT_Mu8_TrkIsoVVL_accept;
    Int_t           trig_HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_accept;
@@ -938,11 +1098,17 @@ public :
    Int_t           trig_HLT_Photon100EE_TightID_TightIso_accept;
    Int_t           trig_HLT_Photon50_R9Id90_HE10_IsoM_accept;
    Int_t           trig_HLT_Photon75_R9Id90_HE10_IsoM_accept;
+   Int_t           trig_HLT_Photon75_R9Id90_HE10_IsoM_EBOnly_CaloMJJ300_PFJetsMJJ400DEta3_accept;
+   Int_t           trig_HLT_Photon75_R9Id90_HE10_IsoM_EBOnly_CaloMJJ400_PFJetsMJJ600DEta3_accept;
    Int_t           trig_HLT_Photon90_R9Id90_HE10_IsoM_accept;
    Int_t           trig_HLT_Photon120_R9Id90_HE10_IsoM_accept;
    Int_t           trig_HLT_Photon165_R9Id90_HE10_IsoM_accept;
+   Int_t           trig_HLT_Photon90_CaloIdL_PFHT700_accept;
    Int_t           trig_HLT_Photon35_TwoProngs35_accept;
    Int_t           trig_HLT_IsoMu24_TwoProngs35_accept;
+   Int_t           trig_HLT_DoubleMu3_DZ_PFMET50_PFMHT60_accept;
+   Int_t           trig_HLT_DoubleMu3_DZ_PFMET70_PFMHT70_accept;
+   Int_t           trig_HLT_DoubleMu3_DZ_PFMET90_PFMHT90_accept;
    Int_t           trig_HLT_DoubleMu43NoFiltersNoVtx_accept;
    Int_t           trig_HLT_DoubleMu48NoFiltersNoVtx_accept;
    Int_t           trig_HLT_Mu43NoFiltersNoVtx_Photon43_CaloIdL_accept;
@@ -953,7 +1119,26 @@ public :
    Int_t           trig_HLT_DoubleMu40NoFiltersNoVtxDisplaced_accept;
    Int_t           trig_HLT_DoubleMu20_7_Mass0to30_L1_DM4_accept;
    Int_t           trig_HLT_DoubleMu20_7_Mass0to30_L1_DM4EG_accept;
+   Int_t           trig_HLT_DiJet110_35_Mjj650_PFMET110_accept;
+   Int_t           trig_HLT_DiJet110_35_Mjj650_PFMET120_accept;
+   Int_t           trig_HLT_DiJet110_35_Mjj650_PFMET130_accept;
+   Int_t           trig_HLT_TripleJet110_35_35_Mjj650_PFMET110_accept;
+   Int_t           trig_HLT_TripleJet110_35_35_Mjj650_PFMET120_accept;
+   Int_t           trig_HLT_TripleJet110_35_35_Mjj650_PFMET130_accept;
    Int_t           trig_HLT_DoubleMu20_7_Mass0to30_Photon23_accept;
+   Int_t           trig_HLT_Ele15_IsoVVVL_PFHT450_PFMET50_accept;
+   Int_t           trig_HLT_Mu4_TrkIsoVVL_DiPFJet90_40_DEta3p5_MJJ750_HTT300_PFMETNoMu60_accept;
+   Int_t           trig_HLT_Mu8_TrkIsoVVL_DiPFJet40_DEta3p5_MJJ750_HTT300_PFMETNoMu60_accept;
+   Int_t           trig_HLT_Mu10_TrkIsoVVL_DiPFJet40_DEta3p5_MJJ750_HTT350_PFMETNoMu60_accept;
+   Int_t           trig_HLT_Mu15_IsoVVVL_PFHT450_PFMET50_accept;
+   Int_t           trig_HLT_Mu3er1p5_PFJet100er2p5_PFMET70_PFMHT70_IDTight_accept;
+   Int_t           trig_HLT_Mu3er1p5_PFJet100er2p5_PFMET80_PFMHT80_IDTight_accept;
+   Int_t           trig_HLT_Mu3er1p5_PFJet100er2p5_PFMET90_PFMHT90_IDTight_accept;
+   Int_t           trig_HLT_Mu3er1p5_PFJet100er2p5_PFMET100_PFMHT100_IDTight_accept;
+   Int_t           trig_HLT_Mu3er1p5_PFJet100er2p5_PFMETNoMu70_PFMHTNoMu70_IDTight_accept;
+   Int_t           trig_HLT_Mu3er1p5_PFJet100er2p5_PFMETNoMu80_PFMHTNoMu80_IDTight_accept;
+   Int_t           trig_HLT_Mu3er1p5_PFJet100er2p5_PFMETNoMu90_PFMHTNoMu90_IDTight_accept;
+   Int_t           trig_HLT_Mu3er1p5_PFJet100er2p5_PFMETNoMu100_PFMHTNoMu100_IDTight_accept;
    Int_t           trig_HLT_Dimuon14_Phi_Barrel_Seagulls_accept;
    Int_t           trig_HLT_Dimuon24_Phi_noCorrL1_accept;
    Int_t           trig_HLT_DoubleIsoMu20_eta2p1_accept;
@@ -972,6 +1157,7 @@ public :
    Int_t           trig_HLT_Ele300_CaloIdVT_GsfTrkIdT_accept;
    Int_t           trig_HLT_Photon60_R9Id90_CaloIdL_IsoL_accept;
    Int_t           trig_HLT_Photon60_R9Id90_CaloIdL_IsoL_DisplacedIdL_accept;
+   Int_t           trig_HLT_Photon60_R9Id90_CaloIdL_IsoL_DisplacedIdL_PFHT350MinPFJet15_accept;
    Int_t           trig_HLT_SinglePhoton10_Eta3p1ForPPRef_accept;
    Int_t           trig_HLT_SinglePhoton20_Eta3p1ForPPRef_accept;
    Int_t           trig_HLT_SinglePhoton30_Eta3p1ForPPRef_accept;
@@ -979,12 +1165,22 @@ public :
    Int_t           trig_HLT_Photon30_HoverELoose_accept;
    Int_t           trig_HLT_L1_CDC_SingleMu_3_er1p2_TOP120_DPHI2p618_3p142_accept;
    Int_t           trig_AlCa_RPCMuonNormalisation_accept;
+   Int_t           trig_MC_PFMET_accept;
+   Int_t           trig_MC_CaloMET_accept;
+   Int_t           trig_MC_CaloMET_JetIdCleaned_accept;
    Int_t           trig_MC_DoubleEle5_CaloIdL_MW_accept;
    Int_t           trig_MC_Ele5_WPTight_Gsf_accept;
    Int_t           trig_MC_Ele15_Ele10_CaloIdL_TrackIdL_IsoVL_DZ_accept;
    Int_t           trig_MC_IsoMu_accept;
    Int_t           trig_MC_DoubleMu_TrkIsoVVL_DZ_accept;
    Int_t           trig_MC_DoubleMuNoFiltersNoVtx_accept;
+   Int_t           trig_HLT_IsoMu27_MET90_accept;
+   Int_t           trig_HLT_Photon50_R9Id90_HE10_IsoM_EBOnly_PFJetsMJJ300DEta3_PFMET50_accept;
+   Int_t           trig_HLT_Photon75_R9Id90_HE10_IsoM_EBOnly_PFJetsMJJ300DEta3_accept;
+   Int_t           trig_HLT_Photon75_R9Id90_HE10_IsoM_EBOnly_PFJetsMJJ600DEta3_accept;
+   Int_t           trig_HLT_PFMET100_PFMHT100_IDTight_PFHT60_accept;
+   Int_t           trig_HLT_PFMETNoMu100_PFMHTNoMu100_IDTight_PFHT60_accept;
+   Int_t           trig_HLT_PFMETTypeOne100_PFMHT100_IDTight_PFHT60_accept;
    Int_t           trig_HLT_Mu18_Mu9_SameSign_accept;
    Int_t           trig_HLT_Mu18_Mu9_SameSign_DZ_accept;
    Int_t           trig_HLT_Mu18_Mu9_accept;
@@ -997,6 +1193,7 @@ public :
    Int_t           trig_HLT_Mu23_Mu12_SameSign_DZ_accept;
    Int_t           trig_HLT_Mu23_Mu12_accept;
    Int_t           trig_HLT_Mu23_Mu12_DZ_accept;
+   Int_t           trig_HLT_DoubleMu3_DCA_PFMET50_PFMHT60_accept;
    Int_t           trig_HLT_TrkMu6NoFiltersNoVtx_accept;
    Int_t           trig_HLT_TrkMu16NoFiltersNoVtx_accept;
    Int_t           trig_HLT_DoubleTrkMu_16_6_NoFiltersNoVtx_accept;
@@ -1014,6 +1211,9 @@ public :
    TBranch        *b_ev_fixedGridRhoFastjetCentralCalo;   //!
    TBranch        *b_ev_fixedGridRhoFastjetCentralChargedPileUp;   //!
    TBranch        *b_ev_fixedGridRhoFastjetCentralNeutral;   //!
+   TBranch        *b_ev_prefiringweight;   //!
+   TBranch        *b_ev_prefiringweightup;   //!
+   TBranch        *b_ev_prefiringweightdown;   //!
    TBranch        *b_LHE_Pt;   //!
    TBranch        *b_LHE_Eta;   //!
    TBranch        *b_LHE_Phi;   //!
@@ -1023,6 +1223,9 @@ public :
    TBranch        *b_LHE_weight_nominal;   //!
    TBranch        *b_LHE_weight_sys;   //!
    TBranch        *b_mc_n;   //!
+   TBranch        *b_mc_nMEPartons;   //!
+   TBranch        *b_mc_nMEPartonsFiltered;   //!
+   TBranch        *b_mc_DJRValues;   //!
    TBranch        *b_mc_weight;   //!
    TBranch        *b_mc_w_sign;   //!
    TBranch        *b_mc_id_first;   //!
@@ -1078,6 +1281,10 @@ public :
    TBranch        *b_genjet_eta;   //!
    TBranch        *b_genjet_phi;   //!
    TBranch        *b_genjet_energy;   //!
+   TBranch        *b_genjetAK8_pt;   //!
+   TBranch        *b_genjetAK8_eta;   //!
+   TBranch        *b_genjetAK8_phi;   //!
+   TBranch        *b_genjetAK8_energy;   //!
    TBranch        *b_gen_weight_sys;   //!
    TBranch        *b_pv_n;   //!
    TBranch        *b_pv_x;   //!
@@ -1770,6 +1977,29 @@ public :
    TBranch        *b_tau_byTightIsolationMVArun2v1DBoldDMwLT2016;   //!
    TBranch        *b_tau_byVTightIsolationMVArun2v1DBoldDMwLT2016;   //!
    TBranch        *b_tau_byVVTightIsolationMVArun2v1DBoldDMwLT2016;   //!
+   TBranch        *b_tau_byDeepTau2017v2p1VSjetraw;   //!
+   TBranch        *b_tau_byVVVLooseDeepTau2017v2p1VSjet;   //!
+   TBranch        *b_tau_byVVLooseDeepTau2017v2p1VSjet;   //!
+   TBranch        *b_tau_byVLooseDeepTau2017v2p1VSjet;   //!
+   TBranch        *b_tau_byLooseDeepTau2017v2p1VSjet;   //!
+   TBranch        *b_tau_byMediumDeepTau2017v2p1VSjet;   //!
+   TBranch        *b_tau_byTightDeepTau2017v2p1VSjet;   //!
+   TBranch        *b_tau_byVTightDeepTau2017v2p1VSjet;   //!
+   TBranch        *b_tau_byVVTightDeepTau2017v2p1VSjet;   //!
+   TBranch        *b_tau_byDeepTau2017v2p1VSeraw;   //!
+   TBranch        *b_tau_byVVVLooseDeepTau2017v2p1VSe;   //!
+   TBranch        *b_tau_byVVLooseDeepTau2017v2p1VSe;   //!
+   TBranch        *b_tau_byVLooseDeepTau2017v2p1VSe;   //!
+   TBranch        *b_tau_byLooseDeepTau2017v2p1VSe;   //!
+   TBranch        *b_tau_byMediumDeepTau2017v2p1VSe;   //!
+   TBranch        *b_tau_byTightDeepTau2017v2p1VSe;   //!
+   TBranch        *b_tau_byVTightDeepTau2017v2p1VSe;   //!
+   TBranch        *b_tau_byVVTightDeepTau2017v2p1VSe;   //!
+   TBranch        *b_tau_byDeepTau2017v2p1VSmuraw;   //!
+   TBranch        *b_tau_byVLooseDeepTau2017v2p1VSmu;   //!
+   TBranch        *b_tau_byLooseDeepTau2017v2p1VSmu;   //!
+   TBranch        *b_tau_byMediumDeepTau2017v2p1VSmu;   //!
+   TBranch        *b_tau_byTightDeepTau2017v2p1VSmu;   //!
    TBranch        *b_trig_Flag_ecalBadCalibReduced;   //!
    TBranch        *b_trig_Flag_HBHENoiseFilter_accept;   //!
    TBranch        *b_trig_Flag_HBHENoiseIsoFilter_accept;   //!
@@ -1802,11 +2032,87 @@ public :
    TBranch        *b_trig_reconstruction_step_accept;   //!
    TBranch        *b_trig_recosim_step_accept;   //!
    TBranch        *b_trig_eventinterpretaion_step_accept;   //!
-   TBranch        *b_trig_pathALCARECOEcalUncalZElectron_accept;   //!
-   TBranch        *b_trig_pathALCARECOEcalUncalZSCElectron_accept;   //!
    TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_accept;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_et;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_et;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25EtFilter_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25EtFilter_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25EtFilter_et;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25HEFilter_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25HEFilter_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25HEFilter_et;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25CaloIdLClusterShapeFilter_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25CaloIdLClusterShapeFilter_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25CaloIdLClusterShapeFilter_et;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLPixelMatchFilter_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLPixelMatchFilter_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLPixelMatchFilter_et;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLMWPMS2Filter_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLMWPMS2Filter_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLMWPMS2Filter_et;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_et;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25EtUnseededFilter_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25EtUnseededFilter_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25EtUnseededFilter_et;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25HEUnseededFilter_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25HEUnseededFilter_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25HEUnseededFilter_et;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25CaloIdLClusterShapeUnseededFilter_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25CaloIdLClusterShapeUnseededFilter_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25CaloIdLClusterShapeUnseededFilter_et;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLPixelMatchUnseededFilter_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLPixelMatchUnseededFilter_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLPixelMatchUnseededFilter_et;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLMWPMS2UnseededFilter_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLMWPMS2UnseededFilter_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLMWPMS2UnseededFilter_et;   //!
    TBranch        *b_trig_HLT_DoubleEle27_CaloIdL_MW_accept;   //!
    TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_accept;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_et;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_et;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33EtFilter_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33EtFilter_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33EtFilter_et;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33HEFilter_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33HEFilter_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33HEFilter_et;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33CaloIdLClusterShapeFilter_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33CaloIdLClusterShapeFilter_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33CaloIdLClusterShapeFilter_et;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLPixelMatchFilter_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLPixelMatchFilter_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLPixelMatchFilter_et;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLMWPMS2Filter_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLMWPMS2Filter_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLMWPMS2Filter_et;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_et;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33EtUnseededFilter_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33EtUnseededFilter_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33EtUnseededFilter_et;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33HEUnseededFilter_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33HEUnseededFilter_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33HEUnseededFilter_et;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33CaloIdLClusterShapeUnseededFilter_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33CaloIdLClusterShapeUnseededFilter_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33CaloIdLClusterShapeUnseededFilter_et;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLPixelMatchUnseededFilter_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLPixelMatchUnseededFilter_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLPixelMatchUnseededFilter_et;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLMWPMS2UnseededFilter_eta;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLMWPMS2UnseededFilter_phi;   //!
+   TBranch        *b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLMWPMS2UnseededFilter_et;   //!
    TBranch        *b_trig_HLT_DoubleEle24_eta2p1_WPTight_Gsf_accept;   //!
    TBranch        *b_trig_HLT_Ele27_Ele37_CaloIdL_MW_accept;   //!
    TBranch        *b_trig_HLT_Mu27_Ele37_CaloIdL_MW_accept;   //!
@@ -1876,6 +2182,56 @@ public :
    TBranch        *b_trig_HLT_Mu55_accept;   //!
    TBranch        *b_trig_HLT_OldMu100_accept;   //!
    TBranch        *b_trig_HLT_TkMu100_accept;   //!
+   TBranch        *b_trig_HLT_PFHT500_PFMET100_PFMHT100_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_PFHT500_PFMET110_PFMHT110_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_PFHT700_PFMET85_PFMHT85_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_PFHT700_PFMET95_PFMHT95_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_PFHT800_PFMET75_PFMHT75_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_PFHT800_PFMET85_PFMHT85_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_PFMET110_PFMHT110_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_PFMET120_PFMHT120_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_PFMET130_PFMHT130_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_PFMET140_PFMHT140_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_PFMET100_PFMHT100_IDTight_CaloBTagDeepCSV_3p1_accept;   //!
+   TBranch        *b_trig_HLT_PFMET110_PFMHT110_IDTight_CaloBTagDeepCSV_3p1_accept;   //!
+   TBranch        *b_trig_HLT_PFMET120_PFMHT120_IDTight_CaloBTagDeepCSV_3p1_accept;   //!
+   TBranch        *b_trig_HLT_PFMET130_PFMHT130_IDTight_CaloBTagDeepCSV_3p1_accept;   //!
+   TBranch        *b_trig_HLT_PFMET140_PFMHT140_IDTight_CaloBTagDeepCSV_3p1_accept;   //!
+   TBranch        *b_trig_HLT_PFMET120_PFMHT120_IDTight_PFHT60_accept;   //!
+   TBranch        *b_trig_HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_PFHT60_accept;   //!
+   TBranch        *b_trig_HLT_PFMETTypeOne120_PFMHT120_IDTight_PFHT60_accept;   //!
+   TBranch        *b_trig_HLT_PFMETTypeOne110_PFMHT110_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_PFMETTypeOne120_PFMHT120_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_PFMETTypeOne130_PFMHT130_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_PFMETTypeOne140_PFMHT140_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_PFMETNoMu130_PFMHTNoMu130_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_PFMETNoMu140_PFMHTNoMu140_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_MonoCentralPFJet80_PFMETNoMu110_PFMHTNoMu110_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_MonoCentralPFJet80_PFMETNoMu130_PFMHTNoMu130_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_MonoCentralPFJet80_PFMETNoMu140_PFMHTNoMu140_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_CaloMET80_NotCleaned_accept;   //!
+   TBranch        *b_trig_HLT_CaloMET90_NotCleaned_accept;   //!
+   TBranch        *b_trig_HLT_CaloMET100_NotCleaned_accept;   //!
+   TBranch        *b_trig_HLT_CaloMET110_NotCleaned_accept;   //!
+   TBranch        *b_trig_HLT_CaloMET250_NotCleaned_accept;   //!
+   TBranch        *b_trig_HLT_CaloMET70_HBHECleaned_accept;   //!
+   TBranch        *b_trig_HLT_CaloMET80_HBHECleaned_accept;   //!
+   TBranch        *b_trig_HLT_CaloMET90_HBHECleaned_accept;   //!
+   TBranch        *b_trig_HLT_CaloMET100_HBHECleaned_accept;   //!
+   TBranch        *b_trig_HLT_CaloMET250_HBHECleaned_accept;   //!
+   TBranch        *b_trig_HLT_CaloMET300_HBHECleaned_accept;   //!
+   TBranch        *b_trig_HLT_CaloMET350_HBHECleaned_accept;   //!
+   TBranch        *b_trig_HLT_PFMET200_NotCleaned_accept;   //!
+   TBranch        *b_trig_HLT_PFMET200_HBHECleaned_accept;   //!
+   TBranch        *b_trig_HLT_PFMET250_HBHECleaned_accept;   //!
+   TBranch        *b_trig_HLT_PFMET300_HBHECleaned_accept;   //!
+   TBranch        *b_trig_HLT_PFMET200_HBHE_BeamHaloCleaned_accept;   //!
+   TBranch        *b_trig_HLT_PFMETTypeOne200_HBHE_BeamHaloCleaned_accept;   //!
+   TBranch        *b_trig_HLT_MET105_IsoTrk50_accept;   //!
+   TBranch        *b_trig_HLT_MET120_IsoTrk50_accept;   //!
    TBranch        *b_trig_HLT_Photon300_NoHE_accept;   //!
    TBranch        *b_trig_HLT_Mu8_TrkIsoVVL_accept;   //!
    TBranch        *b_trig_HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_accept;   //!
@@ -1906,11 +2262,17 @@ public :
    TBranch        *b_trig_HLT_Photon100EE_TightID_TightIso_accept;   //!
    TBranch        *b_trig_HLT_Photon50_R9Id90_HE10_IsoM_accept;   //!
    TBranch        *b_trig_HLT_Photon75_R9Id90_HE10_IsoM_accept;   //!
+   TBranch        *b_trig_HLT_Photon75_R9Id90_HE10_IsoM_EBOnly_CaloMJJ300_PFJetsMJJ400DEta3_accept;   //!
+   TBranch        *b_trig_HLT_Photon75_R9Id90_HE10_IsoM_EBOnly_CaloMJJ400_PFJetsMJJ600DEta3_accept;   //!
    TBranch        *b_trig_HLT_Photon90_R9Id90_HE10_IsoM_accept;   //!
    TBranch        *b_trig_HLT_Photon120_R9Id90_HE10_IsoM_accept;   //!
    TBranch        *b_trig_HLT_Photon165_R9Id90_HE10_IsoM_accept;   //!
+   TBranch        *b_trig_HLT_Photon90_CaloIdL_PFHT700_accept;   //!
    TBranch        *b_trig_HLT_Photon35_TwoProngs35_accept;   //!
    TBranch        *b_trig_HLT_IsoMu24_TwoProngs35_accept;   //!
+   TBranch        *b_trig_HLT_DoubleMu3_DZ_PFMET50_PFMHT60_accept;   //!
+   TBranch        *b_trig_HLT_DoubleMu3_DZ_PFMET70_PFMHT70_accept;   //!
+   TBranch        *b_trig_HLT_DoubleMu3_DZ_PFMET90_PFMHT90_accept;   //!
    TBranch        *b_trig_HLT_DoubleMu43NoFiltersNoVtx_accept;   //!
    TBranch        *b_trig_HLT_DoubleMu48NoFiltersNoVtx_accept;   //!
    TBranch        *b_trig_HLT_Mu43NoFiltersNoVtx_Photon43_CaloIdL_accept;   //!
@@ -1921,7 +2283,26 @@ public :
    TBranch        *b_trig_HLT_DoubleMu40NoFiltersNoVtxDisplaced_accept;   //!
    TBranch        *b_trig_HLT_DoubleMu20_7_Mass0to30_L1_DM4_accept;   //!
    TBranch        *b_trig_HLT_DoubleMu20_7_Mass0to30_L1_DM4EG_accept;   //!
+   TBranch        *b_trig_HLT_DiJet110_35_Mjj650_PFMET110_accept;   //!
+   TBranch        *b_trig_HLT_DiJet110_35_Mjj650_PFMET120_accept;   //!
+   TBranch        *b_trig_HLT_DiJet110_35_Mjj650_PFMET130_accept;   //!
+   TBranch        *b_trig_HLT_TripleJet110_35_35_Mjj650_PFMET110_accept;   //!
+   TBranch        *b_trig_HLT_TripleJet110_35_35_Mjj650_PFMET120_accept;   //!
+   TBranch        *b_trig_HLT_TripleJet110_35_35_Mjj650_PFMET130_accept;   //!
    TBranch        *b_trig_HLT_DoubleMu20_7_Mass0to30_Photon23_accept;   //!
+   TBranch        *b_trig_HLT_Ele15_IsoVVVL_PFHT450_PFMET50_accept;   //!
+   TBranch        *b_trig_HLT_Mu4_TrkIsoVVL_DiPFJet90_40_DEta3p5_MJJ750_HTT300_PFMETNoMu60_accept;   //!
+   TBranch        *b_trig_HLT_Mu8_TrkIsoVVL_DiPFJet40_DEta3p5_MJJ750_HTT300_PFMETNoMu60_accept;   //!
+   TBranch        *b_trig_HLT_Mu10_TrkIsoVVL_DiPFJet40_DEta3p5_MJJ750_HTT350_PFMETNoMu60_accept;   //!
+   TBranch        *b_trig_HLT_Mu15_IsoVVVL_PFHT450_PFMET50_accept;   //!
+   TBranch        *b_trig_HLT_Mu3er1p5_PFJet100er2p5_PFMET70_PFMHT70_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_Mu3er1p5_PFJet100er2p5_PFMET80_PFMHT80_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_Mu3er1p5_PFJet100er2p5_PFMET90_PFMHT90_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_Mu3er1p5_PFJet100er2p5_PFMET100_PFMHT100_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_Mu3er1p5_PFJet100er2p5_PFMETNoMu70_PFMHTNoMu70_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_Mu3er1p5_PFJet100er2p5_PFMETNoMu80_PFMHTNoMu80_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_Mu3er1p5_PFJet100er2p5_PFMETNoMu90_PFMHTNoMu90_IDTight_accept;   //!
+   TBranch        *b_trig_HLT_Mu3er1p5_PFJet100er2p5_PFMETNoMu100_PFMHTNoMu100_IDTight_accept;   //!
    TBranch        *b_trig_HLT_Dimuon14_Phi_Barrel_Seagulls_accept;   //!
    TBranch        *b_trig_HLT_Dimuon24_Phi_noCorrL1_accept;   //!
    TBranch        *b_trig_HLT_DoubleIsoMu20_eta2p1_accept;   //!
@@ -1940,6 +2321,7 @@ public :
    TBranch        *b_trig_HLT_Ele300_CaloIdVT_GsfTrkIdT_accept;   //!
    TBranch        *b_trig_HLT_Photon60_R9Id90_CaloIdL_IsoL_accept;   //!
    TBranch        *b_trig_HLT_Photon60_R9Id90_CaloIdL_IsoL_DisplacedIdL_accept;   //!
+   TBranch        *b_trig_HLT_Photon60_R9Id90_CaloIdL_IsoL_DisplacedIdL_PFHT350MinPFJet15_accept;   //!
    TBranch        *b_trig_HLT_SinglePhoton10_Eta3p1ForPPRef_accept;   //!
    TBranch        *b_trig_HLT_SinglePhoton20_Eta3p1ForPPRef_accept;   //!
    TBranch        *b_trig_HLT_SinglePhoton30_Eta3p1ForPPRef_accept;   //!
@@ -1947,12 +2329,22 @@ public :
    TBranch        *b_trig_HLT_Photon30_HoverELoose_accept;   //!
    TBranch        *b_trig_HLT_L1_CDC_SingleMu_3_er1p2_TOP120_DPHI2p618_3p142_accept;   //!
    TBranch        *b_trig_AlCa_RPCMuonNormalisation_accept;   //!
+   TBranch        *b_trig_MC_PFMET_accept;   //!
+   TBranch        *b_trig_MC_CaloMET_accept;   //!
+   TBranch        *b_trig_MC_CaloMET_JetIdCleaned_accept;   //!
    TBranch        *b_trig_MC_DoubleEle5_CaloIdL_MW_accept;   //!
    TBranch        *b_trig_MC_Ele5_WPTight_Gsf_accept;   //!
    TBranch        *b_trig_MC_Ele15_Ele10_CaloIdL_TrackIdL_IsoVL_DZ_accept;   //!
    TBranch        *b_trig_MC_IsoMu_accept;   //!
    TBranch        *b_trig_MC_DoubleMu_TrkIsoVVL_DZ_accept;   //!
    TBranch        *b_trig_MC_DoubleMuNoFiltersNoVtx_accept;   //!
+   TBranch        *b_trig_HLT_IsoMu27_MET90_accept;   //!
+   TBranch        *b_trig_HLT_Photon50_R9Id90_HE10_IsoM_EBOnly_PFJetsMJJ300DEta3_PFMET50_accept;   //!
+   TBranch        *b_trig_HLT_Photon75_R9Id90_HE10_IsoM_EBOnly_PFJetsMJJ300DEta3_accept;   //!
+   TBranch        *b_trig_HLT_Photon75_R9Id90_HE10_IsoM_EBOnly_PFJetsMJJ600DEta3_accept;   //!
+   TBranch        *b_trig_HLT_PFMET100_PFMHT100_IDTight_PFHT60_accept;   //!
+   TBranch        *b_trig_HLT_PFMETNoMu100_PFMHTNoMu100_IDTight_PFHT60_accept;   //!
+   TBranch        *b_trig_HLT_PFMETTypeOne100_PFMHT100_IDTight_PFHT60_accept;   //!
    TBranch        *b_trig_HLT_Mu18_Mu9_SameSign_accept;   //!
    TBranch        *b_trig_HLT_Mu18_Mu9_SameSign_DZ_accept;   //!
    TBranch        *b_trig_HLT_Mu18_Mu9_accept;   //!
@@ -1965,6 +2357,7 @@ public :
    TBranch        *b_trig_HLT_Mu23_Mu12_SameSign_DZ_accept;   //!
    TBranch        *b_trig_HLT_Mu23_Mu12_accept;   //!
    TBranch        *b_trig_HLT_Mu23_Mu12_DZ_accept;   //!
+   TBranch        *b_trig_HLT_DoubleMu3_DCA_PFMET50_PFMHT60_accept;   //!
    TBranch        *b_trig_HLT_TrkMu6NoFiltersNoVtx_accept;   //!
    TBranch        *b_trig_HLT_TrkMu16NoFiltersNoVtx_accept;   //!
    TBranch        *b_trig_HLT_DoubleTrkMu_16_6_NoFiltersNoVtx_accept;   //!
@@ -1988,9 +2381,9 @@ IIHEAnalysis::IIHEAnalysis(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/pnfs/iihe/cms/store/user/dbeghin/Legacy/2018_v1/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/crab_DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/190506_132620/0000/outfile_1.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/pnfs/iihe/cms/store/user/dbeghin/Legacy/DeepTau/2018/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/200217_095950/0000/outfile_1.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("/pnfs/iihe/cms/store/user/dbeghin/Legacy/2018_v1/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/crab_DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/190506_132620/0000/outfile_1.root");
+         f = new TFile("/pnfs/iihe/cms/store/user/dbeghin/Legacy/DeepTau/2018/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/200217_095950/0000/outfile_1.root");
       }
       f->GetObject("IIHEAnalysis",tree);
 
@@ -2041,6 +2434,7 @@ void IIHEAnalysis::Init(TTree *tree)
    LHE_pdgid = 0;
    LHE_status = 0;
    LHE_weight_sys = 0;
+   mc_DJRValues = 0;
    mc_index = 0;
    mc_pdgId = 0;
    mc_charge = 0;
@@ -2085,6 +2479,10 @@ void IIHEAnalysis::Init(TTree *tree)
    genjet_eta = 0;
    genjet_phi = 0;
    genjet_energy = 0;
+   genjetAK8_pt = 0;
+   genjetAK8_eta = 0;
+   genjetAK8_phi = 0;
+   genjetAK8_energy = 0;
    gen_weight_sys = 0;
    pv_x = 0;
    pv_y = 0;
@@ -2700,6 +3098,107 @@ void IIHEAnalysis::Init(TTree *tree)
    tau_byTightIsolationMVArun2v1DBoldDMwLT2016 = 0;
    tau_byVTightIsolationMVArun2v1DBoldDMwLT2016 = 0;
    tau_byVVTightIsolationMVArun2v1DBoldDMwLT2016 = 0;
+   tau_byDeepTau2017v2p1VSjetraw = 0;
+   tau_byVVVLooseDeepTau2017v2p1VSjet = 0;
+   tau_byVVLooseDeepTau2017v2p1VSjet = 0;
+   tau_byVLooseDeepTau2017v2p1VSjet = 0;
+   tau_byLooseDeepTau2017v2p1VSjet = 0;
+   tau_byMediumDeepTau2017v2p1VSjet = 0;
+   tau_byTightDeepTau2017v2p1VSjet = 0;
+   tau_byVTightDeepTau2017v2p1VSjet = 0;
+   tau_byVVTightDeepTau2017v2p1VSjet = 0;
+   tau_byDeepTau2017v2p1VSeraw = 0;
+   tau_byVVVLooseDeepTau2017v2p1VSe = 0;
+   tau_byVVLooseDeepTau2017v2p1VSe = 0;
+   tau_byVLooseDeepTau2017v2p1VSe = 0;
+   tau_byLooseDeepTau2017v2p1VSe = 0;
+   tau_byMediumDeepTau2017v2p1VSe = 0;
+   tau_byTightDeepTau2017v2p1VSe = 0;
+   tau_byVTightDeepTau2017v2p1VSe = 0;
+   tau_byVVTightDeepTau2017v2p1VSe = 0;
+   tau_byDeepTau2017v2p1VSmuraw = 0;
+   tau_byVLooseDeepTau2017v2p1VSmu = 0;
+   tau_byLooseDeepTau2017v2p1VSmu = 0;
+   tau_byMediumDeepTau2017v2p1VSmu = 0;
+   tau_byTightDeepTau2017v2p1VSmu = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_eta = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_phi = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_et = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_eta = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_phi = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_et = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25EtFilter_eta = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25EtFilter_phi = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25EtFilter_et = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25HEFilter_eta = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25HEFilter_phi = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25HEFilter_et = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25CaloIdLClusterShapeFilter_eta = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25CaloIdLClusterShapeFilter_phi = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25CaloIdLClusterShapeFilter_et = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLPixelMatchFilter_eta = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLPixelMatchFilter_phi = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLPixelMatchFilter_et = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLMWPMS2Filter_eta = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLMWPMS2Filter_phi = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLMWPMS2Filter_et = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_eta = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_phi = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_et = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25EtUnseededFilter_eta = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25EtUnseededFilter_phi = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25EtUnseededFilter_et = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25HEUnseededFilter_eta = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25HEUnseededFilter_phi = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25HEUnseededFilter_et = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25CaloIdLClusterShapeUnseededFilter_eta = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25CaloIdLClusterShapeUnseededFilter_phi = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25CaloIdLClusterShapeUnseededFilter_et = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLPixelMatchUnseededFilter_eta = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLPixelMatchUnseededFilter_phi = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLPixelMatchUnseededFilter_et = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLMWPMS2UnseededFilter_eta = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLMWPMS2UnseededFilter_phi = 0;
+   trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLMWPMS2UnseededFilter_et = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_eta = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_phi = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_et = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_eta = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_phi = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_et = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33EtFilter_eta = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33EtFilter_phi = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33EtFilter_et = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33HEFilter_eta = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33HEFilter_phi = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33HEFilter_et = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33CaloIdLClusterShapeFilter_eta = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33CaloIdLClusterShapeFilter_phi = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33CaloIdLClusterShapeFilter_et = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLPixelMatchFilter_eta = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLPixelMatchFilter_phi = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLPixelMatchFilter_et = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLMWPMS2Filter_eta = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLMWPMS2Filter_phi = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLMWPMS2Filter_et = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_eta = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_phi = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_et = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33EtUnseededFilter_eta = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33EtUnseededFilter_phi = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33EtUnseededFilter_et = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33HEUnseededFilter_eta = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33HEUnseededFilter_phi = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33HEUnseededFilter_et = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33CaloIdLClusterShapeUnseededFilter_eta = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33CaloIdLClusterShapeUnseededFilter_phi = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33CaloIdLClusterShapeUnseededFilter_et = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLPixelMatchUnseededFilter_eta = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLPixelMatchUnseededFilter_phi = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLPixelMatchUnseededFilter_et = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLMWPMS2UnseededFilter_eta = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLMWPMS2UnseededFilter_phi = 0;
+   trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLMWPMS2UnseededFilter_et = 0;
    // Set branch addresses and branch pointers
    if (!tree) return;
    fChain = tree;
@@ -2718,6 +3217,9 @@ void IIHEAnalysis::Init(TTree *tree)
    fChain->SetBranchAddress("ev_fixedGridRhoFastjetCentralCalo", &ev_fixedGridRhoFastjetCentralCalo, &b_ev_fixedGridRhoFastjetCentralCalo);
    fChain->SetBranchAddress("ev_fixedGridRhoFastjetCentralChargedPileUp", &ev_fixedGridRhoFastjetCentralChargedPileUp, &b_ev_fixedGridRhoFastjetCentralChargedPileUp);
    fChain->SetBranchAddress("ev_fixedGridRhoFastjetCentralNeutral", &ev_fixedGridRhoFastjetCentralNeutral, &b_ev_fixedGridRhoFastjetCentralNeutral);
+   fChain->SetBranchAddress("ev_prefiringweight", &ev_prefiringweight, &b_ev_prefiringweight);
+   fChain->SetBranchAddress("ev_prefiringweightup", &ev_prefiringweightup, &b_ev_prefiringweightup);
+   fChain->SetBranchAddress("ev_prefiringweightdown", &ev_prefiringweightdown, &b_ev_prefiringweightdown);
    fChain->SetBranchAddress("LHE_Pt", &LHE_Pt, &b_LHE_Pt);
    fChain->SetBranchAddress("LHE_Eta", &LHE_Eta, &b_LHE_Eta);
    fChain->SetBranchAddress("LHE_Phi", &LHE_Phi, &b_LHE_Phi);
@@ -2727,6 +3229,9 @@ void IIHEAnalysis::Init(TTree *tree)
    fChain->SetBranchAddress("LHE_weight_nominal", &LHE_weight_nominal, &b_LHE_weight_nominal);
    fChain->SetBranchAddress("LHE_weight_sys", &LHE_weight_sys, &b_LHE_weight_sys);
    fChain->SetBranchAddress("mc_n", &mc_n, &b_mc_n);
+   fChain->SetBranchAddress("mc_nMEPartons", &mc_nMEPartons, &b_mc_nMEPartons);
+   fChain->SetBranchAddress("mc_nMEPartonsFiltered", &mc_nMEPartonsFiltered, &b_mc_nMEPartonsFiltered);
+   fChain->SetBranchAddress("mc_DJRValues", &mc_DJRValues, &b_mc_DJRValues);
    fChain->SetBranchAddress("mc_weight", &mc_weight, &b_mc_weight);
    fChain->SetBranchAddress("mc_w_sign", &mc_w_sign, &b_mc_w_sign);
    fChain->SetBranchAddress("mc_id_first", &mc_id_first, &b_mc_id_first);
@@ -2782,6 +3287,10 @@ void IIHEAnalysis::Init(TTree *tree)
    fChain->SetBranchAddress("genjet_eta", &genjet_eta, &b_genjet_eta);
    fChain->SetBranchAddress("genjet_phi", &genjet_phi, &b_genjet_phi);
    fChain->SetBranchAddress("genjet_energy", &genjet_energy, &b_genjet_energy);
+   fChain->SetBranchAddress("genjetAK8_pt", &genjetAK8_pt, &b_genjetAK8_pt);
+   fChain->SetBranchAddress("genjetAK8_eta", &genjetAK8_eta, &b_genjetAK8_eta);
+   fChain->SetBranchAddress("genjetAK8_phi", &genjetAK8_phi, &b_genjetAK8_phi);
+   fChain->SetBranchAddress("genjetAK8_energy", &genjetAK8_energy, &b_genjetAK8_energy);
    fChain->SetBranchAddress("gen_weight_sys", &gen_weight_sys, &b_gen_weight_sys);
    fChain->SetBranchAddress("pv_n", &pv_n, &b_pv_n);
    fChain->SetBranchAddress("pv_x", &pv_x, &b_pv_x);
@@ -3474,6 +3983,29 @@ void IIHEAnalysis::Init(TTree *tree)
    fChain->SetBranchAddress("tau_byTightIsolationMVArun2v1DBoldDMwLT2016", &tau_byTightIsolationMVArun2v1DBoldDMwLT2016, &b_tau_byTightIsolationMVArun2v1DBoldDMwLT2016);
    fChain->SetBranchAddress("tau_byVTightIsolationMVArun2v1DBoldDMwLT2016", &tau_byVTightIsolationMVArun2v1DBoldDMwLT2016, &b_tau_byVTightIsolationMVArun2v1DBoldDMwLT2016);
    fChain->SetBranchAddress("tau_byVVTightIsolationMVArun2v1DBoldDMwLT2016", &tau_byVVTightIsolationMVArun2v1DBoldDMwLT2016, &b_tau_byVVTightIsolationMVArun2v1DBoldDMwLT2016);
+   fChain->SetBranchAddress("tau_byDeepTau2017v2p1VSjetraw", &tau_byDeepTau2017v2p1VSjetraw, &b_tau_byDeepTau2017v2p1VSjetraw);
+   fChain->SetBranchAddress("tau_byVVVLooseDeepTau2017v2p1VSjet", &tau_byVVVLooseDeepTau2017v2p1VSjet, &b_tau_byVVVLooseDeepTau2017v2p1VSjet);
+   fChain->SetBranchAddress("tau_byVVLooseDeepTau2017v2p1VSjet", &tau_byVVLooseDeepTau2017v2p1VSjet, &b_tau_byVVLooseDeepTau2017v2p1VSjet);
+   fChain->SetBranchAddress("tau_byVLooseDeepTau2017v2p1VSjet", &tau_byVLooseDeepTau2017v2p1VSjet, &b_tau_byVLooseDeepTau2017v2p1VSjet);
+   fChain->SetBranchAddress("tau_byLooseDeepTau2017v2p1VSjet", &tau_byLooseDeepTau2017v2p1VSjet, &b_tau_byLooseDeepTau2017v2p1VSjet);
+   fChain->SetBranchAddress("tau_byMediumDeepTau2017v2p1VSjet", &tau_byMediumDeepTau2017v2p1VSjet, &b_tau_byMediumDeepTau2017v2p1VSjet);
+   fChain->SetBranchAddress("tau_byTightDeepTau2017v2p1VSjet", &tau_byTightDeepTau2017v2p1VSjet, &b_tau_byTightDeepTau2017v2p1VSjet);
+   fChain->SetBranchAddress("tau_byVTightDeepTau2017v2p1VSjet", &tau_byVTightDeepTau2017v2p1VSjet, &b_tau_byVTightDeepTau2017v2p1VSjet);
+   fChain->SetBranchAddress("tau_byVVTightDeepTau2017v2p1VSjet", &tau_byVVTightDeepTau2017v2p1VSjet, &b_tau_byVVTightDeepTau2017v2p1VSjet);
+   fChain->SetBranchAddress("tau_byDeepTau2017v2p1VSeraw", &tau_byDeepTau2017v2p1VSeraw, &b_tau_byDeepTau2017v2p1VSeraw);
+   fChain->SetBranchAddress("tau_byVVVLooseDeepTau2017v2p1VSe", &tau_byVVVLooseDeepTau2017v2p1VSe, &b_tau_byVVVLooseDeepTau2017v2p1VSe);
+   fChain->SetBranchAddress("tau_byVVLooseDeepTau2017v2p1VSe", &tau_byVVLooseDeepTau2017v2p1VSe, &b_tau_byVVLooseDeepTau2017v2p1VSe);
+   fChain->SetBranchAddress("tau_byVLooseDeepTau2017v2p1VSe", &tau_byVLooseDeepTau2017v2p1VSe, &b_tau_byVLooseDeepTau2017v2p1VSe);
+   fChain->SetBranchAddress("tau_byLooseDeepTau2017v2p1VSe", &tau_byLooseDeepTau2017v2p1VSe, &b_tau_byLooseDeepTau2017v2p1VSe);
+   fChain->SetBranchAddress("tau_byMediumDeepTau2017v2p1VSe", &tau_byMediumDeepTau2017v2p1VSe, &b_tau_byMediumDeepTau2017v2p1VSe);
+   fChain->SetBranchAddress("tau_byTightDeepTau2017v2p1VSe", &tau_byTightDeepTau2017v2p1VSe, &b_tau_byTightDeepTau2017v2p1VSe);
+   fChain->SetBranchAddress("tau_byVTightDeepTau2017v2p1VSe", &tau_byVTightDeepTau2017v2p1VSe, &b_tau_byVTightDeepTau2017v2p1VSe);
+   fChain->SetBranchAddress("tau_byVVTightDeepTau2017v2p1VSe", &tau_byVVTightDeepTau2017v2p1VSe, &b_tau_byVVTightDeepTau2017v2p1VSe);
+   fChain->SetBranchAddress("tau_byDeepTau2017v2p1VSmuraw", &tau_byDeepTau2017v2p1VSmuraw, &b_tau_byDeepTau2017v2p1VSmuraw);
+   fChain->SetBranchAddress("tau_byVLooseDeepTau2017v2p1VSmu", &tau_byVLooseDeepTau2017v2p1VSmu, &b_tau_byVLooseDeepTau2017v2p1VSmu);
+   fChain->SetBranchAddress("tau_byLooseDeepTau2017v2p1VSmu", &tau_byLooseDeepTau2017v2p1VSmu, &b_tau_byLooseDeepTau2017v2p1VSmu);
+   fChain->SetBranchAddress("tau_byMediumDeepTau2017v2p1VSmu", &tau_byMediumDeepTau2017v2p1VSmu, &b_tau_byMediumDeepTau2017v2p1VSmu);
+   fChain->SetBranchAddress("tau_byTightDeepTau2017v2p1VSmu", &tau_byTightDeepTau2017v2p1VSmu, &b_tau_byTightDeepTau2017v2p1VSmu);
    fChain->SetBranchAddress("trig_Flag_ecalBadCalibReduced", &trig_Flag_ecalBadCalibReduced, &b_trig_Flag_ecalBadCalibReduced);
    fChain->SetBranchAddress("trig_Flag_HBHENoiseFilter_accept", &trig_Flag_HBHENoiseFilter_accept, &b_trig_Flag_HBHENoiseFilter_accept);
    fChain->SetBranchAddress("trig_Flag_HBHENoiseIsoFilter_accept", &trig_Flag_HBHENoiseIsoFilter_accept, &b_trig_Flag_HBHENoiseIsoFilter_accept);
@@ -3506,11 +4038,87 @@ void IIHEAnalysis::Init(TTree *tree)
    fChain->SetBranchAddress("trig_reconstruction_step_accept", &trig_reconstruction_step_accept, &b_trig_reconstruction_step_accept);
    fChain->SetBranchAddress("trig_recosim_step_accept", &trig_recosim_step_accept, &b_trig_recosim_step_accept);
    fChain->SetBranchAddress("trig_eventinterpretaion_step_accept", &trig_eventinterpretaion_step_accept, &b_trig_eventinterpretaion_step_accept);
-   fChain->SetBranchAddress("trig_pathALCARECOEcalUncalZElectron_accept", &trig_pathALCARECOEcalUncalZElectron_accept, &b_trig_pathALCARECOEcalUncalZElectron_accept);
-   fChain->SetBranchAddress("trig_pathALCARECOEcalUncalZSCElectron_accept", &trig_pathALCARECOEcalUncalZSCElectron_accept, &b_trig_pathALCARECOEcalUncalZSCElectron_accept);
    fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_accept", &trig_HLT_DoubleEle25_CaloIdL_MW_accept, &b_trig_HLT_DoubleEle25_CaloIdL_MW_accept);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_eta", &trig_HLT_DoubleEle25_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_eta, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_phi", &trig_HLT_DoubleEle25_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_phi, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_et", &trig_HLT_DoubleEle25_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_et, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_et);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_eta", &trig_HLT_DoubleEle25_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_eta, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_phi", &trig_HLT_DoubleEle25_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_phi, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_et", &trig_HLT_DoubleEle25_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_et, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_et);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25EtFilter_eta", &trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25EtFilter_eta, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25EtFilter_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25EtFilter_phi", &trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25EtFilter_phi, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25EtFilter_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25EtFilter_et", &trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25EtFilter_et, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25EtFilter_et);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25HEFilter_eta", &trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25HEFilter_eta, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25HEFilter_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25HEFilter_phi", &trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25HEFilter_phi, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25HEFilter_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25HEFilter_et", &trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25HEFilter_et, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25HEFilter_et);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25CaloIdLClusterShapeFilter_eta", &trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25CaloIdLClusterShapeFilter_eta, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25CaloIdLClusterShapeFilter_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25CaloIdLClusterShapeFilter_phi", &trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25CaloIdLClusterShapeFilter_phi, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25CaloIdLClusterShapeFilter_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25CaloIdLClusterShapeFilter_et", &trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25CaloIdLClusterShapeFilter_et, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEG25CaloIdLClusterShapeFilter_et);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLPixelMatchFilter_eta", &trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLPixelMatchFilter_eta, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLPixelMatchFilter_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLPixelMatchFilter_phi", &trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLPixelMatchFilter_phi, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLPixelMatchFilter_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLPixelMatchFilter_et", &trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLPixelMatchFilter_et, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLPixelMatchFilter_et);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLMWPMS2Filter_eta", &trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLMWPMS2Filter_eta, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLMWPMS2Filter_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLMWPMS2Filter_phi", &trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLMWPMS2Filter_phi, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLMWPMS2Filter_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLMWPMS2Filter_et", &trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLMWPMS2Filter_et, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEle25CaloIdLMWPMS2Filter_et);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_eta", &trig_HLT_DoubleEle25_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_eta, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_phi", &trig_HLT_DoubleEle25_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_phi, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_et", &trig_HLT_DoubleEle25_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_et, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_et);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25EtUnseededFilter_eta", &trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25EtUnseededFilter_eta, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25EtUnseededFilter_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25EtUnseededFilter_phi", &trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25EtUnseededFilter_phi, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25EtUnseededFilter_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25EtUnseededFilter_et", &trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25EtUnseededFilter_et, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25EtUnseededFilter_et);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25HEUnseededFilter_eta", &trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25HEUnseededFilter_eta, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25HEUnseededFilter_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25HEUnseededFilter_phi", &trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25HEUnseededFilter_phi, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25HEUnseededFilter_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25HEUnseededFilter_et", &trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25HEUnseededFilter_et, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25HEUnseededFilter_et);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25CaloIdLClusterShapeUnseededFilter_eta", &trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25CaloIdLClusterShapeUnseededFilter_eta, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25CaloIdLClusterShapeUnseededFilter_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25CaloIdLClusterShapeUnseededFilter_phi", &trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25CaloIdLClusterShapeUnseededFilter_phi, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25CaloIdLClusterShapeUnseededFilter_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25CaloIdLClusterShapeUnseededFilter_et", &trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25CaloIdLClusterShapeUnseededFilter_et, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEG25CaloIdLClusterShapeUnseededFilter_et);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLPixelMatchUnseededFilter_eta", &trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLPixelMatchUnseededFilter_eta, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLPixelMatchUnseededFilter_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLPixelMatchUnseededFilter_phi", &trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLPixelMatchUnseededFilter_phi, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLPixelMatchUnseededFilter_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLPixelMatchUnseededFilter_et", &trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLPixelMatchUnseededFilter_et, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLPixelMatchUnseededFilter_et);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLMWPMS2UnseededFilter_eta", &trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLMWPMS2UnseededFilter_eta, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLMWPMS2UnseededFilter_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLMWPMS2UnseededFilter_phi", &trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLMWPMS2UnseededFilter_phi, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLMWPMS2UnseededFilter_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLMWPMS2UnseededFilter_et", &trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLMWPMS2UnseededFilter_et, &b_trig_HLT_DoubleEle25_CaloIdL_MW_hltDiEle25CaloIdLMWPMS2UnseededFilter_et);
    fChain->SetBranchAddress("trig_HLT_DoubleEle27_CaloIdL_MW_accept", &trig_HLT_DoubleEle27_CaloIdL_MW_accept, &b_trig_HLT_DoubleEle27_CaloIdL_MW_accept);
    fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_accept", &trig_HLT_DoubleEle33_CaloIdL_MW_accept, &b_trig_HLT_DoubleEle33_CaloIdL_MW_accept);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_eta", &trig_HLT_DoubleEle33_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_eta, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_phi", &trig_HLT_DoubleEle33_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_phi, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_et", &trig_HLT_DoubleEle33_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_et, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltL1sSingleAndDoubleEGNonIsoOrWithEG26WithJetAndTau_et);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_eta", &trig_HLT_DoubleEle33_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_eta, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_phi", &trig_HLT_DoubleEle33_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_phi, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_et", &trig_HLT_DoubleEle33_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_et, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEGL1SingleAndDoubleEGNonIsoOrWithEG26WithJetAndTauFilter_et);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33EtFilter_eta", &trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33EtFilter_eta, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33EtFilter_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33EtFilter_phi", &trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33EtFilter_phi, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33EtFilter_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33EtFilter_et", &trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33EtFilter_et, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33EtFilter_et);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33HEFilter_eta", &trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33HEFilter_eta, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33HEFilter_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33HEFilter_phi", &trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33HEFilter_phi, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33HEFilter_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33HEFilter_et", &trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33HEFilter_et, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33HEFilter_et);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33CaloIdLClusterShapeFilter_eta", &trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33CaloIdLClusterShapeFilter_eta, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33CaloIdLClusterShapeFilter_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33CaloIdLClusterShapeFilter_phi", &trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33CaloIdLClusterShapeFilter_phi, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33CaloIdLClusterShapeFilter_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33CaloIdLClusterShapeFilter_et", &trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33CaloIdLClusterShapeFilter_et, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEG33CaloIdLClusterShapeFilter_et);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLPixelMatchFilter_eta", &trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLPixelMatchFilter_eta, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLPixelMatchFilter_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLPixelMatchFilter_phi", &trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLPixelMatchFilter_phi, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLPixelMatchFilter_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLPixelMatchFilter_et", &trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLPixelMatchFilter_et, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLPixelMatchFilter_et);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLMWPMS2Filter_eta", &trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLMWPMS2Filter_eta, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLMWPMS2Filter_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLMWPMS2Filter_phi", &trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLMWPMS2Filter_phi, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLMWPMS2Filter_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLMWPMS2Filter_et", &trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLMWPMS2Filter_et, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEle33CaloIdLMWPMS2Filter_et);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_eta", &trig_HLT_DoubleEle33_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_eta, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_phi", &trig_HLT_DoubleEle33_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_phi, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_et", &trig_HLT_DoubleEle33_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_et, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltEgammaCandidatesWrapperUnseeded_et);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33EtUnseededFilter_eta", &trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33EtUnseededFilter_eta, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33EtUnseededFilter_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33EtUnseededFilter_phi", &trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33EtUnseededFilter_phi, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33EtUnseededFilter_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33EtUnseededFilter_et", &trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33EtUnseededFilter_et, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33EtUnseededFilter_et);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33HEUnseededFilter_eta", &trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33HEUnseededFilter_eta, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33HEUnseededFilter_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33HEUnseededFilter_phi", &trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33HEUnseededFilter_phi, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33HEUnseededFilter_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33HEUnseededFilter_et", &trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33HEUnseededFilter_et, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33HEUnseededFilter_et);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33CaloIdLClusterShapeUnseededFilter_eta", &trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33CaloIdLClusterShapeUnseededFilter_eta, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33CaloIdLClusterShapeUnseededFilter_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33CaloIdLClusterShapeUnseededFilter_phi", &trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33CaloIdLClusterShapeUnseededFilter_phi, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33CaloIdLClusterShapeUnseededFilter_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33CaloIdLClusterShapeUnseededFilter_et", &trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33CaloIdLClusterShapeUnseededFilter_et, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEG33CaloIdLClusterShapeUnseededFilter_et);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLPixelMatchUnseededFilter_eta", &trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLPixelMatchUnseededFilter_eta, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLPixelMatchUnseededFilter_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLPixelMatchUnseededFilter_phi", &trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLPixelMatchUnseededFilter_phi, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLPixelMatchUnseededFilter_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLPixelMatchUnseededFilter_et", &trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLPixelMatchUnseededFilter_et, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLPixelMatchUnseededFilter_et);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLMWPMS2UnseededFilter_eta", &trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLMWPMS2UnseededFilter_eta, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLMWPMS2UnseededFilter_eta);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLMWPMS2UnseededFilter_phi", &trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLMWPMS2UnseededFilter_phi, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLMWPMS2UnseededFilter_phi);
+   fChain->SetBranchAddress("trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLMWPMS2UnseededFilter_et", &trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLMWPMS2UnseededFilter_et, &b_trig_HLT_DoubleEle33_CaloIdL_MW_hltDiEle33CaloIdLMWPMS2UnseededFilter_et);
    fChain->SetBranchAddress("trig_HLT_DoubleEle24_eta2p1_WPTight_Gsf_accept", &trig_HLT_DoubleEle24_eta2p1_WPTight_Gsf_accept, &b_trig_HLT_DoubleEle24_eta2p1_WPTight_Gsf_accept);
    fChain->SetBranchAddress("trig_HLT_Ele27_Ele37_CaloIdL_MW_accept", &trig_HLT_Ele27_Ele37_CaloIdL_MW_accept, &b_trig_HLT_Ele27_Ele37_CaloIdL_MW_accept);
    fChain->SetBranchAddress("trig_HLT_Mu27_Ele37_CaloIdL_MW_accept", &trig_HLT_Mu27_Ele37_CaloIdL_MW_accept, &b_trig_HLT_Mu27_Ele37_CaloIdL_MW_accept);
@@ -3580,6 +4188,56 @@ void IIHEAnalysis::Init(TTree *tree)
    fChain->SetBranchAddress("trig_HLT_Mu55_accept", &trig_HLT_Mu55_accept, &b_trig_HLT_Mu55_accept);
    fChain->SetBranchAddress("trig_HLT_OldMu100_accept", &trig_HLT_OldMu100_accept, &b_trig_HLT_OldMu100_accept);
    fChain->SetBranchAddress("trig_HLT_TkMu100_accept", &trig_HLT_TkMu100_accept, &b_trig_HLT_TkMu100_accept);
+   fChain->SetBranchAddress("trig_HLT_PFHT500_PFMET100_PFMHT100_IDTight_accept", &trig_HLT_PFHT500_PFMET100_PFMHT100_IDTight_accept, &b_trig_HLT_PFHT500_PFMET100_PFMHT100_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_PFHT500_PFMET110_PFMHT110_IDTight_accept", &trig_HLT_PFHT500_PFMET110_PFMHT110_IDTight_accept, &b_trig_HLT_PFHT500_PFMET110_PFMHT110_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_PFHT700_PFMET85_PFMHT85_IDTight_accept", &trig_HLT_PFHT700_PFMET85_PFMHT85_IDTight_accept, &b_trig_HLT_PFHT700_PFMET85_PFMHT85_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_PFHT700_PFMET95_PFMHT95_IDTight_accept", &trig_HLT_PFHT700_PFMET95_PFMHT95_IDTight_accept, &b_trig_HLT_PFHT700_PFMET95_PFMHT95_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_PFHT800_PFMET75_PFMHT75_IDTight_accept", &trig_HLT_PFHT800_PFMET75_PFMHT75_IDTight_accept, &b_trig_HLT_PFHT800_PFMET75_PFMHT75_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_PFHT800_PFMET85_PFMHT85_IDTight_accept", &trig_HLT_PFHT800_PFMET85_PFMHT85_IDTight_accept, &b_trig_HLT_PFHT800_PFMET85_PFMHT85_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMET110_PFMHT110_IDTight_accept", &trig_HLT_PFMET110_PFMHT110_IDTight_accept, &b_trig_HLT_PFMET110_PFMHT110_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMET120_PFMHT120_IDTight_accept", &trig_HLT_PFMET120_PFMHT120_IDTight_accept, &b_trig_HLT_PFMET120_PFMHT120_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMET130_PFMHT130_IDTight_accept", &trig_HLT_PFMET130_PFMHT130_IDTight_accept, &b_trig_HLT_PFMET130_PFMHT130_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMET140_PFMHT140_IDTight_accept", &trig_HLT_PFMET140_PFMHT140_IDTight_accept, &b_trig_HLT_PFMET140_PFMHT140_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMET100_PFMHT100_IDTight_CaloBTagDeepCSV_3p1_accept", &trig_HLT_PFMET100_PFMHT100_IDTight_CaloBTagDeepCSV_3p1_accept, &b_trig_HLT_PFMET100_PFMHT100_IDTight_CaloBTagDeepCSV_3p1_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMET110_PFMHT110_IDTight_CaloBTagDeepCSV_3p1_accept", &trig_HLT_PFMET110_PFMHT110_IDTight_CaloBTagDeepCSV_3p1_accept, &b_trig_HLT_PFMET110_PFMHT110_IDTight_CaloBTagDeepCSV_3p1_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMET120_PFMHT120_IDTight_CaloBTagDeepCSV_3p1_accept", &trig_HLT_PFMET120_PFMHT120_IDTight_CaloBTagDeepCSV_3p1_accept, &b_trig_HLT_PFMET120_PFMHT120_IDTight_CaloBTagDeepCSV_3p1_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMET130_PFMHT130_IDTight_CaloBTagDeepCSV_3p1_accept", &trig_HLT_PFMET130_PFMHT130_IDTight_CaloBTagDeepCSV_3p1_accept, &b_trig_HLT_PFMET130_PFMHT130_IDTight_CaloBTagDeepCSV_3p1_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMET140_PFMHT140_IDTight_CaloBTagDeepCSV_3p1_accept", &trig_HLT_PFMET140_PFMHT140_IDTight_CaloBTagDeepCSV_3p1_accept, &b_trig_HLT_PFMET140_PFMHT140_IDTight_CaloBTagDeepCSV_3p1_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMET120_PFMHT120_IDTight_PFHT60_accept", &trig_HLT_PFMET120_PFMHT120_IDTight_PFHT60_accept, &b_trig_HLT_PFMET120_PFMHT120_IDTight_PFHT60_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_PFHT60_accept", &trig_HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_PFHT60_accept, &b_trig_HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_PFHT60_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMETTypeOne120_PFMHT120_IDTight_PFHT60_accept", &trig_HLT_PFMETTypeOne120_PFMHT120_IDTight_PFHT60_accept, &b_trig_HLT_PFMETTypeOne120_PFMHT120_IDTight_PFHT60_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMETTypeOne110_PFMHT110_IDTight_accept", &trig_HLT_PFMETTypeOne110_PFMHT110_IDTight_accept, &b_trig_HLT_PFMETTypeOne110_PFMHT110_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMETTypeOne120_PFMHT120_IDTight_accept", &trig_HLT_PFMETTypeOne120_PFMHT120_IDTight_accept, &b_trig_HLT_PFMETTypeOne120_PFMHT120_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMETTypeOne130_PFMHT130_IDTight_accept", &trig_HLT_PFMETTypeOne130_PFMHT130_IDTight_accept, &b_trig_HLT_PFMETTypeOne130_PFMHT130_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMETTypeOne140_PFMHT140_IDTight_accept", &trig_HLT_PFMETTypeOne140_PFMHT140_IDTight_accept, &b_trig_HLT_PFMETTypeOne140_PFMHT140_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_accept", &trig_HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_accept, &b_trig_HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_accept", &trig_HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_accept, &b_trig_HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMETNoMu130_PFMHTNoMu130_IDTight_accept", &trig_HLT_PFMETNoMu130_PFMHTNoMu130_IDTight_accept, &b_trig_HLT_PFMETNoMu130_PFMHTNoMu130_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMETNoMu140_PFMHTNoMu140_IDTight_accept", &trig_HLT_PFMETNoMu140_PFMHTNoMu140_IDTight_accept, &b_trig_HLT_PFMETNoMu140_PFMHTNoMu140_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_MonoCentralPFJet80_PFMETNoMu110_PFMHTNoMu110_IDTight_accept", &trig_HLT_MonoCentralPFJet80_PFMETNoMu110_PFMHTNoMu110_IDTight_accept, &b_trig_HLT_MonoCentralPFJet80_PFMETNoMu110_PFMHTNoMu110_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight_accept", &trig_HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight_accept, &b_trig_HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_MonoCentralPFJet80_PFMETNoMu130_PFMHTNoMu130_IDTight_accept", &trig_HLT_MonoCentralPFJet80_PFMETNoMu130_PFMHTNoMu130_IDTight_accept, &b_trig_HLT_MonoCentralPFJet80_PFMETNoMu130_PFMHTNoMu130_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_MonoCentralPFJet80_PFMETNoMu140_PFMHTNoMu140_IDTight_accept", &trig_HLT_MonoCentralPFJet80_PFMETNoMu140_PFMHTNoMu140_IDTight_accept, &b_trig_HLT_MonoCentralPFJet80_PFMETNoMu140_PFMHTNoMu140_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_CaloMET80_NotCleaned_accept", &trig_HLT_CaloMET80_NotCleaned_accept, &b_trig_HLT_CaloMET80_NotCleaned_accept);
+   fChain->SetBranchAddress("trig_HLT_CaloMET90_NotCleaned_accept", &trig_HLT_CaloMET90_NotCleaned_accept, &b_trig_HLT_CaloMET90_NotCleaned_accept);
+   fChain->SetBranchAddress("trig_HLT_CaloMET100_NotCleaned_accept", &trig_HLT_CaloMET100_NotCleaned_accept, &b_trig_HLT_CaloMET100_NotCleaned_accept);
+   fChain->SetBranchAddress("trig_HLT_CaloMET110_NotCleaned_accept", &trig_HLT_CaloMET110_NotCleaned_accept, &b_trig_HLT_CaloMET110_NotCleaned_accept);
+   fChain->SetBranchAddress("trig_HLT_CaloMET250_NotCleaned_accept", &trig_HLT_CaloMET250_NotCleaned_accept, &b_trig_HLT_CaloMET250_NotCleaned_accept);
+   fChain->SetBranchAddress("trig_HLT_CaloMET70_HBHECleaned_accept", &trig_HLT_CaloMET70_HBHECleaned_accept, &b_trig_HLT_CaloMET70_HBHECleaned_accept);
+   fChain->SetBranchAddress("trig_HLT_CaloMET80_HBHECleaned_accept", &trig_HLT_CaloMET80_HBHECleaned_accept, &b_trig_HLT_CaloMET80_HBHECleaned_accept);
+   fChain->SetBranchAddress("trig_HLT_CaloMET90_HBHECleaned_accept", &trig_HLT_CaloMET90_HBHECleaned_accept, &b_trig_HLT_CaloMET90_HBHECleaned_accept);
+   fChain->SetBranchAddress("trig_HLT_CaloMET100_HBHECleaned_accept", &trig_HLT_CaloMET100_HBHECleaned_accept, &b_trig_HLT_CaloMET100_HBHECleaned_accept);
+   fChain->SetBranchAddress("trig_HLT_CaloMET250_HBHECleaned_accept", &trig_HLT_CaloMET250_HBHECleaned_accept, &b_trig_HLT_CaloMET250_HBHECleaned_accept);
+   fChain->SetBranchAddress("trig_HLT_CaloMET300_HBHECleaned_accept", &trig_HLT_CaloMET300_HBHECleaned_accept, &b_trig_HLT_CaloMET300_HBHECleaned_accept);
+   fChain->SetBranchAddress("trig_HLT_CaloMET350_HBHECleaned_accept", &trig_HLT_CaloMET350_HBHECleaned_accept, &b_trig_HLT_CaloMET350_HBHECleaned_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMET200_NotCleaned_accept", &trig_HLT_PFMET200_NotCleaned_accept, &b_trig_HLT_PFMET200_NotCleaned_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMET200_HBHECleaned_accept", &trig_HLT_PFMET200_HBHECleaned_accept, &b_trig_HLT_PFMET200_HBHECleaned_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMET250_HBHECleaned_accept", &trig_HLT_PFMET250_HBHECleaned_accept, &b_trig_HLT_PFMET250_HBHECleaned_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMET300_HBHECleaned_accept", &trig_HLT_PFMET300_HBHECleaned_accept, &b_trig_HLT_PFMET300_HBHECleaned_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMET200_HBHE_BeamHaloCleaned_accept", &trig_HLT_PFMET200_HBHE_BeamHaloCleaned_accept, &b_trig_HLT_PFMET200_HBHE_BeamHaloCleaned_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMETTypeOne200_HBHE_BeamHaloCleaned_accept", &trig_HLT_PFMETTypeOne200_HBHE_BeamHaloCleaned_accept, &b_trig_HLT_PFMETTypeOne200_HBHE_BeamHaloCleaned_accept);
+   fChain->SetBranchAddress("trig_HLT_MET105_IsoTrk50_accept", &trig_HLT_MET105_IsoTrk50_accept, &b_trig_HLT_MET105_IsoTrk50_accept);
+   fChain->SetBranchAddress("trig_HLT_MET120_IsoTrk50_accept", &trig_HLT_MET120_IsoTrk50_accept, &b_trig_HLT_MET120_IsoTrk50_accept);
    fChain->SetBranchAddress("trig_HLT_Photon300_NoHE_accept", &trig_HLT_Photon300_NoHE_accept, &b_trig_HLT_Photon300_NoHE_accept);
    fChain->SetBranchAddress("trig_HLT_Mu8_TrkIsoVVL_accept", &trig_HLT_Mu8_TrkIsoVVL_accept, &b_trig_HLT_Mu8_TrkIsoVVL_accept);
    fChain->SetBranchAddress("trig_HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_accept", &trig_HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_accept, &b_trig_HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_accept);
@@ -3610,11 +4268,17 @@ void IIHEAnalysis::Init(TTree *tree)
    fChain->SetBranchAddress("trig_HLT_Photon100EE_TightID_TightIso_accept", &trig_HLT_Photon100EE_TightID_TightIso_accept, &b_trig_HLT_Photon100EE_TightID_TightIso_accept);
    fChain->SetBranchAddress("trig_HLT_Photon50_R9Id90_HE10_IsoM_accept", &trig_HLT_Photon50_R9Id90_HE10_IsoM_accept, &b_trig_HLT_Photon50_R9Id90_HE10_IsoM_accept);
    fChain->SetBranchAddress("trig_HLT_Photon75_R9Id90_HE10_IsoM_accept", &trig_HLT_Photon75_R9Id90_HE10_IsoM_accept, &b_trig_HLT_Photon75_R9Id90_HE10_IsoM_accept);
+   fChain->SetBranchAddress("trig_HLT_Photon75_R9Id90_HE10_IsoM_EBOnly_CaloMJJ300_PFJetsMJJ400DEta3_accept", &trig_HLT_Photon75_R9Id90_HE10_IsoM_EBOnly_CaloMJJ300_PFJetsMJJ400DEta3_accept, &b_trig_HLT_Photon75_R9Id90_HE10_IsoM_EBOnly_CaloMJJ300_PFJetsMJJ400DEta3_accept);
+   fChain->SetBranchAddress("trig_HLT_Photon75_R9Id90_HE10_IsoM_EBOnly_CaloMJJ400_PFJetsMJJ600DEta3_accept", &trig_HLT_Photon75_R9Id90_HE10_IsoM_EBOnly_CaloMJJ400_PFJetsMJJ600DEta3_accept, &b_trig_HLT_Photon75_R9Id90_HE10_IsoM_EBOnly_CaloMJJ400_PFJetsMJJ600DEta3_accept);
    fChain->SetBranchAddress("trig_HLT_Photon90_R9Id90_HE10_IsoM_accept", &trig_HLT_Photon90_R9Id90_HE10_IsoM_accept, &b_trig_HLT_Photon90_R9Id90_HE10_IsoM_accept);
    fChain->SetBranchAddress("trig_HLT_Photon120_R9Id90_HE10_IsoM_accept", &trig_HLT_Photon120_R9Id90_HE10_IsoM_accept, &b_trig_HLT_Photon120_R9Id90_HE10_IsoM_accept);
    fChain->SetBranchAddress("trig_HLT_Photon165_R9Id90_HE10_IsoM_accept", &trig_HLT_Photon165_R9Id90_HE10_IsoM_accept, &b_trig_HLT_Photon165_R9Id90_HE10_IsoM_accept);
+   fChain->SetBranchAddress("trig_HLT_Photon90_CaloIdL_PFHT700_accept", &trig_HLT_Photon90_CaloIdL_PFHT700_accept, &b_trig_HLT_Photon90_CaloIdL_PFHT700_accept);
    fChain->SetBranchAddress("trig_HLT_Photon35_TwoProngs35_accept", &trig_HLT_Photon35_TwoProngs35_accept, &b_trig_HLT_Photon35_TwoProngs35_accept);
    fChain->SetBranchAddress("trig_HLT_IsoMu24_TwoProngs35_accept", &trig_HLT_IsoMu24_TwoProngs35_accept, &b_trig_HLT_IsoMu24_TwoProngs35_accept);
+   fChain->SetBranchAddress("trig_HLT_DoubleMu3_DZ_PFMET50_PFMHT60_accept", &trig_HLT_DoubleMu3_DZ_PFMET50_PFMHT60_accept, &b_trig_HLT_DoubleMu3_DZ_PFMET50_PFMHT60_accept);
+   fChain->SetBranchAddress("trig_HLT_DoubleMu3_DZ_PFMET70_PFMHT70_accept", &trig_HLT_DoubleMu3_DZ_PFMET70_PFMHT70_accept, &b_trig_HLT_DoubleMu3_DZ_PFMET70_PFMHT70_accept);
+   fChain->SetBranchAddress("trig_HLT_DoubleMu3_DZ_PFMET90_PFMHT90_accept", &trig_HLT_DoubleMu3_DZ_PFMET90_PFMHT90_accept, &b_trig_HLT_DoubleMu3_DZ_PFMET90_PFMHT90_accept);
    fChain->SetBranchAddress("trig_HLT_DoubleMu43NoFiltersNoVtx_accept", &trig_HLT_DoubleMu43NoFiltersNoVtx_accept, &b_trig_HLT_DoubleMu43NoFiltersNoVtx_accept);
    fChain->SetBranchAddress("trig_HLT_DoubleMu48NoFiltersNoVtx_accept", &trig_HLT_DoubleMu48NoFiltersNoVtx_accept, &b_trig_HLT_DoubleMu48NoFiltersNoVtx_accept);
    fChain->SetBranchAddress("trig_HLT_Mu43NoFiltersNoVtx_Photon43_CaloIdL_accept", &trig_HLT_Mu43NoFiltersNoVtx_Photon43_CaloIdL_accept, &b_trig_HLT_Mu43NoFiltersNoVtx_Photon43_CaloIdL_accept);
@@ -3625,7 +4289,26 @@ void IIHEAnalysis::Init(TTree *tree)
    fChain->SetBranchAddress("trig_HLT_DoubleMu40NoFiltersNoVtxDisplaced_accept", &trig_HLT_DoubleMu40NoFiltersNoVtxDisplaced_accept, &b_trig_HLT_DoubleMu40NoFiltersNoVtxDisplaced_accept);
    fChain->SetBranchAddress("trig_HLT_DoubleMu20_7_Mass0to30_L1_DM4_accept", &trig_HLT_DoubleMu20_7_Mass0to30_L1_DM4_accept, &b_trig_HLT_DoubleMu20_7_Mass0to30_L1_DM4_accept);
    fChain->SetBranchAddress("trig_HLT_DoubleMu20_7_Mass0to30_L1_DM4EG_accept", &trig_HLT_DoubleMu20_7_Mass0to30_L1_DM4EG_accept, &b_trig_HLT_DoubleMu20_7_Mass0to30_L1_DM4EG_accept);
+   fChain->SetBranchAddress("trig_HLT_DiJet110_35_Mjj650_PFMET110_accept", &trig_HLT_DiJet110_35_Mjj650_PFMET110_accept, &b_trig_HLT_DiJet110_35_Mjj650_PFMET110_accept);
+   fChain->SetBranchAddress("trig_HLT_DiJet110_35_Mjj650_PFMET120_accept", &trig_HLT_DiJet110_35_Mjj650_PFMET120_accept, &b_trig_HLT_DiJet110_35_Mjj650_PFMET120_accept);
+   fChain->SetBranchAddress("trig_HLT_DiJet110_35_Mjj650_PFMET130_accept", &trig_HLT_DiJet110_35_Mjj650_PFMET130_accept, &b_trig_HLT_DiJet110_35_Mjj650_PFMET130_accept);
+   fChain->SetBranchAddress("trig_HLT_TripleJet110_35_35_Mjj650_PFMET110_accept", &trig_HLT_TripleJet110_35_35_Mjj650_PFMET110_accept, &b_trig_HLT_TripleJet110_35_35_Mjj650_PFMET110_accept);
+   fChain->SetBranchAddress("trig_HLT_TripleJet110_35_35_Mjj650_PFMET120_accept", &trig_HLT_TripleJet110_35_35_Mjj650_PFMET120_accept, &b_trig_HLT_TripleJet110_35_35_Mjj650_PFMET120_accept);
+   fChain->SetBranchAddress("trig_HLT_TripleJet110_35_35_Mjj650_PFMET130_accept", &trig_HLT_TripleJet110_35_35_Mjj650_PFMET130_accept, &b_trig_HLT_TripleJet110_35_35_Mjj650_PFMET130_accept);
    fChain->SetBranchAddress("trig_HLT_DoubleMu20_7_Mass0to30_Photon23_accept", &trig_HLT_DoubleMu20_7_Mass0to30_Photon23_accept, &b_trig_HLT_DoubleMu20_7_Mass0to30_Photon23_accept);
+   fChain->SetBranchAddress("trig_HLT_Ele15_IsoVVVL_PFHT450_PFMET50_accept", &trig_HLT_Ele15_IsoVVVL_PFHT450_PFMET50_accept, &b_trig_HLT_Ele15_IsoVVVL_PFHT450_PFMET50_accept);
+   fChain->SetBranchAddress("trig_HLT_Mu4_TrkIsoVVL_DiPFJet90_40_DEta3p5_MJJ750_HTT300_PFMETNoMu60_accept", &trig_HLT_Mu4_TrkIsoVVL_DiPFJet90_40_DEta3p5_MJJ750_HTT300_PFMETNoMu60_accept, &b_trig_HLT_Mu4_TrkIsoVVL_DiPFJet90_40_DEta3p5_MJJ750_HTT300_PFMETNoMu60_accept);
+   fChain->SetBranchAddress("trig_HLT_Mu8_TrkIsoVVL_DiPFJet40_DEta3p5_MJJ750_HTT300_PFMETNoMu60_accept", &trig_HLT_Mu8_TrkIsoVVL_DiPFJet40_DEta3p5_MJJ750_HTT300_PFMETNoMu60_accept, &b_trig_HLT_Mu8_TrkIsoVVL_DiPFJet40_DEta3p5_MJJ750_HTT300_PFMETNoMu60_accept);
+   fChain->SetBranchAddress("trig_HLT_Mu10_TrkIsoVVL_DiPFJet40_DEta3p5_MJJ750_HTT350_PFMETNoMu60_accept", &trig_HLT_Mu10_TrkIsoVVL_DiPFJet40_DEta3p5_MJJ750_HTT350_PFMETNoMu60_accept, &b_trig_HLT_Mu10_TrkIsoVVL_DiPFJet40_DEta3p5_MJJ750_HTT350_PFMETNoMu60_accept);
+   fChain->SetBranchAddress("trig_HLT_Mu15_IsoVVVL_PFHT450_PFMET50_accept", &trig_HLT_Mu15_IsoVVVL_PFHT450_PFMET50_accept, &b_trig_HLT_Mu15_IsoVVVL_PFHT450_PFMET50_accept);
+   fChain->SetBranchAddress("trig_HLT_Mu3er1p5_PFJet100er2p5_PFMET70_PFMHT70_IDTight_accept", &trig_HLT_Mu3er1p5_PFJet100er2p5_PFMET70_PFMHT70_IDTight_accept, &b_trig_HLT_Mu3er1p5_PFJet100er2p5_PFMET70_PFMHT70_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_Mu3er1p5_PFJet100er2p5_PFMET80_PFMHT80_IDTight_accept", &trig_HLT_Mu3er1p5_PFJet100er2p5_PFMET80_PFMHT80_IDTight_accept, &b_trig_HLT_Mu3er1p5_PFJet100er2p5_PFMET80_PFMHT80_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_Mu3er1p5_PFJet100er2p5_PFMET90_PFMHT90_IDTight_accept", &trig_HLT_Mu3er1p5_PFJet100er2p5_PFMET90_PFMHT90_IDTight_accept, &b_trig_HLT_Mu3er1p5_PFJet100er2p5_PFMET90_PFMHT90_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_Mu3er1p5_PFJet100er2p5_PFMET100_PFMHT100_IDTight_accept", &trig_HLT_Mu3er1p5_PFJet100er2p5_PFMET100_PFMHT100_IDTight_accept, &b_trig_HLT_Mu3er1p5_PFJet100er2p5_PFMET100_PFMHT100_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_Mu3er1p5_PFJet100er2p5_PFMETNoMu70_PFMHTNoMu70_IDTight_accept", &trig_HLT_Mu3er1p5_PFJet100er2p5_PFMETNoMu70_PFMHTNoMu70_IDTight_accept, &b_trig_HLT_Mu3er1p5_PFJet100er2p5_PFMETNoMu70_PFMHTNoMu70_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_Mu3er1p5_PFJet100er2p5_PFMETNoMu80_PFMHTNoMu80_IDTight_accept", &trig_HLT_Mu3er1p5_PFJet100er2p5_PFMETNoMu80_PFMHTNoMu80_IDTight_accept, &b_trig_HLT_Mu3er1p5_PFJet100er2p5_PFMETNoMu80_PFMHTNoMu80_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_Mu3er1p5_PFJet100er2p5_PFMETNoMu90_PFMHTNoMu90_IDTight_accept", &trig_HLT_Mu3er1p5_PFJet100er2p5_PFMETNoMu90_PFMHTNoMu90_IDTight_accept, &b_trig_HLT_Mu3er1p5_PFJet100er2p5_PFMETNoMu90_PFMHTNoMu90_IDTight_accept);
+   fChain->SetBranchAddress("trig_HLT_Mu3er1p5_PFJet100er2p5_PFMETNoMu100_PFMHTNoMu100_IDTight_accept", &trig_HLT_Mu3er1p5_PFJet100er2p5_PFMETNoMu100_PFMHTNoMu100_IDTight_accept, &b_trig_HLT_Mu3er1p5_PFJet100er2p5_PFMETNoMu100_PFMHTNoMu100_IDTight_accept);
    fChain->SetBranchAddress("trig_HLT_Dimuon14_Phi_Barrel_Seagulls_accept", &trig_HLT_Dimuon14_Phi_Barrel_Seagulls_accept, &b_trig_HLT_Dimuon14_Phi_Barrel_Seagulls_accept);
    fChain->SetBranchAddress("trig_HLT_Dimuon24_Phi_noCorrL1_accept", &trig_HLT_Dimuon24_Phi_noCorrL1_accept, &b_trig_HLT_Dimuon24_Phi_noCorrL1_accept);
    fChain->SetBranchAddress("trig_HLT_DoubleIsoMu20_eta2p1_accept", &trig_HLT_DoubleIsoMu20_eta2p1_accept, &b_trig_HLT_DoubleIsoMu20_eta2p1_accept);
@@ -3644,6 +4327,7 @@ void IIHEAnalysis::Init(TTree *tree)
    fChain->SetBranchAddress("trig_HLT_Ele300_CaloIdVT_GsfTrkIdT_accept", &trig_HLT_Ele300_CaloIdVT_GsfTrkIdT_accept, &b_trig_HLT_Ele300_CaloIdVT_GsfTrkIdT_accept);
    fChain->SetBranchAddress("trig_HLT_Photon60_R9Id90_CaloIdL_IsoL_accept", &trig_HLT_Photon60_R9Id90_CaloIdL_IsoL_accept, &b_trig_HLT_Photon60_R9Id90_CaloIdL_IsoL_accept);
    fChain->SetBranchAddress("trig_HLT_Photon60_R9Id90_CaloIdL_IsoL_DisplacedIdL_accept", &trig_HLT_Photon60_R9Id90_CaloIdL_IsoL_DisplacedIdL_accept, &b_trig_HLT_Photon60_R9Id90_CaloIdL_IsoL_DisplacedIdL_accept);
+   fChain->SetBranchAddress("trig_HLT_Photon60_R9Id90_CaloIdL_IsoL_DisplacedIdL_PFHT350MinPFJet15_accept", &trig_HLT_Photon60_R9Id90_CaloIdL_IsoL_DisplacedIdL_PFHT350MinPFJet15_accept, &b_trig_HLT_Photon60_R9Id90_CaloIdL_IsoL_DisplacedIdL_PFHT350MinPFJet15_accept);
    fChain->SetBranchAddress("trig_HLT_SinglePhoton10_Eta3p1ForPPRef_accept", &trig_HLT_SinglePhoton10_Eta3p1ForPPRef_accept, &b_trig_HLT_SinglePhoton10_Eta3p1ForPPRef_accept);
    fChain->SetBranchAddress("trig_HLT_SinglePhoton20_Eta3p1ForPPRef_accept", &trig_HLT_SinglePhoton20_Eta3p1ForPPRef_accept, &b_trig_HLT_SinglePhoton20_Eta3p1ForPPRef_accept);
    fChain->SetBranchAddress("trig_HLT_SinglePhoton30_Eta3p1ForPPRef_accept", &trig_HLT_SinglePhoton30_Eta3p1ForPPRef_accept, &b_trig_HLT_SinglePhoton30_Eta3p1ForPPRef_accept);
@@ -3651,12 +4335,22 @@ void IIHEAnalysis::Init(TTree *tree)
    fChain->SetBranchAddress("trig_HLT_Photon30_HoverELoose_accept", &trig_HLT_Photon30_HoverELoose_accept, &b_trig_HLT_Photon30_HoverELoose_accept);
    fChain->SetBranchAddress("trig_HLT_L1_CDC_SingleMu_3_er1p2_TOP120_DPHI2p618_3p142_accept", &trig_HLT_L1_CDC_SingleMu_3_er1p2_TOP120_DPHI2p618_3p142_accept, &b_trig_HLT_L1_CDC_SingleMu_3_er1p2_TOP120_DPHI2p618_3p142_accept);
    fChain->SetBranchAddress("trig_AlCa_RPCMuonNormalisation_accept", &trig_AlCa_RPCMuonNormalisation_accept, &b_trig_AlCa_RPCMuonNormalisation_accept);
+   fChain->SetBranchAddress("trig_MC_PFMET_accept", &trig_MC_PFMET_accept, &b_trig_MC_PFMET_accept);
+   fChain->SetBranchAddress("trig_MC_CaloMET_accept", &trig_MC_CaloMET_accept, &b_trig_MC_CaloMET_accept);
+   fChain->SetBranchAddress("trig_MC_CaloMET_JetIdCleaned_accept", &trig_MC_CaloMET_JetIdCleaned_accept, &b_trig_MC_CaloMET_JetIdCleaned_accept);
    fChain->SetBranchAddress("trig_MC_DoubleEle5_CaloIdL_MW_accept", &trig_MC_DoubleEle5_CaloIdL_MW_accept, &b_trig_MC_DoubleEle5_CaloIdL_MW_accept);
    fChain->SetBranchAddress("trig_MC_Ele5_WPTight_Gsf_accept", &trig_MC_Ele5_WPTight_Gsf_accept, &b_trig_MC_Ele5_WPTight_Gsf_accept);
    fChain->SetBranchAddress("trig_MC_Ele15_Ele10_CaloIdL_TrackIdL_IsoVL_DZ_accept", &trig_MC_Ele15_Ele10_CaloIdL_TrackIdL_IsoVL_DZ_accept, &b_trig_MC_Ele15_Ele10_CaloIdL_TrackIdL_IsoVL_DZ_accept);
    fChain->SetBranchAddress("trig_MC_IsoMu_accept", &trig_MC_IsoMu_accept, &b_trig_MC_IsoMu_accept);
    fChain->SetBranchAddress("trig_MC_DoubleMu_TrkIsoVVL_DZ_accept", &trig_MC_DoubleMu_TrkIsoVVL_DZ_accept, &b_trig_MC_DoubleMu_TrkIsoVVL_DZ_accept);
    fChain->SetBranchAddress("trig_MC_DoubleMuNoFiltersNoVtx_accept", &trig_MC_DoubleMuNoFiltersNoVtx_accept, &b_trig_MC_DoubleMuNoFiltersNoVtx_accept);
+   fChain->SetBranchAddress("trig_HLT_IsoMu27_MET90_accept", &trig_HLT_IsoMu27_MET90_accept, &b_trig_HLT_IsoMu27_MET90_accept);
+   fChain->SetBranchAddress("trig_HLT_Photon50_R9Id90_HE10_IsoM_EBOnly_PFJetsMJJ300DEta3_PFMET50_accept", &trig_HLT_Photon50_R9Id90_HE10_IsoM_EBOnly_PFJetsMJJ300DEta3_PFMET50_accept, &b_trig_HLT_Photon50_R9Id90_HE10_IsoM_EBOnly_PFJetsMJJ300DEta3_PFMET50_accept);
+   fChain->SetBranchAddress("trig_HLT_Photon75_R9Id90_HE10_IsoM_EBOnly_PFJetsMJJ300DEta3_accept", &trig_HLT_Photon75_R9Id90_HE10_IsoM_EBOnly_PFJetsMJJ300DEta3_accept, &b_trig_HLT_Photon75_R9Id90_HE10_IsoM_EBOnly_PFJetsMJJ300DEta3_accept);
+   fChain->SetBranchAddress("trig_HLT_Photon75_R9Id90_HE10_IsoM_EBOnly_PFJetsMJJ600DEta3_accept", &trig_HLT_Photon75_R9Id90_HE10_IsoM_EBOnly_PFJetsMJJ600DEta3_accept, &b_trig_HLT_Photon75_R9Id90_HE10_IsoM_EBOnly_PFJetsMJJ600DEta3_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMET100_PFMHT100_IDTight_PFHT60_accept", &trig_HLT_PFMET100_PFMHT100_IDTight_PFHT60_accept, &b_trig_HLT_PFMET100_PFMHT100_IDTight_PFHT60_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMETNoMu100_PFMHTNoMu100_IDTight_PFHT60_accept", &trig_HLT_PFMETNoMu100_PFMHTNoMu100_IDTight_PFHT60_accept, &b_trig_HLT_PFMETNoMu100_PFMHTNoMu100_IDTight_PFHT60_accept);
+   fChain->SetBranchAddress("trig_HLT_PFMETTypeOne100_PFMHT100_IDTight_PFHT60_accept", &trig_HLT_PFMETTypeOne100_PFMHT100_IDTight_PFHT60_accept, &b_trig_HLT_PFMETTypeOne100_PFMHT100_IDTight_PFHT60_accept);
    fChain->SetBranchAddress("trig_HLT_Mu18_Mu9_SameSign_accept", &trig_HLT_Mu18_Mu9_SameSign_accept, &b_trig_HLT_Mu18_Mu9_SameSign_accept);
    fChain->SetBranchAddress("trig_HLT_Mu18_Mu9_SameSign_DZ_accept", &trig_HLT_Mu18_Mu9_SameSign_DZ_accept, &b_trig_HLT_Mu18_Mu9_SameSign_DZ_accept);
    fChain->SetBranchAddress("trig_HLT_Mu18_Mu9_accept", &trig_HLT_Mu18_Mu9_accept, &b_trig_HLT_Mu18_Mu9_accept);
@@ -3669,6 +4363,7 @@ void IIHEAnalysis::Init(TTree *tree)
    fChain->SetBranchAddress("trig_HLT_Mu23_Mu12_SameSign_DZ_accept", &trig_HLT_Mu23_Mu12_SameSign_DZ_accept, &b_trig_HLT_Mu23_Mu12_SameSign_DZ_accept);
    fChain->SetBranchAddress("trig_HLT_Mu23_Mu12_accept", &trig_HLT_Mu23_Mu12_accept, &b_trig_HLT_Mu23_Mu12_accept);
    fChain->SetBranchAddress("trig_HLT_Mu23_Mu12_DZ_accept", &trig_HLT_Mu23_Mu12_DZ_accept, &b_trig_HLT_Mu23_Mu12_DZ_accept);
+   fChain->SetBranchAddress("trig_HLT_DoubleMu3_DCA_PFMET50_PFMHT60_accept", &trig_HLT_DoubleMu3_DCA_PFMET50_PFMHT60_accept, &b_trig_HLT_DoubleMu3_DCA_PFMET50_PFMHT60_accept);
    fChain->SetBranchAddress("trig_HLT_TrkMu6NoFiltersNoVtx_accept", &trig_HLT_TrkMu6NoFiltersNoVtx_accept, &b_trig_HLT_TrkMu6NoFiltersNoVtx_accept);
    fChain->SetBranchAddress("trig_HLT_TrkMu16NoFiltersNoVtx_accept", &trig_HLT_TrkMu16NoFiltersNoVtx_accept, &b_trig_HLT_TrkMu16NoFiltersNoVtx_accept);
    fChain->SetBranchAddress("trig_HLT_DoubleTrkMu_16_6_NoFiltersNoVtx_accept", &trig_HLT_DoubleTrkMu_16_6_NoFiltersNoVtx_accept, &b_trig_HLT_DoubleTrkMu_16_6_NoFiltersNoVtx_accept);

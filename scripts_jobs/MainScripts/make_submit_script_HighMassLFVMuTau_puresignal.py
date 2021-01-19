@@ -5,23 +5,23 @@
 #Note : your code needs to be already compiler (with a .exe extension for this to work)
 
 import os
-from datasets2018 import * #imports dataset paths: pnfn[], myname[] and myoption[] arrays 
+from datasets2018_signal import * #imports dataset paths: pnfn[], myname[] and myoption[] arrays 
 if __name__ == "__main__":
     location=os.getcwd();
     #name of your *compiled* code (omit the .exe extension)
     code_area = "/user/dbeghin/Work/MuTauHighMass_2018/"
     code_name = "HighMassLFVMuTau"
-    region = "CR101"
-    folder = "/user/dbeghin/Work/MuTauHighMass_2018/HighMassLFVMuTau/Faketaus_CR101/"
-    cms_rel = "/user/dbeghin/2nd/new/CMSSW_10_4_0_patch1/src"
+    region = "CR100"
+    folder = "/user/dbeghin/Work/MuTauHighMass_2018/HighMassLFVMuTau/SignalRegion_CR100/"
+    cms_rel = "/user/dbeghin/2nd/2019May17/CMSSW_10_2_18/src"
     proxy = "/user/dbeghin/x509up_u$(id -u dbeghin)"
-    walltime = "15:00:00"
+    walltime = "13:00:00"
 
     for jj in range(0, len(pnfn)):    
         #Main file, which you'll use to submit the jobs
         #To submit the jobs, you'll need to type "source Submit_myname.sh" in your terminal
         submit_File = open("../Submit/Submit_"+myname[jj]+".sh" , 'w')
-        f=os.popen("ls -t " + pnfn[jj] + "out* | sort")   #you may want to replace "outfile" with the name of the root files found in the /pnfs folder
+        f=os.popen("ls -t " + pnfn[jj] + "*.root | sort")   #you may want to replace "outfile" with the name of the root files found in the /pnfs folder
         dir = "dcap://maite.iihe.ac.be" +  pnfn[jj]  + "/"
 
 
@@ -55,7 +55,7 @@ if __name__ == "__main__":
                 submit_File.write(command3)
             #Below, the command to execute your code, use the correct syntax for your own code, with all arguments (file in, file out, etc.) in the proper order
             #Note that i[0:-1] is just the name of the root file in /pnfs
-            command2 = "dccp dcap://maite.iihe.ac.be"+   i[0:-1] + " $scratchdir/" + "\n"
+            command2 = "cp "+   i[0:-1] + " $scratchdir/" + "\n"
             bare_fname = i[len(pnfn[jj]):-1]
             command2 = command2 + "\n" + "./" + code_name + ".exe " + "Outout" + str(ligne)+myname[jj]  + ".root " +   bare_fname + " " + mynick[jj] + " " + region + " " + myoption[jj]
             command2 = command2 + "\n" + "rm -f " +   bare_fname

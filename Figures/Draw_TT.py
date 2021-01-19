@@ -56,7 +56,7 @@ def make_legend(x1,y1,x2,y2):
     return output
 
 
-def make_plot(var_out, Data, DY, TT, VV, ST, Faketau, sq_combined_error, signal_map):
+def make_plot(var_out, Data, DY, TT, VV, ST, Faketau, sq_combined_error):
     Data.GetXaxis().SetTitle("")
     Data.GetXaxis().SetTitleSize(0)
     #if var_in == "ev_Mcol": Data.GetXaxis().SetRangeUser(0,500) 
@@ -68,7 +68,10 @@ def make_plot(var_out, Data, DY, TT, VV, ST, Faketau, sq_combined_error, signal_
     Data.GetYaxis().SetTitleOffset(1.04)
     Data.SetTitle("")
     if var_log_dic[var[k]]:
-        Data.GetYaxis().SetTitle("Events/GeV")
+        if not ("nbjet" in var[k]):
+            Data.GetYaxis().SetTitle("Events/GeV")
+        else:
+            Data.GetYaxis().SetTitle("Events/bin")
     else:
         Data.GetYaxis().SetTitle("Events/bin")
 
@@ -85,12 +88,6 @@ def make_plot(var_out, Data, DY, TT, VV, ST, Faketau, sq_combined_error, signal_
 
     color=["#de5a6a", "#8fccff", "#ffccff", "#7fccff", "#5fccff", "#3fccff"]
     icolor=0
-    for key in signal_map.keys():
-        color_string = color[icolor]
-        icolor += 1
-        signal_map[key].SetLineColor(ROOT.TColor.GetColor(color_string))
-        signal_map[key].SetLineWidth(2)
-        signal_map[key].SetTitle("")
 
     
     Data.SetMarkerStyle(20)
@@ -117,8 +114,6 @@ def make_plot(var_out, Data, DY, TT, VV, ST, Faketau, sq_combined_error, signal_
     Faketau.Write()
     for vary in sq_combined_error.keys():
         sq_combined_error[vary].Write()
-    for key in signal_map.keys():
-        signal_map[key].Write()
     file_out.Close()
     
 
@@ -150,7 +145,7 @@ def make_plot(var_out, Data, DY, TT, VV, ST, Faketau, sq_combined_error, signal_
         sq_norm_error += pow(VV.GetBinContent(iii)*0.04, 2) #error on VV xs: 4%
         sq_norm_error += pow(DY.GetBinContent(iii)*0.02, 2) #error on VV xs: 2%
         sq_norm_error += pow(ST.GetBinContent(iii)*0.05, 2) #error on VV xs: 5%
-        sq_norm_error += pow(Faketau.GetBinContent(iii)*0.5, 2) #systematic on fake rate: 50%
+        sq_norm_error += pow(Faketau.GetBinContent(iii)*0.2, 2) #error on fake rate xs: 20%
         sq_norm_error += pow( (DY.GetBinContent(iii) + TT.GetBinContent(iii) + ST.GetBinContent(iii) + VV.GetBinContent(iii))*0.025, 2) #error on lumi: 2.5%
 
         bin_error_up = pow(sq_combined_error["up"].GetBinContent(iii) + sq_norm_error + pow(errorBand.GetBinError(iii),2), 0.5)
@@ -185,7 +180,7 @@ def make_plot(var_out, Data, DY, TT, VV, ST, Faketau, sq_combined_error, signal_
     pad1.SetFrameBorderMode(0)
     pad1.SetFrameBorderSize(10)
     if (var_log_dic[var[k]]):
-        pad1.SetLogx()
+        if not ("nbjet" in var[k]): pad1.SetLogx()
         pad1.SetLogy()
     
     Data.GetXaxis().SetLabelSize(0)
@@ -200,9 +195,6 @@ def make_plot(var_out, Data, DY, TT, VV, ST, Faketau, sq_combined_error, signal_
     #ST.Draw("hist")
     stack.Draw("histsame")
     errorBand_ersatz.Draw("e2same")
-    if "Mcol" in var_out:
-        for signal in signal_map.keys():
-            signal_map[signal].Draw("histsame")
     Data.Draw("esame")
     
     
@@ -213,15 +205,12 @@ def make_plot(var_out, Data, DY, TT, VV, ST, Faketau, sq_combined_error, signal_
     
     legende=make_legend(0.5, 0.62, 0.92, 0.85)
     legende.AddEntry(Data,"Observed","elp")
-    legende.AddEntry(DY,"Z#rightarrow ll","f")
+    legende.AddEntry(DY,"Z#rightarrow#tau #tau","f")
     legende.AddEntry(Faketau,"Fake #tau bg","f")
     legende.AddEntry(TT,"t#bar{t}+jets","f")
     legende.AddEntry(VV,"Diboson","f")
     legende.AddEntry(ST,"Single Top","f")
     legende.AddEntry(errorBand,"Uncertainty","f")
-    if "Mcol" in var_out:
-        for signal in signal_map.keys():
-            legende.AddEntry(signal_map[signal], signal, "l")
     legende.Draw()
     
     l1=add_lumi()
@@ -260,7 +249,7 @@ def make_plot(var_out, Data, DY, TT, VV, ST, Faketau, sq_combined_error, signal_
     c.cd()
     pad2 = ROOT.TPad("pad2","pad2",0,0,1,0.35)
     if (var_log_dic[var[k]]):
-        pad2.SetLogx()
+        if not ("nbjet" in var[k]): pad2.SetLogx()
     pad2.SetTopMargin(0.05)
     pad2.SetBottomMargin(0.35)
     pad2.SetLeftMargin(0.18)
@@ -340,87 +329,40 @@ trans=ROOT.TColor(new_idx, adapt.GetRed(), adapt.GetGreen(),adapt.GetBlue(), "",
 
 
 var=[]
-var.append("ev_Mvis")          
-var.append("ev_Mtot")          
-var.append("tau_pt")           
-var.append("tau_eta")          
-var.append("tau_phi")          
-var.append("mu_pt")            
-var.append("mu_eta")           
-var.append("mu_phi")           
-var.append("mu_isolation")           
-var.append("ev_DRmutau")       
-var.append("ev_MET")           
-var.append("ev_Mcol")          
-var.append("ev_Mt")            
-var.append("sign")
-var.append("ev_Nvertex")
+#var.append("njet")    
+var.append("nbjet")   
+var.append("bjet_pt") 
+var.append("bjet_eta")
+var.append("bjet_phi")
 
 var_log_dic = {
-"ev_Mvis"          : True,           
-"ev_Mtot"          : True,      
-"tau_pt"           : True,       
-"tau_eta"          : False,      
-"tau_phi"          : False,     
-"mu_pt"            : True,       
-"mu_eta"           : False,       
-"mu_phi"           : False,       
-"mu_isolation"     : True,       
-"ev_DRmutau"       : False, 
-"ev_DeltaPhimutau" : False,
-"ev_DeltaPhiMETtau": False,
-"ev_MET"           : True,
-"ev_Mcol"          : True,
-"ev_Mt"            : True,
-"sign"             : False,
-"ev_Nvertex"       : False,
+    "njet"      : False,
+    "nbjet"     : True,
+    "bjet_pt"   : True, 
+    "bjet_eta"  : False,
+    "bjet_phi"  : False,
 }
 
 nvar=len(var)
 print nvar
 
 photogenic_var={
-"ev_Mvis":              "m_{vis} (GeV)",
-"ev_Mtot":              "m_{tot} (GeV)",
-"tau_pt":               "#tau p_{T} (GeV)",
-"tau_eta":              "#tau #eta",
-"tau_phi":              "#tau #phi",
-"mu_pt":                "#mu p_{T} (GeV)",
-"mu_eta":               "#mu #eta",
-"mu_phi":               "#mu #phi",
-"mu_isolation":         "#mu iso",
-"ev_DRmutau":           "#DeltaR (#mu #tau)",
-"ev_DeltaPhimutau":     "#Delta#Phi (#mu #tau)",
-"ev_DeltaPhiMETtau":    "#Delta#Phi (E_{T}^{miss} #tau)",
-"ev_MET":               "E_{T}^{miss} (GeV)",
-"ev_Mcol":              "m_{col}",
-"ev_Mt":                "m_{T}",
-"sign":                 "OS (left) versus SS (right)",
-"ev_Nvertex":           "N_{vtx}",
+    "njet"      : "N (jets)",
+    "nbjet"     : "N (b-jets)",    
+    "bjet_pt"   : "b-jet p_{T}", 
+    "bjet_eta"  : "b-jet #eta",
+    "bjet_phi"  : "b-jet #phi",
 }
 
 Mth=[
-"_MtHigh", 
 "_MtHigh_TT", 
 "_MtLow_TT", 
-"_MtLow_OS",
-"_MtLow_SS"
 ]
 
 systs_aux=[
-"TrueTESdm0",
-"TrueTESdm1",
-"TrueTESdm10",
-"TrueTESdm11",
-"FakeEleTESdm0",
-"FakeEleTESdm1",
-"FakeMuTESdm0",
-"FakeMuTESdm1",
+"TES",
 "MES",
 "mres",
-"METJetEn",
-"METJetRes",
-"METUnclustered",
 "minbias",
 "muonID",
 "muonIso",
@@ -429,13 +371,9 @@ systs_aux=[
 "tauID",
 "eletauFR",
 "mutauFR",
-#"FRstat",
-#"FRsys",
-#"topPt",
-"topQscale",
-"topPDF",
-"WWPDF",
-"prefiring",
+"FRstat",
+"FRsys",
+"topPt",
 ]
 
 systs_up=[]
@@ -455,51 +393,8 @@ systs["up"]=systs_up
 systs["down"]=systs_down
 
 
-signal_names={
-    #"Z' 1000 GeV" :   "ZPrime_1000",
-    #"Z' 2000 GeV" :   "ZPrime_2000",
-    #"Z' 3000 GeV" :   "ZPrime_3000",
-    #"Z' 4000 GeV" :   "ZPrime_4000",
-}
-
 
 for k in range (0,nvar):
-    TT_MtLow={}
-    VV_MtLow={}
-    DY_MtLow={}
-    ST_MtLow={}
-    Faketau_MtLow={}
-    MC_MtLow={}
-    sq_combined_error_MtLow={}
-    signal_mapp_MtLow={}
-    
-    TT_OS={}
-    VV_OS={}
-    DY_OS={}
-    ST_OS={}
-    Faketau_OS={}
-    MC_OS={}
-    signal_mapp_OS={}
-    
-    Data_OS=file.Get("nominal/data_nominal_"+var[k]+"_MtLow_OS")
-
-    for iVar in range(0,len(variation)):
-        vary=variation[iVar]
-        TT_MtLow[vary]=[]
-        VV_MtLow[vary]=[]
-        DY_MtLow[vary]=[]
-        ST_MtLow[vary]=[]
-        Faketau_MtLow[vary]=[]
-        MC_MtLow[vary]=[]
-
-        TT_OS[vary]=[]
-        VV_OS[vary]=[]
-        DY_OS[vary]=[]
-        ST_OS[vary]=[]
-        Faketau_OS[vary]=[]
-        MC_OS[vary]=[]
-
-
     for l in range (0,len(Mth)):
         TT={}
         VV={}
@@ -508,28 +403,12 @@ for k in range (0,nvar):
         Faketau={}
         MC={}
         sq_combined_error={}
-        signal_mapp={}
 
         ###########################################
         ###########################################
         #nominal plots
         var_in = "nominal_"+var[k]+Mth[l]
         print var_in
-        if "MtLow_OS" in var_in:
-            TT_OS["nominal"]=file.Get("nominal/TT_"+var_in)
-            VV_OS["nominal"]=file.Get("nominal/VV_"+var_in)
-            DY_OS["nominal"]=file.Get("nominal/DY_"+var_in)
-            ST_OS["nominal"]=file.Get("nominal/ST_"+var_in)
-            Faketau_OS["nominal"]=file.Get("nominal/faketau_"+var_in)
-            MC_OS["nominal"]=Faketau_OS["nominal"].Clone()
-            MC_OS["nominal"].Add(TT_OS["nominal"])
-            MC_OS["nominal"].Add(VV_OS["nominal"])
-            MC_OS["nominal"].Add(DY_OS["nominal"])
-            MC_OS["nominal"].Add(ST_OS["nominal"])
-            
-            for signal in signal_names.keys():
-		signal_mapp_OS[signal]=file.Get("signal/"+signal_names[signal]+"_"+var[k]+Mth[l])
-            
 
         TT["nominal"]=file.Get("nominal/TT_"+var_in)
         TT["nominal"].SetName("TT_"+var[k]+Mth[l])
@@ -555,42 +434,6 @@ for k in range (0,nvar):
         Data=file.Get("nominal/data_"+var_in)
         Data.SetName("data_"+var[k]+Mth[l])
         
-        for signal in signal_names.keys():
-            signal_mapp[signal]=file.Get("signal/"+signal_names[signal]+"_"+var[k]+Mth[l])
-            
-    
-        if "MtLow_SS" in var_in:
-            DY_MtLow["nominal"]=DY["nominal"].Clone()
-            DY_MtLow["nominal"].SetName("DY_"+var[k]+"_MtLow")
-
-            TT_MtLow["nominal"]=TT["nominal"].Clone()
-            TT_MtLow["nominal"].SetName("TT_"+var[k]+"_MtLow")
-
-            ST_MtLow["nominal"]=ST["nominal"].Clone()
-            ST_MtLow["nominal"].SetName("ST_"+var[k]+"_MtLow")
-
-            VV_MtLow["nominal"]=VV["nominal"].Clone()
-            VV_MtLow["nominal"].SetName("VV_"+var[k]+"_MtLow")
-
-            Faketau_MtLow["nominal"]=Faketau["nominal"].Clone()
-            Faketau_MtLow["nominal"].SetName("faketau_"+var[k]+"_MtLow")
-
-            MC_MtLow["nominal"]=MC["nominal"].Clone()
-            Data_MtLow=Data.Clone()
-	    Data_MtLow.SetName("data_"+var[k]+"_MtLow")
-
-            for signal in signal_names.keys():
-                signal_mapp_MtLow[signal]=signal_mapp[signal].Clone()
-                signal_mapp_MtLow[signal].SetName(signal_names[signal]+"_"+var[k]+"_MtLow")
-                signal_mapp_MtLow[signal].Add(signal_mapp_OS[signal])            
-            
-            DY_MtLow["nominal"].Add(DY_OS["nominal"])
-            TT_MtLow["nominal"].Add(TT_OS["nominal"])
-            ST_MtLow["nominal"].Add(ST_OS["nominal"])
-            VV_MtLow["nominal"].Add(VV_OS["nominal"])
-            Faketau_MtLow["nominal"].Add(Faketau_OS["nominal"])
-            MC_MtLow["nominal"].Add(MC_OS["nominal"])
-            Data_MtLow.Add(Data_OS)
     
         #end nominal
         ###########################################
@@ -612,30 +455,12 @@ for k in range (0,nvar):
                 sq_combined_error[vary].SetBinContent(iBin, 0)
                 sq_combined_error[vary].SetBinError(iBin, 0)
 
-            if "MtLow_SS" in var_in:
-                sq_combined_error_MtLow[vary]=MC["nominal"].Clone()
-                sq_combined_error_MtLow[vary].SetName("square_errors_"+vary+"_"+var[k]+"_MtLow")
-                for iBin in range(1,sq_combined_error_MtLow[vary].GetNbinsX()+1):
-                    sq_combined_error_MtLow[vary].SetBinContent(iBin, 0)
-                    sq_combined_error_MtLow[vary].SetBinError(iBin, 0)
 
         for j in range(0,len(systs_up)):
             for iVar in range(0,len(variation)):
                 vary=variation[iVar]
                 var_in = systs[vary][j]+"_"+var[k]+Mth[l]
                 print var_in
-                if "MtLow_OS" in var_in:
-                    TT_OS[vary].append(file.Get(systs[vary][j]+"/TT_"+var_in))
-                    VV_OS[vary].append(file.Get(systs[vary][j]+"/VV_"+var_in))
-                    DY_OS[vary].append(file.Get(systs[vary][j]+"/DY_"+var_in))
-                    ST_OS[vary].append(file.Get(systs[vary][j]+"/ST_"+var_in))
-                    Faketau_OS[vary].append(file.Get(systs[vary][j]+"/faketau_"+var_in))
-                    MC_OS[vary].append(Faketau_OS[vary][j].Clone())
-                    MC_OS[vary][j].Add(TT_OS[vary][j])
-                    MC_OS[vary][j].Add(VV_OS[vary][j])
-                    MC_OS[vary][j].Add(DY_OS[vary][j])
-                    MC_OS[vary][j].Add(ST_OS[vary][j])
-
 
                 TT[vary].append(file.Get(systs[vary][j]+"/TT_"+var_in))
                 VV[vary].append(file.Get(systs[vary][j]+"/VV_"+var_in))
@@ -662,37 +487,5 @@ for k in range (0,nvar):
                 sq_combined_error["up"].Add(htemp_up)
                 sq_combined_error["down"].Add(htemp_down)
 
-
-                if "MtLow_SS" in var_in:
-                    DY_MtLow[vary].append(DY[vary][j].Clone())
-                    TT_MtLow[vary].append(TT[vary][j].Clone())
-                    ST_MtLow[vary].append(ST[vary][j].Clone())
-                    VV_MtLow[vary].append(VV[vary][j].Clone())
-                    Faketau_MtLow[vary].append(Faketau[vary][j].Clone())
-                    MC_MtLow[vary].append(MC[vary][j].Clone())
-        
-                    DY_MtLow[vary][j].Add(DY_OS[vary][j])
-                    TT_MtLow[vary][j].Add(TT_OS[vary][j])
-                    ST_MtLow[vary][j].Add(ST_OS[vary][j])
-                    VV_MtLow[vary][j].Add(VV_OS[vary][j])
-                    Faketau_MtLow[vary][j].Add(Faketau_OS[vary][j])
-                    MC_MtLow[vary][j].Add(MC_OS[vary][j])
-
-                    htemp_up = sq_combined_error_MtLow["up"].Clone()
-                    htemp_down = sq_combined_error_MtLow["down"].Clone()
-                    for iBin in range(1, htemp_up.GetNbinsX()+1):
-                        bin_content = MC_MtLow[vary][j].GetBinContent(iBin)-MC_MtLow["nominal"].GetBinContent(iBin)
-                        if bin_content < 0:
-                            htemp_down.SetBinContent(iBin, pow(bin_content,2))
-                            htemp_up.SetBinContent(iBin, 0)
-                        else:
-                            htemp_down.SetBinContent(iBin, 0)
-                            htemp_up.SetBinContent(iBin, pow(bin_content,2))
-                    sq_combined_error_MtLow["up"].Add(htemp_up)
-                    sq_combined_error_MtLow["down"].Add(htemp_down)
-
-        make_plot(var[k]+Mth[l], Data, DY["nominal"], TT["nominal"], VV["nominal"], ST["nominal"], Faketau["nominal"], sq_combined_error, signal_mapp)
-
-        if "MtLow_SS" in Mth[l]:
-            make_plot(var[k]+"_MtLow", Data_MtLow, DY_MtLow["nominal"], TT_MtLow["nominal"], VV_MtLow["nominal"], ST_MtLow["nominal"], Faketau_MtLow["nominal"], sq_combined_error_MtLow, signal_mapp_MtLow)
+        make_plot(var[k]+Mth[l], Data, DY["nominal"], TT["nominal"], VV["nominal"], ST["nominal"], Faketau["nominal"], sq_combined_error)
 
