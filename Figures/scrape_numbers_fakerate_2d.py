@@ -12,9 +12,9 @@ var.append("FakeRateByTauPtAndRatio")
 
 
 ends = []
-ends.append("total")     
-ends.append("eta_barrel")
-ends.append("eta_endcap")
+ends.append("total_nominal")     
+ends.append("nominal_barrel")
+ends.append("nominal_endcap")
 #ends.append("DM0_barrel")
 #ends.append("DM0_endcap")
 #ends.append("DM1_barrel")
@@ -52,19 +52,19 @@ for k in range (0,len(var)):
         for iBinX in range(1, Data.GetNbinsX()+1):
             for iBinY in range(1, Data.GetNbinsY()+1):
                 fakeRate_b=round(Data.GetBinContent(iBinX, iBinY),3)
-                if (fakeRate_b == 0): continue
                 error_b=round(Data.GetBinError(iBinX, iBinY),3)
+                if (error_b == 0): continue
                 fakeRate_e=round(Data_e.GetBinContent(iBinX, iBinY),3)
                 error_e=round(Data_e.GetBinError(iBinX, iBinY),3)
 
                 pt_lowEdge=int(Data.GetXaxis().GetBinLowEdge(iBinX))
                 pt_upEdge=int(Data.GetXaxis().GetBinUpEdge(iBinX))
-                ratio_lowEdge=round(Data.GetYaxis().GetBinLowEdge(iBinY),3)
-                ratio_upEdge=round(Data.GetYaxis().GetBinUpEdge(iBinY),3)
+                ratio_lowEdge=round(Data.GetYaxis().GetBinLowEdge(iBinY),2)
+                ratio_upEdge=round(Data.GetYaxis().GetBinUpEdge(iBinY),2)
 
                 if (iBinY == 1):
                     file_out.write("\\hline\n")
-                    file_out.write("\\multirow{8}{*}{%s-%s} & %s-%s & %s $\\pm$ %s & %s $\\pm$ %s \\\\\n" %(pt_lowEdge, pt_upEdge, ratio_lowEdge, ratio_upEdge, fakeRate_b, error_b, fakeRate_e, error_e ) )
+                    file_out.write("\\multirow{%s}{*}{%s-%s} & %s-%s & %s $\\pm$ %s & %s $\\pm$ %s \\\\\n" %(Data.GetNbinsY(), pt_lowEdge, pt_upEdge, ratio_lowEdge, ratio_upEdge, fakeRate_b, error_b, fakeRate_e, error_e ) )
                 else:
                     file_out.write(" & %s-%s & %s $\\pm$ %s & %s $\\pm$ %s \\\\\n" %(ratio_lowEdge, ratio_upEdge, fakeRate_b, error_b, fakeRate_e, error_e ) )
 

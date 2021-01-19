@@ -10,12 +10,12 @@ if __name__ == "__main__":
     location=os.getcwd();
     #name of your *compiled* code (omit the .exe extension)
     code_area = "/user/dbeghin/Work/MuTauHighMass_2018/"
-    code_name = "HighMassLFVMuTau"
-    region = "CR101"
-    folder = "/user/dbeghin/Work/MuTauHighMass_2018/HighMassLFVMuTau/Faketaus_CR101/"
-    cms_rel = "/user/dbeghin/2nd/new/CMSSW_10_4_0_patch1/src"
+    code_name = "copytree2018"
+    region = "CR100"
+    folder = "/user/dbeghin/Work/MuTauHighMass_2018/HighMassLFVMuTau/SignalSplit/"
+    cms_rel = "/user/dbeghin/2nd/2019May17/CMSSW_10_2_18/src"
     proxy = "/user/dbeghin/x509up_u$(id -u dbeghin)"
-    walltime = "15:00:00"
+    walltime = "13:00:00"
 
     for jj in range(0, len(pnfn)):    
         #Main file, which you'll use to submit the jobs
@@ -31,13 +31,8 @@ if __name__ == "__main__":
         con_nbr = -1
         for i in f.readlines():   #f contains the root files in the /pnfs directory
             if ligne%files_per_job==0:   
-                con_name = "Con"+str(con_nbr)+myname[jj]+".root"
                 con_nbr += 1
-                if (ligne != 0):
-                    outFile.write("hadd -f "+con_name+" Outout*.root\n")
-                    outFile.write("cp  "+con_name+" \t" + folder+"/Out_"+myname[jj]+"/"+con_name+"\n")
-                    outFile.write("rm -f *.root\n")
-                    outFile.close()
+                if ligne != 0: outFile.close()
                 scr_name="test"+str(con_nbr)+myname[jj]
                 outFile = open("../Jobs_to_submit/"+scr_name+".sh" , 'w')
                 command1 = "source $VO_CMS_SW_DIR/cmsset_default.sh " + "\n"
@@ -57,15 +52,12 @@ if __name__ == "__main__":
             #Note that i[0:-1] is just the name of the root file in /pnfs
             command2 = "dccp dcap://maite.iihe.ac.be"+   i[0:-1] + " $scratchdir/" + "\n"
             bare_fname = i[len(pnfn[jj]):-1]
-            command2 = command2 + "\n" + "./" + code_name + ".exe " + "Outout" + str(ligne)+myname[jj]  + ".root " +   bare_fname + " " + mynick[jj] + " " + region + " " + myoption[jj]
-            command2 = command2 + "\n" + "rm -f " +   bare_fname
+            command2 = command2 + "\n" + "./" + code_name + ".exe " + "split" + str(ligne)+myname[jj]  +   " " + bare_fname
+            command2 = command2 + "\ncp  split*.root" + " \t" + folder+"/Out_"+myname[jj]+"\n"
+            command2 = command2 + "\n" + "rm -f *.root"
             command2 = command2 + " \n\n\n"
             outFile.write(command2)
             ligne=ligne+1
             
-        con_name = "Con"+str(con_nbr)+myname[jj]+".root"
-        outFile.write("hadd -f "+con_name+" Outout*.root\n")
-        outFile.write("cp  "+con_name+" \t" + folder+"/Out_"+myname[jj]+"/"+con_name+"\n")
-        outFile.write("rm -f *.root\n")
         outFile.close()
         submit_File.close()
